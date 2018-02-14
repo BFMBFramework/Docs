@@ -1,0 +1,32 @@
+@startuml
+
+top to bottom direction
+skinparam packageStyle rectangle
+
+actor Usuario
+
+rectangle Telegram {
+	usecase MesToTgBot as "Enviar un mensaje a la cuenta bot de Telegram"
+	usecase SaveMesTg as "Almacenar en \nlos servidores de Telegram"
+	Usuario -> MesToTgBot
+	MesToTgBot ..> SaveMesTg : include
+}
+
+rectangle Twitter {
+	usecase MesToTwBot as "Enviar un mensaje a la cuenta bot de Twitter"
+	usecase SaveMesTw as "Almacenar en \nlos servidores de Twitter"
+	Usuario --> MesToTwBot
+	MesToTwBot ..> SaveMesTw : include
+}
+
+rectangle ComCenter {
+	usecase ProcAuth as "Procesa autenticación bot"
+	
+}
+
+rectangle Bot {
+	usecase AuthBotToComCenter as "Solicita autenticación al serv. comunicaciones"
+	AuthBotToComCenter ---> ProcAuth : usuario/contraseña
+}
+
+@enduml
