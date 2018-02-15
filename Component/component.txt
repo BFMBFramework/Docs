@@ -47,6 +47,6 @@ node "Instancia NodeJS 2" {
 }
 
 database "MongoDB" {
-	ComCenter -- [Users]
+	ComCenter -- [Usuarios Bot]
 }
 @enduml
