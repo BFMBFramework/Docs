@@ -1,0 +1,52 @@
+@startuml
+
+top to bottom direction
+skinparam ComponentStyle uml2
+
+cloud "Proveedores" {
+	[Twitter API] as TwApi
+	[Telegram API] as TgApi
+	() "HTTPS" as TgHttps
+	() "HTTPS" as TwHttps
+	TwApi - TwHttps
+	TgApi - TgHttps
+}
+
+node "Instancia NodeJS 1" {
+	[Servidor de comunicaciones] as ComCenter
+	frame "Conectores" {
+		[Conector Telegram] as TgCon
+		[Conector Twitter] as TwCon
+	}
+	ComCenter -- TgCon
+	ComCenter -- TwCon
+
+	frame "JSON-RPC" as JSONRPC {
+		() "TCP"
+		() "TCP+TLS" as TCPTLS
+		() "HTTP"
+		() "HTTPS"
+	} 
+
+	note bottom of JSONRPC : "El Bot se configurará \npara conectarse por uno \nde los 4 protocolos configurables"
+	ComCenter -- () "TCP"
+	ComCenter -- TCPTLS
+	ComCenter -- () "HTTP"
+	ComCenter -- () "HTTPS"
+	TgCon ..> TgHttps
+	TwCon ..> TwHttps
+
+}
+
+node "Instancia NodeJS 2" {
+	[Bot]
+	Bot ..> TCP
+	Bot ..> TCPTLS
+	Bot ..> HTTP
+	Bot ..> HTTPS
+}
+
+database "MongoDB" {
+	ComCenter -- [Users]
+}
+@enduml
