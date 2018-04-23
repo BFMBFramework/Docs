@@ -1,0 +1,64 @@
+@startuml
+
+package "bfmb-comcenter" {
+	class ConnectorManager {
+		#Connector[] connectors
+		+Connector getConnector(string)
+		+void addConnectors()
+	}
+}
+
+package "bfmb-base-connector" {
+	class Connector {
+		#string name
+		#Connection[] connections
+		+string getName()
+		+{abstract} void addConnection(Object, Function)
+		+number getConnectionIndex(string)
+		+Connection getConnection(string)
+		+void removeConnection(string, Function)
+		+{abstract} void receiveMessage(string, Object, Function)
+		+{abstract} void sendMessage(string, Object, Function)
+	}
+
+	class Connection {
+		#string id
+		+string getId()
+	}
+
+	ConnectorManager*--Connector
+	Connector*--Connection
+}
+
+package "bfmb-telegram-connector" {
+	class TelegramConnector {
+		+void addConnection(Object, Function)
+		+void receiveMessage(string, Object, Function)
+		+void sendMessage(string, Object, Function)
+	}
+
+	class TelegramConnection {
+		-string token
+		-number last_update_id
+		-TelegramUser user
+		+void getMe(Function)
+		+void getUpdates(Object, Function)
+		+void sendMessage(Object, Function)
+
+	}
+
+	class TelegramUser {
+		+number id
+		+boolean is_bot
+		+string first_name
+		+string last_name
+		+string username
+		+string language_code
+	}
+
+	Connector<|---TelegramConnector
+	Connection<|---TelegramConnection
+	TelegramConnection*--TelegramUser
+}
+
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+
+class Connector {
+	-string name
+	-connections Array<Connection>
+	+string getName()
+	+void addConnection(string token, Function callback)
+	+Connection getConnection(string id)
+	+void removeConnection(string id, Function callback)
+	+void receiveMessage(string id, any options, Function callback)
+	+void sendMessage(string id, any options, Function callback)
+}
+
+class Connection {
+	
+}
+
+class User {
+	
+}
+
+Connector o-- Connection
+Connection *-- User
+
+@enduml
