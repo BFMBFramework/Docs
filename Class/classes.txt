@@ -35,30 +35,24 @@ package "bfmb-telegram-connector" {
 		+void addConnection(Object, Function)
 		+void receiveMessage(string, Object, Function)
 		+void sendMessage(string, Object, Function)
+		-Object getUpdateOffset(TelegramConnection, Object)
+		-number parseUpdateOffset(TelegramBot.Update[])
+		-Error verifySendMessageOptions(Object)
 	}
 
 	class TelegramConnection {
 		-string token
 		-number last_update_id
-		-TelegramUser user
-		+void getMe(Function)
-		+void getUpdates(Object, Function)
-		+void sendMessage(Object, Function)
+		-TelegramBot bot
+		+TelegramBot getBot()
+		+number getOffsetUpdateId()
+		+void setOffsetUpdateId(number)
+		-Object getTelegramBotOptions(Object)
 
-	}
-
-	class TelegramUser {
-		+number id
-		+boolean is_bot
-		+string first_name
-		+string last_name
-		+string username
-		+string language_code
 	}
 
 	Connector<|---TelegramConnector
 	Connection<|---TelegramConnection
-	TelegramConnection*--TelegramUser
 }
 
 @enduml
