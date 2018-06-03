@@ -1,11 +1,27 @@
 @startuml
 
 package "bfmb-comcenter" {
+	class BFMBServer {
+		-BFMBServer _instance
+		-Object jayson
+		-MongoEvents mongoEvents
+
+	}
+
+	class MongoEvents {
+		+void success()
+		+void error(Error)
+		+void disconnected()
+		+void close()
+	}
+
 	class ConnectorManager {
 		#Connector[] connectors
 		+Connector getConnector(string)
 		+void addConnectors()
 	}
+
+	BFMBServer*--MongoEvents
 }
 
 package "bfmb-base-connector" {
