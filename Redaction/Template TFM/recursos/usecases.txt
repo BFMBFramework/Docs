@@ -10,19 +10,16 @@ rectangle Telegram {
 	usecase SaveMesTg as "Almacena en \nlos servidores de Telegram"
 	usecase ReqTgApi as "Solicitar mensajes a la API"
 	usecase SendTgApi as "Enviar mensajes a través de la API"
-	Usuario -> MesToTgBot
+	Usuario -> MesToTgBot : Usando app
 	MesToTgBot ..> SaveMesTg : << include >>
 	SaveMesTg <... SendTgApi : << include >>
 }
 
-rectangle Twitter {
-	usecase MesToTwBot as "Enviar un tweet a la cuenta bot de Twitter"
-	usecase SaveMesTw as "Almacenar en \nlos servidores de Twitter"
-	usecase ReqTwApi as "Solicitar tweets a la API"
-	usecase SendTwApi as "Enviar tweets a través de la API"
-	Usuario --> MesToTwBot
-	MesToTwBot ..> SaveMesTw : << include >>
-	SaveMesTw <... SendTwApi : << include >>
+rectangle Tado {
+	usecase SendTadoApi as "Enviar una orden a la api de Tado"
+	usecase ReqTadoApi as "Solicitar datos a la API"
+	Usuario --> SendTadoApi : Usando app oficial
+	Usuario --> ReqTadoApi : Usando app oficial
 }
 
 top to bottom direction
@@ -36,9 +33,9 @@ rectangle ComCenter {
 	usecase ReqMesComCenter as "Solicitar mensajes a los proveedores"
 	usecase SendMesComCenter as "Enviar mensajes a los proveedores"
 	ProcAuth <|-- GenToken : << extends >>
-	ReqMesComCenter ...> ReqTwApi : << include >>
-	ReqMesComCenter ....> ReqTgApi : << include >>
-	SendMesComCenter ...> SendTwApi : << include >>
+	ReqMesComCenter .....> ReqTadoApi : << include >>
+	ReqMesComCenter .....> ReqTgApi : << include >>
+	SendMesComCenter ....> SendTadoApi : << include >>
 	SendMesComCenter ....> SendTgApi : << include >>
 }
 
@@ -48,15 +45,15 @@ rectangle Bot {
 	usecase SendMessages as "Enviar mensajes"
 	usecase AuthBotToComCenter as "Solicitar autenticación al serv. comunicaciones"
 	usecase SendTokenToComCenter as "Solicitar verificación token al serv. comunicaciones"
-	BotLogic -> SendMessages
-	BotLogic --> RequestMessages
-	BotLogic ---> AuthBotToComCenter
-	SendMessages .> SendTokenToComCenter : << include >>
-	SendMessages <... SendMesComCenter : << extends >>
+	BotLogic ---> SendMessages
+	BotLogic ---> RequestMessages
+	BotLogic --> AuthBotToComCenter
+	SendMessages ..> SendTokenToComCenter : << include >>
+	SendMessages <..... SendMesComCenter : << extends >>
 	RequestMessages ..> SendTokenToComCenter : << include >>
-	RequestMessages <... ReqMesComCenter : << extends >>
-	AuthBotToComCenter --> ProcAuth : usuario/contraseña
-	SendTokenToComCenter ---> VerifToken : jsonwebtoken
+	RequestMessages <..... ReqMesComCenter : << extends >>
+	AuthBotToComCenter ----> ProcAuth : usuario/contraseña
+	SendTokenToComCenter --> VerifToken : jsonwebtoken
 }
 
 @enduml

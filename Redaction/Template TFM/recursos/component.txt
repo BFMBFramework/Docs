@@ -4,22 +4,22 @@ top to bottom direction
 skinparam ComponentStyle uml2
 
 cloud "Proveedores" {
-	[Twitter API] as TwApi
+	[Tado API] as TadoApi
 	[Telegram API] as TgApi
 	() "HTTPS" as TgHttps
-	() "HTTPS" as TwHttps
-	TwApi - TwHttps
+	() "HTTPS" as TadoHttps
+	TadoApi - TadoHttps
 	TgApi - TgHttps
 }
 
-node "Instancia NodeJS 1" {
+node "Instancia NodeJS" {
 	[Servidor de comunicaciones] as ComCenter
 	frame "Conectores" {
 		[Conector Telegram] as TgCon
-		[Conector Twitter] as TwCon
+		[Conector Tado] as TadoCon
 	}
-	ComCenter -- TgCon
-	ComCenter -- TwCon
+	ComCenter --- TgCon
+	ComCenter --- TadoCon
 
 	frame "JSON-RPC" as JSONRPC {
 		() "TCP"
@@ -33,20 +33,20 @@ node "Instancia NodeJS 1" {
 	ComCenter -- TCPTLS
 	ComCenter -- () "HTTP"
 	ComCenter -- () "HTTPS"
-	TgCon ..> TgHttps
-	TwCon ..> TwHttps
+	TgCon ...> TgHttps
+	TadoCon ...> TadoHttps
 
 }
 
-node "Instancia NodeJS 2" {
+node "Instancia \nen cualquier lenguaje" {
 	[Bot]
-	Bot ..> TCP
-	Bot ..> TCPTLS
-	Bot ..> HTTP
-	Bot ..> HTTPS
+	Bot ...> TCP
+	Bot ...> TCPTLS
+	Bot ...> HTTP
+	Bot ...> HTTPS
 }
 
 database "MongoDB" {
-	ComCenter -- [Usuarios Bot]
+	ComCenter --- [Usuarios Bot]
 }
 @enduml

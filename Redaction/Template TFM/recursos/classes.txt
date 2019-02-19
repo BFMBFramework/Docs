@@ -5,7 +5,12 @@ package "bfmb-comcenter" {
 		-BFMBServer _instance
 		-Object jayson
 		-MongoEvents mongoEvents
-
+		+BFMBServer get sharedInstance()
+		+void startServer()
+		+void createJaysonServer()
+		+void configureJaysonServer()
+		-void welcomeMessage()
+		-void prepareMongoConnection()
 	}
 
 	class MongoEvents {
@@ -22,6 +27,7 @@ package "bfmb-comcenter" {
 	}
 
 	BFMBServer*--MongoEvents
+	BFMBServer*--ConnectorManager
 }
 
 package "bfmb-base-connector" {
@@ -70,5 +76,21 @@ package "bfmb-telegram-connector" {
 	Connector<|---TelegramConnector
 	Connection<|---TelegramConnection
 }
+
+package "bfmb-tado-connector" {
+    class TadoConnector {
+        +void addConnection(Object, Function)
+        +void receiveMessage(string, Object, Function)
+        +void sendMessage(string, Object, Function)
+    }
+
+    class TadoConnection {
+
+    }
+
+    Connector<|----TadoConnector
+    Connection<|----TadoConnection
+}
+
 
 @enduml
