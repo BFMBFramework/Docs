@@ -29,6 +29,7 @@
 
 \usepackage{algorithm}
 \usepackage{multirow}
+\usepackage{hyperref}
 
 
 \begin{document}
@@ -86,7 +87,7 @@ Aquí estarán los agradecimientos cuando se me ocurra que poner.
 
 %	RESUMEN
 \section*{RESUMEN}
-Los chatbots no son aplicaciones que haya surgido recientemente, ya estuvieron presentes durante años en la investigación y en las redes con el desarrollo de Internet y la web. Pero es ahora cuando existe un "boom" en ellos, sobre todo gracias a los servicios que conforman la Web 2.0 y los recientes asistentes virtuales, tales como Siri, Alexa o Google Now.
+Los chatbots no son aplicaciones que haya surgido recientemente, ya estuvieron presentes durante años en la investigación y en las redes con el desarrollo de Internet y la web. Pero es ahora cuando existe un ''boom'' en ellos, sobre todo gracias a los servicios que conforman la Web 2.0 y los recientes asistentes virtuales, tales como Siri, Alexa o Google Now.
 \newline
 
 El problema que surge a la hora de desarrollar un bot conversacional o una máquina de estados es cuando el desarrollador tiene como requisito la necesidad de interactuar con varios medios de forma simultánea. Por ejemplo, un sistema que requiera una comunicación simultánea entre redes sociales o un sistema que mande órdenes a un conjunto de dispositivos IoT (Internet of Things), ya que cada servicio utilizará protocolos e interfaces diferentes. Esto aumenta la complejidad en el desarrollo y puede producir duplicidades si se quieren desarrollar varios bots con usos diferentes.
@@ -139,24 +140,35 @@ Este proyecto cubre los siguientes objetivos:
 
 \section{ESTADO DEL ARTE}
 
-\subsection{¿Qué es un chatbot?}
-
-El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cual era un jugador virtual del videojuego de mazmorras TinyMUD. La principal tarea de este bot era responder a las preguntas de los usuarios que tenían relación con la navegación por la mazmorra u objetos del juego. El mismo simulaba habilidad conversacional mediante reglas, mediante las cuales logró ''engañar'' a los usuarios y que estos creyeran que era un jugador humano más. \cite[pág. 2]{CANLI}
-
-
 \subsection{Historia de los chatbots}
 
 \subsubsection{Origen}
 
-\subsubsection{Bots históricos}
+El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cual era un jugador virtual del videojuego de mazmorras TinyMUD. La principal tarea de este bot era responder a las preguntas de los usuarios que tenían relación con la navegación por la mazmorra u objetos del juego. El mismo simulaba habilidad conversacional mediante reglas, mediante las cuales logró ''engañar'' a los usuarios y que estos creyeran que era un jugador humano más. \cite[pág. 2]{CANLI}
+
+\subsubsection{ELIZA}
+ELIZA fue un programa de procesamiento del lenguaje natural creado entre los años 1964 y 1966 por Joseph Weizenbaum (1923-2008) en el Laboratorio de Inteligencia Artifical del MIT (Instituto Tecnológico de Massachusetts). El objetivo de este software era demostrar la superficialidad de la comunicación entre humanos y máquinas.
+\newline
+
+El software que realizó fue una de las primeras vías de interacción entre persona y máquina mediante el uso del lenguaje natural. El mismo era una parodia de un terapéuta que ejercía psicoterapia centrada en el cliente, una teoría psicológica creada por el psicólogo norteamericano Carl Rogers. El software reutilizaba con frecuencia las frases enviadas por el cliente y las convertía en preguntas para el mismo.
+\newline
+
+ELIZA era limitado, ya que solo fue programado para responder a ciertas palabras o frases clave. Así que lo normal era llegar a conversaciones sin sentido.
+
 
 \subsubsection{Actualidad: Asistentes virtuales}
 
 \section{ANÁLISIS}
 
+\subsection{Idea base del proyecto}
 
+\subsection{Tecnologías usadas}
+
+\subsubsection{JSON-RPC}
 
 \section{DISEÑO Y ARQUITECTURA DEL SISTEMA}
+
+\subsection{Metodología de trabajo}
 
 \subsection{Casos de uso}
 
@@ -191,6 +203,8 @@ El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cua
 
 \subsection{Lenguaje usado en desarrollo}
 
+\subsubsection{Typescript}
+
 \subsection{Dependencias}
 
 \subsubsection{Software externo}
@@ -199,6 +213,10 @@ El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cua
 
 \subsubsection{Servicios externos}
 
+\subsubsection{Telegram}
+
+\subsubsection{Tadoº}
+
 \section{PRUEBAS}
 
 \section{MANUAL DE USUARIO}
@@ -206,6 +224,14 @@ El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cua
 \section{CONCLUSIONES}
 
 \section{LÍNEAS FUTURAS}
+
+Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas líneas futuras a partir de ahora. Algunas de ellas son mejoras del software para permitir una mayor portabilidad y otras pertenecen a posibles desarrollos adicionales.
+
+\begin{itemize}
+\item Cambiar el motor de base de datos usando en el servidor de comunicaciones. 
+
+Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado, pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de una tecnología NoSQL a SQL.
+\end{itemize}
 
 \section{BORRADOR MANUAL DE LATEX}
 
@@ -449,19 +475,15 @@ Se emplea la misma forma de cita que para los artículos de revista en versión 
 \begin{thebibliography}{00}
 \bibitem{CANLI} \textsc{Pérez-Diaz, D.} y \textsc{Pascual-Nieto, I.},
 	\textit{Conversational Agents and Natural Language Interaction: Techniques and Effective Practices}, IGI Global, 2011 ISBN: 9781609606183
-
-
-
-\bibitem{Ashtiani2014}  Ashtiani, M.H.Z., Ahmadabadi, M.N., Araabi, B.N. (2014). Bandit-based local feature subset selection. \emph{Neurocomputing} 138, 371--382.
-\bibitem{Berry1985} Berry, D., Fristedt, B. (1985). \emph{Bandit problems}. London: Chapman and Hall.
-\bibitem{Figueira2005} Figueira, J., Mousseau, V., Roy, B. (2005). Electre methods. En J. Figueira, S. Greco y M. Erghott (Eds.), \emph{Multiple criteria decision analysis. State of the art survey} (pp. 133--162). New York: Springer.
-\bibitem{Li2010} Li, L., Chu, W., Langford, J., Schapire, R.E. (2010). A contextual-bandit approach to personalized news article recommendation. En \emph{Proceedings of the 19th International Conference on World Wide Web} (pp. 661--670). New York: ACM.
-\bibitem{Mateos2009} Mateos, A., Jiménez, A. (2009). A trapezoidal fuzzy numbers-based approach for aggregating group preferences and ranking decision alternatives in MCDM. En M. Erghott, C.M. Fonseca, X. Gandibleux, H. Jao y M. Servaux (Eds.). \emph{Evolutionary multi-criterion optimization} (pp. 365--379). Berlin: Springer.
-\bibitem{Sutton1998} Sutton, R. Barto, A. (1998). \emph{Reinforcement learning, an introduction}. Cambridge: MIT Press.
-\bibitem{Thompson1933} Thompson, W.R. (1933). On the likelihood that one unknown probability exceeds another in view of the evidence of two samples. \emph{Biometrika} 25(3-4), 285--294.
-\bibitem{Vicente2016} Vicente, E. (2016). \emph{Análisis y gestión del riesgo en los sistemas de información: Un enfoque borroso}. (Tesis doctoral). Universidad Politécnica de Madrid, Madrid.
-
-
+	
+\bibitem{PCBEvolution} \textsc{Cerdas Mendez, D.}
+	\textit{Historia de los chatbots y asistentes virtuales}, Planeta Chatbot, \url{https://planetachatbot.com/evolucion-de-los-chatbots-48ff7d670201}, [Visitado el 4/3/2019]
+	
+\bibitem{WeizenbaumNYT} \textsc{Markoff, J.}
+	\textit{Joseph Weizenbaum, Famed Programmer, Is Dead at 85}, The New York Times, \url{https://www.nytimes.com/2008/03/13/world/europe/13weizenbaum.html}, [Visitado el 12/3/2019]
+	
+\bibitem{SCPhillipsTadoIEng} \textsc{Phillips, S.}
+	\textit{The Tado API v2}, SCPhillips.com, \url{http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/}, [Visitado el 12/3/2019]
 \end{thebibliography}
 \end{document}
 

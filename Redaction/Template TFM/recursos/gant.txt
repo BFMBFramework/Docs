@@ -1,0 +1,22 @@
+@startgantt
+Project starts the 2018/10/01
+[Redacción de documentación] lasts 225 days
+[Diseño de prototipo] lasts 30 days
+[Estudio de las api objetivo] lasts 15 days
+[Fin de diseño prototipo] happens at [Diseño de prototipo]'s end
+-- Fase de implementación --
+[Implementación del servidor de comunicaciones] lasts 120 days
+[Implementación del servidor de comunicaciones] starts at [Diseño de prototipo]'s end
+[Implementación del conector base] lasts 60 days
+[Implementación del conector base] starts at [Diseño de prototipo]'s end
+[Implementación del conector para Telegram] lasts 45 days
+[Implementación del conector para Telegram] starts at [Implementación del conector base]'s end
+[Implementación del conector para Tadoº] lasts 45 days
+[Implementación del conector para Tadoº] starts 15 days after [Implementación del conector base]'s end
+[Implementación estable] happens at [Implementación del conector para Tadoº]'s end
+-- Fase del desarrollo del bot --
+[Desarrollo del bot] lasts 60 days
+[Desarrollo del bot] starts at [Implementación del conector para Tadoº]'s end
+[Despliegue y puesta en marcha] lasts 15 days
+[Despliegue y puesta en marcha] starts at [Desarrollo del bot]'s end
+@endgantt
