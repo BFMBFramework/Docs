@@ -162,9 +162,53 @@ ELIZA era limitado, ya que solo fue programado para responder a ciertas palabras
 
 \subsection{Idea base del proyecto}
 
+La idea principal es el desarrollo de un sistema de comunicaciones con diversas APIs externas para facilitar el desarrollo de bots o automatismos que interactúen con ellos.
+
 \subsection{Tecnologías usadas}
 
 \subsubsection{JSON-RPC}
+
+JSON-RPC es un protocolo de llamada a procedimiento remoto (Remote Procedure Cell) cliente-servidor cuyos mensajes se componen de datos codificados en formato JSON (Javascript Object Notation). Es un protocolo agnóstico, por lo que puede realizar comunicaciones cliente-servidor a través de HTTP, HTTPS o TCP, entre otros. La especificación más reciente es la versión 2.0, publicada en 2010.
+
+Como el protocolo usa JSON como mensaje, dispone de las mismas características que un fichero JSON: dispone de los cuatros tipos primitivos (String, Number, Boolean y Null) y de dos tipos de estructura (Object y Array).
+El protocolo en sí se basa en dos modelos de datos: petición (Request) y respuesta (Response), los cuales explico a continuación:
+
+\begin{itemize}
+\item \textbf{Objeto petición (Request):} La llamada a procedimiento remoto en JSON-RPC se basa en enviar este objeto a un servidor, el cual dispone de los siguientes atributos:
+
+\begin{itemize}
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión que corresponde.
+
+\item \textbf{method:} Un String donde se indica el método a invocar. Cualquier nombre de método es válido excepto los que empiecen con "rpc.", ya que son de uso interno.
+
+\item \textbf{params:} Un atributo de tipo estructura que indica los parámetros a enviar al método. Es un atributo que puede ser opcional.
+
+\item \textbf{id:} Un identificador establecido por el cliente que puede ser un tipo distinto de Boolean (y Null, en base a las actualizaciones de la especificación). Si este valor no está includo, el protocolo considera la petición como una notificación.
+\end{itemize}
+
+\item \textbf{Objeto respuesta (Response):} La llamada a procedimiento remoto en JSON-RPC debe devolver una respuesta a cada petición excepto si es una notificación. El objeto respuesta tiene los siguientes atributos:
+
+\begin{itemize}
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión que corresponde.
+
+\item \textbf{result:} Este atributo es obligatorio si el resultado es exitoso y, en caso contrario (error), no debe estar presente. Siempre va a ser un atributo de estructura.
+
+\item \textbf{error:} Este atributo debe existir en los casos de error y no aparecer en casos de éxito. Siempre va a ser un atributo de estructura.
+
+\item \textbf{id:} El identificador en las respuestas es obligatorio y debe ser el mismo id que el recibido en el objeto de la petición. En caso de no llegar un id correcto, el valor de este atributo debe ser Null.
+\end{itemize}
+
+\item \textbf{Objeto error:} Si una llamada a procedimiento remoto encuentra un error, el objeto respuesta debe incorporar este objeto de error en el atributo denominado como tal. El objeto error tiene los siguientes atributos:
+
+\begin{itemize}
+\item \textbf{code:} Código de error de JSON-RPC
+
+\item \textbf{message:} Un String que indica la descripción resumida del error.
+
+\item \textbf{data:} Atributo de tipo primitivo o de estructura que entrega información adicional del error. Es un atributo opcional.
+\end{itemize}
+
+\end{itemize}
 
 \section{DISEÑO Y ARQUITECTURA DEL SISTEMA}
 
@@ -232,159 +276,6 @@ Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas
 
 Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado, pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de una tecnología NoSQL a SQL.
 \end{itemize}
-
-\section{BORRADOR MANUAL DE LATEX}
-
-\subsection{Expresiones matemáticas}
-A continuación, se muestran algunos ejemplos de expresiones matemáticas:
-\begin{equation}
-\mu^*\times 25000-\frac{1}{1000}\sum_{r=1}^{1000}\sum_{i=1}^{K}\sum_{j=1}^{25000}\mu_i\times X_{i,j}^r.
-\end{equation}
-
-\begin{equation}
-\mu_{\widetilde{A}}(x)=\left\{ \begin{array}{cc}
-\frac{x-a_{1}}{a_{2}-a_{1}} & if\; a_{1}\leq x\leq a_{2}\\
-1 & if\; a_{2}\leq x\leq a_{3}\\
-\frac{x-a_{4}}{a_{3}-a_{4}} & if\; a_{3}\leq x\leq a_{4}\\
-0 & otherwise
-\end{array}\right. .
-\end{equation}
-
-
-\begin{equation}
-\begin{tabular}{ll}
-$\widetilde{DD}(A_{1},A_{4})$ & $=\widetilde{DD}(A_{1},A_{4}|P_{1})\oplus 
-\widetilde{DD}(A_{1},A_{4}|P_{2})$ \\ 
-& $=[\widetilde{dd}(A_{1},A_{2})\otimes \widetilde{dd}(A_{2},A_{4})]\oplus \lbrack \widetilde{dd}(A_{1},A_{3})\otimes \widetilde{%
-dd}(A_{3},A_{4})].$%
-\end{tabular}%
-\end{equation}
-
-
-
-\begin{itemize}
-\item Si$\;{max} \{(a_{4}-a_{1}),(b_{4}-b_{1})\}\neq 0$, entonces
-\begin{eqnarray*}
-{\small S(}\widetilde{A}{\small ,}\widetilde{B}{\small )} &{\small =}&%
-\left. {\small 1-(1-\alpha -\beta })\times \left ( {\small 1-}\frac{\int_{0}^{1}%
-{\small \mu }_{\widetilde{A}\cap \widetilde{B}}{\small (x)dx}}{\int_{0}^{1}%
-{\small \mu }_{\widetilde{A}\cup \widetilde{B}}{\small (x)dx}}\right)
-\right.  \\
-&&\left. -{\small \alpha } \frac{\sum {\small \mid a}_{i}{\small -b}_{i}%
-{\small \mid }}{{\small 4}}-{\small \beta }\frac{{\small d[(X}_{\widetilde{A}%
-}{\small ,Y}_{\widetilde{A}}{\small ),(X}_{\widetilde{B}}{\small ,Y}_{%
-\widetilde{B}}{\small )]}}{{\small M}}\right., 
-\end{eqnarray*}
-
-\item En caso contrario,%
-\begin{eqnarray*}
-{\small S(}\widetilde{A}{\small ,}\widetilde{B}{\small )} &{\small =}&%
-\left. {\small 1-}%
-\left( \frac{{\small 1-\alpha -\beta }}{{\small 2}}{\small +\alpha } \right) \times
-\frac{\sum {\small \mid a}_{i}{\small -b}_{i}{\small \mid }}{{\small 4}}%
-{\small -}\right.  \\
-&&\left. {\small -}\left( \frac{{\small 1-\alpha -\beta }}{{\small 2}}%
-{\small +\beta }\right)\times \frac{{\small d[(X}_{\widetilde{A}}{\small ,Y}_{%
-\widetilde{A}}{\small ),(X}_{\widetilde{B}}{\small ,Y}_{\widetilde{B}}%
-{\small )]}}{{\small M}}\right., 
-\end{eqnarray*}
-\end{itemize}
-donde $\alpha +\beta <1$, $\mu _{\widetilde{\chi }}$ es la función de pertenencia de $\widetilde{\chi}$, 
-\begin{equation}
-M=\underset{[0,1]\times[0,\frac{1}{2}]}{max}\{d((x,y),(x^{\prime },y^{\prime }))\}\text{,} 
-\end{equation}%
-\begin{equation*}
-\mu _{\widetilde{A}\cap \widetilde{B}}(x)=\underset{0\leq x\leq 1}{min}%
-\{\mu _{\widetilde{A}}(x),\mu _{\widetilde{B}}(x)\} ,
-\;\;\; \mu _{\widetilde{A}\cup \widetilde{B}}(x)=\underset{0\leq x\leq 1}{max}%
-\{\mu _{\widetilde{A}}(x),\mu _{\widetilde{B}}(x)\}.
-\end{equation*}%
-
-\subsection{Algoritmos}
-
-El Algoritmo \ref{getDelay} ilustra la forma que debe adoptarse. 
-\begin{algorithm}[h]
-%\begin{algorithmic}
-{\bf  Data:} ($t_0$ = instante en el que se genera el retardo)
-\medskip
-
-\hspace{0.5em} {\bf if} $(update\_architecture==1)$ {\bf then} 
-
-\hspace{1.5em} {\bf if} $(delay\_scenario==1)$ {\bf then} delay$=C$
-
-\hspace{1.5em} {\bf else} 
-
-\hspace{2.5em} {\bf if} $(reward\_scenario==1)$ {\bf then} 
-
-\hspace{3.5em} delay $\leftarrow [0,300]$-trunc\_Exp($\lambda=1/80$)
-
-\hspace{2.5em} {\bf else} 
-
-\hspace{3.5em} delay $\leftarrow [0,480]$-trunc\_Exp($\lambda=1/150$)
-
-\hspace{2.5em} {\bf end if}
-
-\hspace{1.5em} {\bf end if}
-
-\hspace{0.5em} {\bf else} (arquitectura en modo batch)
-
-\hspace{1.5em} delay= difference(24:00, $t_0$)
-
-\hspace{0.5em} {\bf end if}
-
-\hspace{0.5em}  {\bf return} delay
-
-{\bf end} 
-\caption{$getDelay(t_0)$}
-\label{getDelay}
-\end{algorithm}
-
-
-\subsection{Tablas}
-Las Tablas \ref{table:results45} y \ref{table:risk} muestran el formato de tabla a utilizar.
-
-\begin{table}[htb]
-\centering
-\caption{Mean cumulative regrets and standard deviations}
-\label{table:results45}
-\begin{tabular}{llllll}
-\hline
- & \multicolumn{2}{c}{\small Truncated Poisson} &  & \multicolumn{2}{c}{\small Truncated Exponential} \\ 
-\cline{2-3}\cline{5-6}\cline{5-6}
-  & {\small Mean} & ${\small \sigma}$ &  &  {\small Mean} & ${\small \sigma}$\\ \hline
- {\small UCB}      & {\small 2632.65} & {\small 246.03}  &  & {\small 1295.79} & {\small 514.03}   \\
- {\small DMED+}            & {\small 978.56} & {\small 225.24}  &  & {\bf \small645.70} & {\small 493.8}   \\
-  {\small KL-UCB}   & {\small 1817.4} & {\small 236.57}  &  & {\small 1219.98} & {\small 510.69}   \\ 
-  {\small KL-UCB poisson}    & {\bf \small314.99*} & {\small 201.79}  &  & {\small -} & {\small -}   \\
-  {\small KL-UCB exp}    & {\small -} & {\small -}  &  & {\small 786.30} & {\small 498.16}   \\
-  {\small KL-UCB+}    & {\small 1190.64} & {\small 225.82}  &  & {\small 813.45} & {\small 494.59}   \\
- {\small BESA}      & {\small 2015.73} & {\small 3561.5}  &  & {\small 755.87} & {\small 2323.22}   \\
- {\small PR-1}            & {\small 1314.9} & {\small 234.25}  &  & {\small 660.64} & {\small 492.37}   \\ 
- {\small PR-2 (TS)}  & ${\bf 917.67}$ & {\small222.79}  &  & {\bf \small630.38} & {\small487.01} \\
- {\small PR-3}  & ${\bf 736.6}$ & {\small210.96}  &  & {\bf \small565.79*} & {\small480.99} \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{table}[htb]
-\centering
-\caption{Risks to $A_5$ after the implementation of the selected safeguards }
-\label{table:risk}
-\begin{tabular}{cccc}
-\hline
-\noalign{\smallskip} 
- {\scriptsize{Threat}}& {\scriptsize{Confidentiality}} & {\scriptsize{Integrity}} & {\scriptsize{Authenticity}}\tabularnewline
-\hline  
-{\scriptsize{$T_{1}^{1}$}} & \scriptsize{(16.9, 161.72, 936.2, 3681.5)} & \scriptsize{(32.70, 239.7, 1295.6, 5197.4)} & \scriptsize{(25.1, 198.6, 1576.7, 5777.1)}\\
-{\scriptsize{$T_{1}^{2}$}} & \scriptsize{(0, 49.6, 458.1, 1791.2)} & \scriptsize{(0, 29.7, 289.7, 1397.1)} & \scriptsize{(0, 24.6, 352.6, 1552.9)}\\
-{\scriptsize{$T_{2}^{2}$}} & \scriptsize{(0, 49.6, 458.1, 1791.2)} & \scriptsize{(0, 29.7, 289.7, 1397.1)} & \scriptsize{(76, 379.3, 2074.3, 5588.4)}\\
-{\scriptsize{$T_{1}^{3}$}} & \scriptsize{(12.2, 110.5, 647.2, 2465.6)} & \scriptsize{(21.9, 147.3, 744.3, 2958.7)} & \scriptsize{(6.8, 58.5, 487.1, 1923.2)}\\ 
-{\scriptsize{$T_{1}^{4}$}} & \scriptsize{(34.8, 245.5, 1176.8, 3793.2)} & \scriptsize{(62.7, 327.4, 1353.3, 4551.9)} & \scriptsize{(19.5, 129.9, 885.7, 2958.7)}\\
-\hline 
-\end{tabular}
-\end{table}
-
-
 
 \section{SOBRE LAS REFERENCIAS}
 
@@ -484,6 +375,8 @@ Se emplea la misma forma de cita que para los artículos de revista en versión 
 	
 \bibitem{SCPhillipsTadoIEng} \textsc{Phillips, S.}
 	\textit{The Tado API v2}, SCPhillips.com, \url{http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/}, [Visitado el 12/3/2019]
+	
+\bibitem{JSONRPC} \textsc{JSON-RPC Working Group} \textit{JSON-RPC version 2.0 specification}, \url{https://www.jsonrpc.org/specification}, [Visitado el 8/4/2019]
 \end{thebibliography}
 \end{document}
 
