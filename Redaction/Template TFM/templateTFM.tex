@@ -15,9 +15,12 @@
 
 
 \usepackage[spanish]{babel}
+\usepackage{xeCJK}
+\setCJKmainfont{DroidSansFallbackFull.ttf}
 %\usepackage[applemac]{inputenc} 
 %POR DEFECTO SE ESTÁ USANDO EL PAQUETE PARA RECONOCER ACENTOS DE MAC, EN CASO DE USAR WINDOWS COMO SISTEMA OPERATIVO ELIMINAR LA LÍNEA ANTERIOR E INTRODUCIR LA SIGUIENTE
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{libertine}
 
 \usepackage{graphicx}
 \usepackage{graphics}
@@ -177,7 +180,7 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 \item \textbf{Objeto petición (Request):} La llamada a procedimiento remoto en JSON-RPC se basa en enviar este objeto a un servidor, el cual dispone de los siguientes atributos:
 
 \begin{itemize}
-\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión que corresponde.
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión 2.0 y cambia según el número de versión.
 
 \item \textbf{method:} Un String donde se indica el método a invocar. Cualquier nombre de método es válido excepto los que empiecen con "rpc.", ya que son de uso interno.
 
@@ -189,7 +192,7 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 \item \textbf{Objeto respuesta (Response):} La llamada a procedimiento remoto en JSON-RPC debe devolver una respuesta a cada petición excepto si es una notificación. El objeto respuesta tiene los siguientes atributos:
 
 \begin{itemize}
-\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión que corresponde.
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión 2.0 y cambia según el número de versión.
 
 \item \textbf{result:} Este atributo es obligatorio si el resultado es exitoso y, en caso contrario (error), no debe estar presente. Siempre va a ser un atributo de estructura.
 
@@ -209,6 +212,57 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 \end{itemize}
 
 \end{itemize}
+
+\subsection{Servicios utilizados}
+
+\subsubsection{Tadoº}
+
+Tadoº GmbH es una empresa tecnológica alemana con sede en Múnich y es el fabricante de sistemas de automatización de calefacción y refrigeración para el hogar conectados a Internet.
+\newline
+
+Fundado en el año 2011 por Johannes Schwarz, Christian Deilmann y Valentin Sawadski, el nombre de dicha compañía está inspirado en una unión de las expresiones japonesas ''tadaima'' (ただいま), que significa ''Estoy en casa'' y ''okaeri'' (おかえり), que significa ''Bienvenido'' a la hora de dirigirse a alguien con quien convives. Puede parecer que la presencia de este párrafo no tenga mucho sentido pero lo tiene, ya que uno de los valores añadidos de sus sistemas de automatización es, precisamente, la gestión de la climatización basándose en la geolocalización.
+\newline
+
+Su gestión basada en geolocalización se realiza de la siguiente forma: El usuario o usuarios de la vivienda tienen asociado un dispositivo móvil, el cual debe tener la app de la compañía instalada y configurada. Esta app recoge la posición actual y se compara con un \emph{geofence} \footnote{El término \emph{geofence} es un perímetro virtual asociado a un área geográfica. Su utilidad se basa en la ejecución de eventos en software ante un suceso de entrada o salida del área definida. } definido por el usuario maestro de la vivienda. Cuando todos los usuarios de la vivienda abandonan la zona definida por el \emph{geofence}, Tado ordena la desconexión de la calefacción o la reducción de la temperatura de las estancias.
+\newline
+
+Otra de sus funcionalidades es la detección de ventanas abiertas. Los sensores instalados (termostatos y válvulas) detectan la temperatura y en la humedad, y los cambios repentinos en los mismos se asocian con la apertura de ventanas. Ante ello, Tado desconecta la calefacción por un tiempo definido en la configuración (entre 5 y 45 minutos) para evitar el consumo innecesario de energía.
+\newline
+
+La última funcionalidad adicional que provee es el ajuste de potencia en la calefacción basándose en el tiempo atmosférico actual. La calefacción se ajusta en base a la probabilidad de incidencia solar que puede haber.
+
+\paragraph{Dispositivos}
+
+Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestión, los cuales explico a continuación:
+
+\begin{itemize}
+\item\textbf{Puente de conexión (Bridge):}
+\item\textbf{Termostato:}
+\item\textbf{Válvula termostática:}
+\end{itemize}
+
+\begin{figure}[h]
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{recursos/bridge.jpg}
+\caption{Puente de conexión}
+\label{fig:bridge tado}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{recursos/termostato.jpeg}
+\caption{Termostato Tadoº}
+\label{fig:termostato tado}
+\end{subfigure}
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{recursos/valvula.jpeg}
+\caption{Válvula termostática Tadoº}
+\label{fig:valvula tado}
+\end{subfigure}
+
+\caption{Aparatos de gestión de calefacción de la empresa Tadoº}
+\label{fig:aparatos tado}
+\end{figure}
+
+\subsubsection{Telegram}
 
 \section{DISEÑO Y ARQUITECTURA DEL SISTEMA}
 
@@ -275,6 +329,10 @@ Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas
 \item Cambiar el motor de base de datos usando en el servidor de comunicaciones. 
 
 Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado, pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de una tecnología NoSQL a SQL.
+
+\item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
+
+Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor.
 \end{itemize}
 
 \section{SOBRE LAS REFERENCIAS}
@@ -377,6 +435,8 @@ Se emplea la misma forma de cita que para los artículos de revista en versión 
 	\textit{The Tado API v2}, SCPhillips.com, \url{http://blog.scphillips.com/posts/2017/01/the-tado-api-v2/}, [Visitado el 12/3/2019]
 	
 \bibitem{JSONRPC} \textsc{JSON-RPC Working Group} \textit{JSON-RPC version 2.0 specification}, \url{https://www.jsonrpc.org/specification}, [Visitado el 8/4/2019]
+
+\bibitem{CleanTechTado} \textsc{Cleantech investor} \textit{Tadoº raises \texteuro10m from Target Partners and Shortcut Ventures}, \url{https://web.archive.org/web/20140821174647/http://www.cleantechinvestor.com/portal/mainmenucomp/companiest/3258-tado/11706-tado-raises.html}, [Visitado el 17/4/2019]
 \end{thebibliography}
 \end{document}
 
