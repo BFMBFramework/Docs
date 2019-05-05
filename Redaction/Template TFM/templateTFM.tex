@@ -156,8 +156,7 @@ ELIZA fue un programa de procesamiento del lenguaje natural creado entre los añ
 El software que realizó fue una de las primeras vías de interacción entre persona y máquina mediante el uso del lenguaje natural. El mismo era una parodia de un terapéuta que ejercía psicoterapia centrada en el cliente, una teoría psicológica creada por el psicólogo norteamericano Carl Rogers. El software reutilizaba con frecuencia las frases enviadas por el cliente y las convertía en preguntas para el mismo.
 \newline
 
-ELIZA era limitado, ya que solo fue programado para responder a ciertas palabras o frases clave. Así que lo normal era llegar a conversaciones sin sentido.
-
+ELIZA era un \emph{software} limitado, ya que solo fue programado para responder a ciertas palabras o frases clave. Así que lo normal era llegar a conversaciones sin sentido.
 
 \subsubsection{Actualidad: Asistentes virtuales}
 
@@ -165,7 +164,10 @@ ELIZA era limitado, ya que solo fue programado para responder a ciertas palabras
 
 \subsection{Idea base del proyecto}
 
-La idea principal es el desarrollo de un sistema de comunicaciones con diversas APIs externas para facilitar el desarrollo de bots o automatismos que interactúen con ellos.
+La idea principal es el desarrollo de un sistema de comunicaciones con diversas APIs externas para facilitar el desarrollo de bots o automatismos que interactúen con ellos. En sí no forma una aplicación, sino que será una base para que otras personas puedan realizar sus aplicaciones. Por ello, es un framework.
+\newline
+
+Un framework es un software compuesto de componentes personalizables e intercambiables para el desarrollo de una aplicación. Podría considerarse como una aplicación genérica incompleta en donde se añadan las últimas piezas. \cite[pág. 1]{FrameworkJJG}
 
 \subsection{Tecnologías usadas}
 
@@ -217,7 +219,7 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 
 \subsubsection{Tadoº}
 
-Tadoº GmbH es una empresa tecnológica alemana con sede en Múnich y es el fabricante de sistemas de automatización de calefacción y refrigeración para el hogar conectados a Internet.
+Tadoº GmbH es una empresa tecnológica alemana con sede en Múnich y es un fabricante de sistemas de automatización de calefacción y refrigeración para el hogar conectados a Internet.
 \newline
 
 Fundado en el año 2011 por Johannes Schwarz, Christian Deilmann y Valentin Sawadski, el nombre de dicha compañía está inspirado en una unión de las expresiones japonesas ''tadaima'' (ただいま), que significa ''Estoy en casa'' y ''okaeri'' (おかえり), que significa ''Bienvenido'' a la hora de dirigirse a alguien con quien convives. Puede parecer que la presencia de este párrafo no tenga mucho sentido pero lo tiene, ya que uno de los valores añadidos de sus sistemas de automatización es, precisamente, la gestión de la climatización basándose en la geolocalización.
@@ -229,19 +231,23 @@ Su gestión basada en geolocalización se realiza de la siguiente forma: El usua
 Otra de sus funcionalidades es la detección de ventanas abiertas. Los sensores instalados (termostatos y válvulas) detectan la temperatura y en la humedad, y los cambios repentinos en los mismos se asocian con la apertura de ventanas. Ante ello, Tado desconecta la calefacción por un tiempo definido en la configuración (entre 5 y 45 minutos) para evitar el consumo innecesario de energía.
 \newline
 
-La última funcionalidad adicional que provee es el ajuste de potencia en la calefacción basándose en el tiempo atmosférico actual. La calefacción se ajusta en base a la probabilidad de incidencia solar que puede haber.
+La última funcionalidad adicional que provee es el ajuste de potencia en la calefacción basándose en el tiempo atmosférico actual. La calefacción se ajusta en base a la estimación de incidencia solar que puede haber.
 
 \paragraph{Dispositivos}
 
 Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestión, los cuales explico a continuación:
 
 \begin{itemize}
-\item\textbf{Puente de conexión (Bridge):}
-\item\textbf{Termostato:}
-\item\textbf{Válvula termostática:}
+\item\textbf{Puente de conexión (Bridge):} Es el dispositivo de conexión entre Internet (la api de Tado) y la red 6LoWPAN\footnote{6LoWPAN (IPv6 over Low-Power Wireless Personal Area Networks) es un estándar que adapta la transmisión de paquetes IPv6 a redes que siguen el estándar IEEE 802.15.4, los cuales son dispositivos con recursos muy limitados y un flujo de datos muy bajo. Otra característica de esta red es la capacidad de crear redes en malla.} en la que se comunican los dispositivos entre sí. Funciona con una conexión Ethernet y una conexión USB para alimentación eléctrica.
+
+\item\textbf{Termostato:} Dispositivo que tiene la capacidad de encender o apagar la caldera o ajustar su potencia (según compatibilidad de calderas). Para ello, dispone de un relé para la conmutación. Incluye sensores para la medida de temperatura y humedad. Funcionan con tres pilas AAA y pueden ser instalados también como controladores de temperatura inalámbricos.
+
+\item\textbf{Válvula termostática:} Mecanismo eléctrico que incluye sensores para la medición de temperatura y humedad. Con ellos, activa un motor que regula la apertura de la válvula del radiador donde se encuentre instalado y también pueden regularse de forma manual. Funcionan con dos pilas AA.
 \end{itemize}
 
-\begin{figure}[h]
+Pueden ver las fotografías de cada dispositivo en la figura ~\ref{fig:aparatos tado}.
+
+\begin{figure}[htp]
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\textwidth]{recursos/bridge.jpg}
 \caption{Puente de conexión}
@@ -264,11 +270,54 @@ Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestió
 
 \subsubsection{Telegram}
 
+Telegram es un servicio de mensajería instantánea y VoIP\footnote{VoIP: Voz por protocolo de Internet. Permite la transmisión de la voz a través de Internet usando el protocolo IP. Se usa actualmente por los proveedores de telefonía en lugar de la telefonía analógica.} creado en el año 2013 por Nikolai y Pavel Durov, quienes anteriormente crearon la red social VK, conocida en Rusia. Se estima que el servicio tiene 200 millones de usuarios activos al mes.
+
+Las funcionalidades que dispone el servicio son las siguientes:
+
+\begin{itemize}
+\item \textbf{Acceso multiplataforma:} Telegram, a diferencia de otras redes, permite que un usuario esté activo en varios dispositivos a la vez, sin obligar a cerrar la sesión del resto de conexiones ni borrar el contenido de los chats almacenados. Lo que sí requiere es registrar la cuenta de Telegram con un número de teléfono móvil.
+
+\item \textbf{Capacidad para adjuntos de gran tamaño:} Gracias al protocolo MTProto, creado por Nikolai Durov, es posible transferir adjuntos multimedia de hasta 1,5GB de tamaño.
+
+\item \textbf{Grupos y canales:} Para conversaciones entre varias partes, existe la creación de grupos. En ellos pueden haber hasta 200 000 usuarios y se pueden realizar respuestas a un mensaje concreto del chat, mencionar a un usuario y generar \emph{hashtags}\footnote{Cadena de caracteres que se usa para clasificar la información presente. Sería un tipo de metadato.}. Dichos grupos pueden ser públicos o privados y disponer de varios administradores.
+
+Por otra parte, los canales están pensados para difusión de mensajes por parte de uno o varios administradores. No existe límite de usuarios en los canales, por lo que cualquiera puede acceder. Al igual que los grupos, los canales pueden ser públicos o privados y tienen las mismas capacidades (pueden enviar adjuntos y mensajes, aunque el resto de usuarios no puedan hacer uso de ello).
+
+\item \textbf{Bots:} En Telegram es posible el uso de bots y se incentiva el desarrollo de nuevos bots gracias a la documentación que se provee a los desarrolladores. Los bots pueden ser configurados de distintas formas (escuchando comandos, escuchando menciones o cualquier mensaje). También existen los \emph{inline bots}, son bots que no requiren estar presentes en un chat para funcionar y proveen datos en base una consulta.
+
+\item \textbf{Stickers:} Una extensión de los emojis para poder expresar reacciones de forma breve y visual. Los stickers ya eran una característica que ya tenía la aplicación de mensajería LINE, creada en 2011.
+
+\item \textbf{Chats secretos:} Telegram provee la opción de usar chats secretos entre dos usuarios. Para ello, se utiliza cifrado extremo a extremo\footnote{El cifrado extremo a extremo (End-to-end encryption) es un sistema de comunicación donde dos usuarios pueden comunicarse sin que sus mensajes sean captados por los nodos intermedios en una red.} Por defecto, Telegram no activa este tipo de chats, ya que ciertas funcionalidades de Telegram no funcionan con este tipo de chats, como el acceso multiplataforma o los bots.
+
+\item \textbf{VoIP:} Al igual que otros servicios de mensajería actuales, dispone de servicio de llamadas por voz. 
+
+\item \textbf{Inicio de sesión en sitios terceros:} Telegram también tiene implementado un sistema para poder iniciar sesión con las credenciales del servicio en páginas web terceras, siempre que estas incluyan los componentes necesarios para ello. 
+
+\end{itemize}
+
 \section{DISEÑO Y ARQUITECTURA DEL SISTEMA}
 
 \subsection{Metodología de trabajo}
 
 \subsection{Casos de uso}
+
+Los casos de uso para este proyecto están definidos a través de dos actores: el software que va a realizar las órdenes (el bot) y el usuario.
+
+El bot realizará los siguientes casos de uso:
+
+\begin{itemize}
+\item El bot solicitará un autenticación con el servidor de comunicaciones (uno de los componentes del framework), el cual se envía un usuario y una contraseña al mismo. El servidor realiza la autenticación, comprobando si el usuario existe y si el hash de la contraseña guardada coincide con el hash generado de la contraseña enviada. Si la autenticación tiene éxito, se genera un token con los datos necesarios del usuario para poder realizar las acciones pertinentes.
+
+\item El bot puede solicitar mensajes. Esta acción es una abstracción de las órdenes GET de una API HTTP REST. Para ello, antes de realizar acción alguna, se solicita el token que se recibió al autenticar para así validar la acción. Tras la verificación exitosa, se solicita los datos requeridos a través del servidor de comunicaciones. El servidor de comunicaciones dispone de unos componentes que denominaremos como "conectores", los cuales transforman la solicitud en los datos necesarios para el endpoint elegido. La respuesta o el error de la solicitud a la api la devuelve el servidor de comunicaciones.
+
+\item El bot puede enviar mensajes. Esta acción es una abstracción de las órdenes POST, PUT y DELETE de una API HTTP REST. Al igual que con el caso de uso ya definido anteriormente, se verifica el token, se transforma el contenido y se envía a la api. La respuesta o error se devuelve a través del servidor de comunicaciones.
+\end{itemize}
+
+Por otra parte, el usuario realizará los siguientes casos de uso:
+
+\begin{itemize}
+\item A través de las aplicaciones que disponga cada servicio, el usuario interactúa con dichos servicios. Por ejemplo, puedo interactuar con el bot a través de un chat (Telegram). 
+\end{itemize}
 
 \begin{figure*}
 \centering
@@ -278,6 +327,25 @@ Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestió
 \end{figure*}
 
 \subsection{Infraestructura}
+
+El framework BFMB requiere la ejecución de dos aplicaciones (el bot y el servidor de comunicaciones) y un servidor de Base de Datos (en este caso es MongoDB). Pueden ejecujarse en máquinas independientes o todo en una única máquina.
+\newline
+
+Ahora, vamos a definir en detalle cada aplicación:
+
+\subsubsection{Software bot}
+
+El software bot es la aplicación que realizará la persona que quiera utilizar este framework. Dicha aplicación puede desarrollarse en cualquier lenguaje de programación; el único requisito que debe tener para funcionar con este framework es la capacidad de poder usar el protocolo JSON-RPC, ya sea usando una biblioteca externa o una implementación propia.
+
+\subsubsection{Servidor de comunicaciones}
+
+El servidor de comunicaciones es una aplicación desarrollada en el lenguaje Typescript, el cual se compila a Javascript y se ejecuta usando NodeJS. Dicha aplicación contiene las siguientes funcionalidades:
+
+\begin{itemize}
+\item \textbf{Servidor JSON-RPC:} Usando una biblioteca externa llamada jayson, se ha realizado la implementación del servidor JSON-RPC. Lo único que hay que acoplar son los métodos que pueden ser accesibles a través del protocolo.
+
+\item \textbf{Conectores de servicio:} Los conectores son un elemento imprescindible para este software, son quienes permiten la conexión del servidor con los servicios externos a los que queramos acceder. Por el momento y para este proyecto, se han desarrollado dos conectores de servicio: uno para el servicio de mensajería instantánea Telegram y otro para un servicio que gestiona sistemas de calefacción IoT de la marca Tadoº. Son quienes realizan la conexión a la api usando los datos que se envían por parte del bot.
+\end{itemize}
 
 \begin{figure*}
 \centering
@@ -301,21 +369,25 @@ Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestió
 
 \subsection{Lenguaje usado en desarrollo}
 
+El lenguaje usado para el desarrollo del software de este proyecto es Typescript, el cual vamos a hablar de él a continuación:
+
 \subsubsection{Typescript}
+
+Typescript es un lenguaje de programación que es un superconjunto de Javascript al que se le añade el tipado estático y la definición de objetos basados en clases. Es un proyecto de código abierto con licencia Apache 2.0 creado y mantenido por Microsoft.
 
 \subsection{Dependencias}
 
-\subsubsection{Software externo}
+\subsubsection{MongoDB}
 
-\subsubsection{Bibliotecas}
+\subsubsection{Jayson}
 
-\subsubsection{Servicios externos}
+\subsubsection{Api de Telegram}
 
-\subsubsection{Telegram}
-
-\subsubsection{Tadoº}
+\subsubsection{Api de Tadoº}
 
 \section{PRUEBAS}
+
+\subsubsection{Mocha}
 
 \section{MANUAL DE USUARIO}
 
@@ -333,6 +405,10 @@ Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final 
 \item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
 
 Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor.
+
+\item Acoplar un motor de reconocimiento de lenguaje natural para la parte bot.
+
+Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo "Pon la cocina a 23ºC" y lo asocie con la orden que debe ejecutar.
 \end{itemize}
 
 \section{SOBRE LAS REFERENCIAS}
@@ -437,6 +513,16 @@ Se emplea la misma forma de cita que para los artículos de revista en versión 
 \bibitem{JSONRPC} \textsc{JSON-RPC Working Group} \textit{JSON-RPC version 2.0 specification}, \url{https://www.jsonrpc.org/specification}, [Visitado el 8/4/2019]
 
 \bibitem{CleanTechTado} \textsc{Cleantech investor} \textit{Tadoº raises \texteuro10m from Target Partners and Shortcut Ventures}, \url{https://web.archive.org/web/20140821174647/http://www.cleantechinvestor.com/portal/mainmenucomp/companiest/3258-tado/11706-tado-raises.html}, [Visitado el 17/4/2019]
+
+\bibitem{TadoDeviceSpecs} \textsc{Tado GmbH} \textit{Technical documentation of Tado}, \url{http://www.free-instruction-manuals.com/pdf/pa_1184164.pdf}, [Visitado el 19/4/2019]
+
+\bibitem{Tado6LoWPAN} \textsc{Jiménez Ruiz, L.} \textit{Diseño e implementación de etapa de comunicación basada en 6LoWPNA para plataforma modular de redes de sensores inalámbricas}, Archivo documental de la UPM, 2016, \url{http://oa.upm.es/43013/1/TFG_LUIS_JIMENEZ_RUIZ.pdf}, [Visitado el 19/4/2019]
+
+\bibitem{TelegramFAQ} \textsc{Telegram} \textit{Telegram FAQ}, \url{https://telegram.org/faq}, [Visitado el 19/4/2019]
+
+\bibitem{TelegramLogin} \textsc{Telegram} \textit{Telegram Login for Websites}, \url{https://telegram.org/blog/login}, [Visitado el 19/4/2019]
+
+\bibitem{FrameworkJJG} \textsc{J. Gutiérrez, J.} \textit{¿Qué es un framework web?}, \url{http://www.lsi.us.es/~javierj/investigacion_ficheros/Framework.pdf}, [Visitado el 5/5/2019]
 \end{thebibliography}
 \end{document}
 
