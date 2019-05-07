@@ -1,0 +1,1072 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={TadoConnector \textbar{} bfmb-tado-connector},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{TadoConnector \textbar{} bfmb-tado-connector}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{class-tadoconnector}{%
+\section{Class TadoConnector}\label{class-tadoconnector}}
+
+Class TadoConnector. Extends Connector class from bfmb-base-connector
+module.
+
+\hypertarget{hierarchy}{%
+\subsubsection{Hierarchy}\label{hierarchy}}
+
+\begin{itemize}
+\tightlist
+\item
+  {Connector}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {TadoConnector}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{constructors-1}{%
+\subsection{Constructors}\label{constructors-1}}
+
+\protect\hypertarget{constructor}{}{}
+
+\hypertarget{constructor}{%
+\subsubsection{constructor}\label{constructor}}
+
+\begin{itemize}
+\tightlist
+\item
+  new TadoConnector{(}{)}{:
+  }\href{_connector_.tadoconnector.html}{TadoConnector}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connector.\_\_constructor
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L49}{connector.ts:49}
+  \end{itemize}
+
+  The constructor only calls to parent class passing the network
+  identification.
+
+  \hypertarget{returns-tadoconnector}{%
+  \paragraph{\texorpdfstring{Returns
+  \href{_connector_.tadoconnector.html}{TadoConnector}}{Returns TadoConnector}}\label{returns-tadoconnector}}
+\end{itemize}
+
+\hypertarget{properties-1}{%
+\subsection{Properties}\label{properties-1}}
+
+\protect\hypertarget{connections}{}{}
+
+\hypertarget{protected-connections}{%
+\subsubsection{\texorpdfstring{{Protected}
+connections}{Protected connections}}\label{protected-connections}}
+
+connections{:} {Array}{\textless{}}{Connection}{\textgreater{}}
+
+Inherited from Connector.connections
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L5}{ext/bfmb-base-connector.d.ts:5}
+\end{itemize}
+
+\protect\hypertarget{deviceidrequiredmethods}{}{}
+
+\hypertarget{private-deviceidrequiredmethods}{%
+\subsubsection{\texorpdfstring{{Private}
+deviceIdRequiredMethods}{Private deviceIdRequiredMethods}}\label{private-deviceidrequiredmethods}}
+
+deviceIdRequiredMethods{:} {string}{{[}{]}}{ =~{[}"getMobileDevice",
+"getMobileDeviceSettings"{]}}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L28}{connector.ts:28}
+\end{itemize}
+
+This array is required for knowing which functions require the existence
+of device\_id attribute.
+
+\protect\hypertarget{homeidrequiredmethods}{}{}
+
+\hypertarget{private-homeidrequiredmethods}{%
+\subsubsection{\texorpdfstring{{Private}
+homeIdRequiredMethods}{Private homeIdRequiredMethods}}\label{private-homeidrequiredmethods}}
+
+homeIdRequiredMethods{:} {string}{{[}{]}}{ =~{[}"getHome", "getWeather",
+"getDevices", "getInstallations","getUsers", "getState",
+"getMobileDevices", "getMobileDevice","getMobileDeviceSettings",
+"getZones", "getZoneState","getZoneCapabilities","getZoneOverlay",
+"getTimeTables","getAwayConfiguration", "getTimeTable",
+"clearZoneOverlay","setZoneOverlay"{]}}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L16}{connector.ts:16}
+\end{itemize}
+
+This array is required for knowing which functions require the existence
+of home\_id attribute.
+
+\protect\hypertarget{name}{}{}
+
+\hypertarget{protected-name}{%
+\subsubsection{\texorpdfstring{{Protected}
+name}{Protected name}}\label{protected-name}}
+
+name{:} {string}
+
+Inherited from Connector.name
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L4}{ext/bfmb-base-connector.d.ts:4}
+\end{itemize}
+
+\protect\hypertarget{powertemprequiredmethods}{}{}
+
+\hypertarget{private-powertemprequiredmethods}{%
+\subsubsection{\texorpdfstring{{Private}
+powerTempRequiredMethods}{Private powerTempRequiredMethods}}\label{private-powertemprequiredmethods}}
+
+powerTempRequiredMethods{:} {string}{{[}{]}}{ =~{[}"setZoneOverlay"{]}}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L49}{connector.ts:49}
+\end{itemize}
+
+This array is required for knowing which functions require the existence
+of power, temperature and termination attributes.
+
+\protect\hypertarget{timetableidrequiredmethods}{}{}
+
+\hypertarget{private-timetableidrequiredmethods}{%
+\subsubsection{\texorpdfstring{{Private}
+timetableIdRequiredMethods}{Private timetableIdRequiredMethods}}\label{private-timetableidrequiredmethods}}
+
+timetableIdRequiredMethods{:} {string}{{[}{]}}{ =~{[}"getTimeTable"{]}}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L44}{connector.ts:44}
+\end{itemize}
+
+This array is required for knowing which functions require the existence
+of timetable\_id attribute.
+
+\protect\hypertarget{zoneidrequiredmethods}{}{}
+
+\hypertarget{private-zoneidrequiredmethods}{%
+\subsubsection{\texorpdfstring{{Private}
+zoneIdRequiredMethods}{Private zoneIdRequiredMethods}}\label{private-zoneidrequiredmethods}}
+
+zoneIdRequiredMethods{:} {string}{{[}{]}}{ =~{[}"getZoneState",
+"getZoneCapabilities","getZoneOverlay","getTimeTables",
+"getAwayConfiguration", "getTimeTable","setZoneOverlay",
+"clearZoneOverlay"{]}}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L35}{connector.ts:35}
+\end{itemize}
+
+This array is required for knowing which functions require the existence
+of zone\_id attribute.
+
+\hypertarget{methods-1}{%
+\subsection{Methods}\label{methods-1}}
+
+\protect\hypertarget{addconnection}{}{}
+
+\hypertarget{addconnection}{%
+\subsubsection{addConnection}\label{addconnection}}
+
+\begin{itemize}
+\tightlist
+\item
+  addConnection{(}options{: }{any}, callback{: }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connector.addConnection
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L63}{connector.ts:63}
+  \end{itemize}
+
+  This method adds a TadoConnection object to the connector.
+
+  \hypertarget{parameters}{%
+  \paragraph{Parameters}\label{parameters}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{options-any}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any}}
+
+    A not type-defined object. Requires the attributes \textbf{username}
+    and \textbf{password} to be valid. Those values are the login data
+    of Tadoº.
+  \item ~
+    \hypertarget{callback-function}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function}}
+
+    Callback function which it gives the results or the failure of the
+    task.
+  \end{itemize}
+
+  \hypertarget{returns-void}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void}}
+\end{itemize}
+
+\protect\hypertarget{callhttpapigetmethod}{}{}
+
+\hypertarget{private-callhttpapigetmethod}{%
+\subsubsection{\texorpdfstring{{Private}
+callHttpApiGetMethod}{Private callHttpApiGetMethod}}\label{private-callhttpapigetmethod}}
+
+\begin{itemize}
+\tightlist
+\item
+  callHttpApiGetMethod{(}connection{:
+  }\href{_connector_.tadoconnection.html}{TadoConnection}, options{:
+  }{any}, callback{: }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L147}{connector.ts:147}
+  \end{itemize}
+
+  This method does the calling to Tado api.
+
+  \hypertarget{parameters-1}{%
+  \paragraph{Parameters}\label{parameters-1}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{connection-tadoconnection}{%
+    \subparagraph{\texorpdfstring{connection:
+    \href{_connector_.tadoconnection.html}{TadoConnection}}{connection: TadoConnection}}\label{connection-tadoconnection}}
+
+    The connection to Tado api.
+  \item ~
+    \hypertarget{options-any-1}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any-1}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \item ~
+    \hypertarget{callback-function-1}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-1}}
+
+    Function which returns any result or error.
+  \end{itemize}
+
+  \hypertarget{returns-void-1}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-1}}
+
+  Error May return an error object if there's some issues with the
+  options object.
+\end{itemize}
+
+\protect\hypertarget{callhttpapiputmethod}{}{}
+
+\hypertarget{private-callhttpapiputmethod}{%
+\subsubsection{\texorpdfstring{{Private}
+callHttpApiPutMethod}{Private callHttpApiPutMethod}}\label{private-callhttpapiputmethod}}
+
+\begin{itemize}
+\tightlist
+\item
+  callHttpApiPutMethod{(}connection{:
+  }\href{_connector_.tadoconnection.html}{TadoConnection}, options{:
+  }{any}, callback{: }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L232}{connector.ts:232}
+  \end{itemize}
+
+  This method does the calling to Tado api.
+
+  \hypertarget{parameters-2}{%
+  \paragraph{Parameters}\label{parameters-2}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{connection-tadoconnection-1}{%
+    \subparagraph{\texorpdfstring{connection:
+    \href{_connector_.tadoconnection.html}{TadoConnection}}{connection: TadoConnection}}\label{connection-tadoconnection-1}}
+
+    The connection to Tado api.
+  \item ~
+    \hypertarget{options-any-2}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any-2}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \item ~
+    \hypertarget{callback-function-2}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-2}}
+
+    Function which returns any result or error.
+  \end{itemize}
+
+  \hypertarget{returns-void-2}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-2}}
+
+  Error May return an error object if there's some issues with the
+  options object.
+\end{itemize}
+
+\protect\hypertarget{getconnection}{}{}
+
+\hypertarget{getconnection}{%
+\subsubsection{getConnection}\label{getconnection}}
+
+\begin{itemize}
+\tightlist
+\item
+  getConnection{(}id{: }{string}{)}{: }{Connection}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Inherited from Connector.getConnection
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L15}{ext/bfmb-base-connector.d.ts:15}
+  \end{itemize}
+
+  \hypertarget{parameters-3}{%
+  \paragraph{Parameters}\label{parameters-3}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string}}
+  \end{itemize}
+
+  \hypertarget{returns-connection}{%
+  \paragraph{\texorpdfstring{Returns
+  {Connection}}{Returns Connection}}\label{returns-connection}}
+\end{itemize}
+
+\protect\hypertarget{getconnectionindex}{}{}
+
+\hypertarget{getconnectionindex}{%
+\subsubsection{getConnectionIndex}\label{getconnectionindex}}
+
+\begin{itemize}
+\tightlist
+\item
+  getConnectionIndex{(}id{: }{string}{)}{: }{number}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Inherited from Connector.getConnectionIndex
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L13}{ext/bfmb-base-connector.d.ts:13}
+  \end{itemize}
+
+  \hypertarget{parameters-4}{%
+  \paragraph{Parameters}\label{parameters-4}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string-1}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string-1}}
+  \end{itemize}
+
+  \hypertarget{returns-number}{%
+  \paragraph{\texorpdfstring{Returns
+  {number}}{Returns number}}\label{returns-number}}
+\end{itemize}
+
+\protect\hypertarget{getme}{}{}
+
+\hypertarget{getme}{%
+\subsubsection{getMe}\label{getme}}
+
+\begin{itemize}
+\tightlist
+\item
+  getMe{(}id{: }{string}, options{?: }{any}, callback{: }{Function}{)}{:
+  }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connector.getMe
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L84}{connector.ts:84}
+  \end{itemize}
+
+  This method calls to /me endpoint of Tadoº api.
+
+  \hypertarget{parameters-5}{%
+  \paragraph{Parameters}\label{parameters-5}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string-2}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string-2}}
+
+    The uuid of the connection to do the call.
+  \item ~
+    \hypertarget{default-value-options-any}{%
+    \subparagraph{\texorpdfstring{{Default value} options: {any}{
+    =~\{\}}}{Default value options: any =~\{\}}}\label{default-value-options-any}}
+
+    A not type-defined object. Actually it's empty.
+  \item ~
+    \hypertarget{callback-function-3}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-3}}
+
+    Function which return response or error from the connection.
+  \end{itemize}
+
+  \hypertarget{returns-void-3}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-3}}
+\end{itemize}
+
+\protect\hypertarget{getname}{}{}
+
+\hypertarget{getname}{%
+\subsubsection{getName}\label{getname}}
+
+\begin{itemize}
+\tightlist
+\item
+  getName{(}{)}{: }{string}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Inherited from Connector.getName
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L9}{ext/bfmb-base-connector.d.ts:9}
+  \end{itemize}
+
+  \hypertarget{returns-string}{%
+  \paragraph{\texorpdfstring{Returns
+  {string}}{Returns string}}\label{returns-string}}
+\end{itemize}
+
+\protect\hypertarget{receivemessage}{}{}
+
+\hypertarget{receivemessage}{%
+\subsubsection{receiveMessage}\label{receivemessage}}
+
+\begin{itemize}
+\tightlist
+\item
+  receiveMessage{(}id{: }{string}, options{?: }{any}, callback{:
+  }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connector.receiveMessage
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L103}{connector.ts:103}
+  \end{itemize}
+
+  This method is the universal method for calling get methods of Tado
+  client module.
+
+  \hypertarget{parameters-6}{%
+  \paragraph{Parameters}\label{parameters-6}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string-3}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string-3}}
+
+    The uuid of the connection to do the call.
+  \item ~
+    \hypertarget{default-value-options-any-1}{%
+    \subparagraph{\texorpdfstring{{Default value} options: {any}{
+    =~\{\}}}{Default value options: any =~\{\}}}\label{default-value-options-any-1}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \item ~
+    \hypertarget{callback-function-4}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-4}}
+
+    Function which return response or error from the connection.
+  \end{itemize}
+
+  \hypertarget{returns-void-4}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-4}}
+\end{itemize}
+
+\protect\hypertarget{removeconnection}{}{}
+
+\hypertarget{removeconnection}{%
+\subsubsection{removeConnection}\label{removeconnection}}
+
+\begin{itemize}
+\tightlist
+\item
+  removeConnection{(}id{: }{string}, callback{: }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Inherited from Connector.removeConnection
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L17}{ext/bfmb-base-connector.d.ts:17}
+  \end{itemize}
+
+  \hypertarget{parameters-7}{%
+  \paragraph{Parameters}\label{parameters-7}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string-4}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string-4}}
+  \item ~
+    \hypertarget{callback-function-5}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-5}}
+  \end{itemize}
+
+  \hypertarget{returns-void-5}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-5}}
+\end{itemize}
+
+\protect\hypertarget{sendmessage}{}{}
+
+\hypertarget{sendmessage}{%
+\subsubsection{sendMessage}\label{sendmessage}}
+
+\begin{itemize}
+\tightlist
+\item
+  sendMessage{(}id{: }{string}, options{?: }{any}, callback{:
+  }{Function}{)}{: }{void}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connector.sendMessage
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L189}{connector.ts:189}
+  \end{itemize}
+
+  This method is the universal method for calling put/post methods of
+  Tado client module.
+
+  \hypertarget{parameters-8}{%
+  \paragraph{Parameters}\label{parameters-8}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{id-string-5}{%
+    \subparagraph{\texorpdfstring{id:
+    {string}}{id: string}}\label{id-string-5}}
+
+    The uuid of the connection to do the call.
+  \item ~
+    \hypertarget{default-value-options-any-2}{%
+    \subparagraph{\texorpdfstring{{Default value} options: {any}{
+    =~\{\}}}{Default value options: any =~\{\}}}\label{default-value-options-any-2}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \item ~
+    \hypertarget{callback-function-6}{%
+    \subparagraph{\texorpdfstring{callback:
+    {Function}}{callback: Function}}\label{callback-function-6}}
+
+    Function which return response or error from the connection.
+  \end{itemize}
+
+  \hypertarget{returns-void-6}{%
+  \paragraph{\texorpdfstring{Returns
+  {void}}{Returns void}}\label{returns-void-6}}
+\end{itemize}
+
+\protect\hypertarget{verifyreceivemessagebaseoptions}{}{}
+
+\hypertarget{private-verifyreceivemessagebaseoptions}{%
+\subsubsection{\texorpdfstring{{Private}
+verifyReceiveMessageBaseOptions}{Private verifyReceiveMessageBaseOptions}}\label{private-verifyreceivemessagebaseoptions}}
+
+\begin{itemize}
+\tightlist
+\item
+  verifyReceiveMessageBaseOptions{(}options{: }{any}{)}{: }{Error}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L121}{connector.ts:121}
+  \end{itemize}
+
+  This method verifies that options object has the required attributes.
+
+  \hypertarget{parameters-9}{%
+  \paragraph{Parameters}\label{parameters-9}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{options-any-3}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any-3}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \end{itemize}
+
+  \hypertarget{returns-error}{%
+  \paragraph{\texorpdfstring{Returns
+  {Error}}{Returns Error}}\label{returns-error}}
+
+  Error May return an error object if there's some issues with the
+  options object.
+\end{itemize}
+
+\protect\hypertarget{verifysendmessagebaseoptions}{}{}
+
+\hypertarget{private-verifysendmessagebaseoptions}{%
+\subsubsection{\texorpdfstring{{Private}
+verifySendMessageBaseOptions}{Private verifySendMessageBaseOptions}}\label{private-verifysendmessagebaseoptions}}
+
+\begin{itemize}
+\tightlist
+\item
+  verifySendMessageBaseOptions{(}options{: }{any}{)}{: }{Error}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L207}{connector.ts:207}
+  \end{itemize}
+
+  This method verifies that options object has the required attributes.
+
+  \hypertarget{parameters-10}{%
+  \paragraph{Parameters}\label{parameters-10}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{options-any-4}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any-4}}
+
+    A not type-defined object. Contains the parameters that the api
+    endpoint require.
+  \end{itemize}
+
+  \hypertarget{returns-error-1}{%
+  \paragraph{\texorpdfstring{Returns
+  {Error}}{Returns Error}}\label{returns-error-1}}
+
+  Error May return an error object if there's some issues with the
+  options object.
+\end{itemize}
+
+\hypertarget{class-tadoconnection}{%
+\section{Class TadoConnection}\label{class-tadoconnection}}
+
+TadoConnection is the class which holds the required information and api
+client. Extends Connection class from bfmb-base-connector module.
+
+\hypertarget{hierarchy}{%
+\subsubsection{Hierarchy}\label{hierarchy}}
+
+\begin{itemize}
+\tightlist
+\item
+  {Connection}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    {TadoConnection}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{constructors-1}{%
+\subsection{Constructors}\label{constructors-1}}
+
+\protect\hypertarget{constructor}{}{}
+
+\hypertarget{constructor}{%
+\subsubsection{constructor}\label{constructor}}
+
+\begin{itemize}
+\tightlist
+\item
+  new TadoConnection{(}options{: }{any}{)}{:
+  }\href{_connector_.tadoconnection.html}{TadoConnection}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Overrides Connection.\_\_constructor
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L269}{connector.ts:269}
+  \end{itemize}
+
+  The constructor of TadoConnection. Username and password are given by
+  options object.
+
+  \hypertarget{parameters}{%
+  \paragraph{Parameters}\label{parameters}}
+
+  \begin{itemize}
+  \item ~
+    \hypertarget{options-any}{%
+    \subparagraph{\texorpdfstring{options:
+    {any}}{options: any}}\label{options-any}}
+  \end{itemize}
+
+  \hypertarget{returns-tadoconnection}{%
+  \paragraph{\texorpdfstring{Returns
+  \href{_connector_.tadoconnection.html}{TadoConnection}}{Returns TadoConnection}}\label{returns-tadoconnection}}
+\end{itemize}
+
+\hypertarget{properties-1}{%
+\subsection{Properties}\label{properties-1}}
+
+\protect\hypertarget{id}{}{}
+
+\hypertarget{protected-id}{%
+\subsubsection{\texorpdfstring{{Protected}
+id}{Protected id}}\label{protected-id}}
+
+id{:} {string}
+
+Inherited from Connection.id
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L27}{ext/bfmb-base-connector.d.ts:27}
+\end{itemize}
+
+\protect\hypertarget{password}{}{}
+
+\hypertarget{private-password}{%
+\subsubsection{\texorpdfstring{{Private}
+password}{Private password}}\label{private-password}}
+
+password{:} {string}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L265}{connector.ts:265}
+\end{itemize}
+
+Password of Tadoº service.
+
+\protect\hypertarget{tadoclient}{}{}
+
+\hypertarget{private-tadoclient}{%
+\subsubsection{\texorpdfstring{{Private}
+tadoClient}{Private tadoClient}}\label{private-tadoclient}}
+
+tadoClient{:} {any}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L269}{connector.ts:269}
+\end{itemize}
+
+The node-tado-client class. Defined as any because the Typescript module
+definitions don't exist.
+
+\protect\hypertarget{username}{}{}
+
+\hypertarget{private-username}{%
+\subsubsection{\texorpdfstring{{Private}
+username}{Private username}}\label{private-username}}
+
+username{:} {string}
+
+\begin{itemize}
+\tightlist
+\item
+  Defined in
+  \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L261}{connector.ts:261}
+\end{itemize}
+
+Username of Tadoº service.
+
+\hypertarget{methods-1}{%
+\subsection{Methods}\label{methods-1}}
+
+\protect\hypertarget{getclient}{}{}
+
+\hypertarget{getclient}{%
+\subsubsection{getClient}\label{getclient}}
+
+\begin{itemize}
+\tightlist
+\item
+  getClient{(}{)}{: }{any}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L301}{connector.ts:301}
+  \end{itemize}
+
+  This method retrieves the Tado client object.
+
+  \hypertarget{returns-any}{%
+  \paragraph{\texorpdfstring{Returns
+  {any}}{Returns any}}\label{returns-any}}
+
+  any Returns the client class.
+\end{itemize}
+
+\protect\hypertarget{getid}{}{}
+
+\hypertarget{getid}{%
+\subsubsection{getId}\label{getid}}
+
+\begin{itemize}
+\tightlist
+\item
+  getId{(}{)}{: }{string}
+\end{itemize}
+
+\begin{itemize}
+\item
+  Inherited from Connection.getId
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/ext/bfmb-base-connector.d.ts\#L31}{ext/bfmb-base-connector.d.ts:31}
+  \end{itemize}
+
+  \hypertarget{returns-string}{%
+  \paragraph{\texorpdfstring{Returns
+  {string}}{Returns string}}\label{returns-string}}
+\end{itemize}
+
+\protect\hypertarget{getpassword}{}{}
+
+\hypertarget{getpassword}{%
+\subsubsection{getPassword}\label{getpassword}}
+
+\begin{itemize}
+\tightlist
+\item
+  getPassword{(}{)}{: }{string}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L293}{connector.ts:293}
+  \end{itemize}
+
+  This method retrieves the password.
+
+  \hypertarget{returns-string-1}{%
+  \paragraph{\texorpdfstring{Returns
+  {string}}{Returns string}}\label{returns-string-1}}
+
+  string Returns the password.
+\end{itemize}
+
+\protect\hypertarget{getusername}{}{}
+
+\hypertarget{getusername}{%
+\subsubsection{getUsername}\label{getusername}}
+
+\begin{itemize}
+\tightlist
+\item
+  getUsername{(}{)}{: }{string}
+\end{itemize}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    Defined in
+    \href{https://github.com/BFMBFramework/TadoConnector/blob/f05932b/src/connector.ts\#L285}{connector.ts:285}
+  \end{itemize}
+
+  This method retrieves the username.
+
+  \hypertarget{returns-string-2}{%
+  \paragraph{\texorpdfstring{Returns
+  {string}}{Returns string}}\label{returns-string-2}}
+
+  string Returns the username.
+\end{itemize}
+
+\end{document}
