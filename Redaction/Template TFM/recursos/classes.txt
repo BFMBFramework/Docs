@@ -3,48 +3,77 @@
 package "bfmb-comcenter" {
 	class BFMBServer {
 		-BFMBServer _instance
-		-Object jayson
+		-any jayson
 		-MongoEvents mongoEvents
-		+BFMBServer get sharedInstance()
+		-ConnectorManager connectorManager
+		-AuthHandler authHandler
+		-MessageHandler messageHandler
+		+BFMBServer()
+		+{static} BFMBServer get sharedInstance()
 		+void startServer()
+		+void startConnectorManager()
 		+void createJaysonServer()
 		+void configureJaysonServer()
+		+ConnectorManager getConnectorManager()
+		+AuthHandler getAuthHandler()
+		+MessageHandler getMessageHandler()
 		-void welcomeMessage()
 		-void prepareMongoConnection()
 	}
 
 	class MongoEvents {
 		+void success()
-		+void error(Error)
+		+void error(err: Error)
 		+void disconnected()
 		+void close()
 	}
 
 	class ConnectorManager {
 		#Connector[] connectors
-		+Connector getConnector(string)
+		+ConnectorManager()
+		+Connector getConnector(name: string)
 		+void addConnectors()
 	}
 
-	BFMBServer*--MongoEvents
-	BFMBServer*--ConnectorManager
+	class AuthHandler {
+		-void addUserConnection(network: any, callback: Function)
+		+void authenticate(args: any, callback: Function)
+		+void verifyToken(token: string, callback: Function)
+		+void closeOldTokenConnections(token: string)
+	}
+
+	class MessageHandler {
+		+void getMe(args: any, callback: Function)
+		+void sendMessage(args: any, callback: Function)
+		+void receiveMessage(args: any, callback: Function)
+		-number tokenHasNetwork(network: string, networks: Array<any>)
+	}
+
+	BFMBServer-->BFMBServer
+	BFMBServer*---MongoEvents
+	BFMBServer*---ConnectorManager
+	BFMBServer*--AuthHandler
+	BFMBServer*--MessageHandler
 }
 
 package "bfmb-base-connector" {
 	class Connector {
 		#string name
 		#Connection[] connections
+		+Connector(name: string)
 		+string getName()
-		+{abstract} void addConnection(Object, Function)
-		+number getConnectionIndex(string)
-		+Connection getConnection(string)
-		+void removeConnection(string, Function)
-		+{abstract} void receiveMessage(string, Object, Function)
-		+{abstract} void sendMessage(string, Object, Function)
+		+{abstract} void addConnection(options: any, callback: Function)
+		+number getConnectionIndex(id: string)
+		+Connection getConnection(id: string)
+		+void removeConnection(id: string, callback: Function)
+		+{abstract} void getMe(id: string, options: any, callback: Function)
+		+{abstract} void receiveMessage(id: string, options: any, callback: Function)
+		+{abstract} void sendMessage(id: string, options: any, callback: Function)
 	}
 
 	class Connection {
 		#string id
+		+Connection(options: any)
 		+string getId()
 	}
 
@@ -54,22 +83,25 @@ package "bfmb-base-connector" {
 
 package "bfmb-telegram-connector" {
 	class TelegramConnector {
-		+void addConnection(Object, Function)
-		+void receiveMessage(string, Object, Function)
-		+void sendMessage(string, Object, Function)
-		-Object getUpdateOffset(TelegramConnection, Object)
-		-number parseUpdateOffset(TelegramBot.Update[])
-		-Error verifySendMessageOptions(Object)
+		+TelegramConnector()
+		+void addConnection(options: any, callback: Function)
+		+void getMe(id: string, options: any = {}, callback: Function)
+		+void receiveMessage(id: string, options: any = {}, callback: Function)
+		+void sendMessage(id: string, options: any = {}, callback: Function)
+		-any getUpdateOffset(connection: TelegramConnection, options: any)
+		-number parseUpdateOffset(response: TelegramBot.Update[])
+		-Error verifySendMessageOptions(options: any)
 	}
 
 	class TelegramConnection {
 		-string token
 		-number last_update_id
 		-TelegramBot bot
+		+TelegramConnection(options: any)
 		+TelegramBot getBot()
 		+number getOffsetUpdateId()
-		+void setOffsetUpdateId(number)
-		-Object getTelegramBotOptions(Object)
+		+void setOffsetUpdateId(lastUpdateId: number)
+		-any getTelegramBotOptions(options: any)
 
 	}
 
