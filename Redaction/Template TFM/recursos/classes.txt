@@ -79,6 +79,7 @@ package "bfmb-base-connector" {
 
 	ConnectorManager*--Connector
 	Connector*--Connection
+    MessageHandler---->Connection
 }
 
 package "bfmb-telegram-connector" {
@@ -111,13 +112,30 @@ package "bfmb-telegram-connector" {
 
 package "bfmb-tado-connector" {
     class TadoConnector {
-        +void addConnection(Object, Function)
-        +void receiveMessage(string, Object, Function)
-        +void sendMessage(string, Object, Function)
+    	-string[] homeIdRequiredMethods
+    	-string[] deviceIdRequiredMethods
+    	-string[] zoneIdRequiredMethods
+    	-string[] timetableIdRequiredMethods
+    	-string[] powerTempRequiredMethods
+    	+TadoConnector()
+        +void addConnection(options: any, callback: Function)
+        +void getMe(id: string, options: any = {}, callback: Function)
+        +void receiveMessage(id: string, options: any = {}, callback: Function)
+        -Error verifyReceiveMessageBaseOptions(options: any)
+        -void callHttpApiGetMethod(connection: TadoConnection, options: any, callback: Function)
+        +void sendMessage(id: string, options: any = {}, callback: Function)
+        -Error verifySendMessageBaseOptions(options: any)
+        -void callHttpApiPutMethod(connection: TadoConnection, options: any, callback: Function)
     }
 
     class TadoConnection {
-
+    	-string username
+    	-string password
+    	-TadoClient tadoClient
+    	+TadoConnection(options: any)
+    	+string getUsername()
+    	+string getPassword()
+    	+TadoClient getClient()
     }
 
     Connector<|----TadoConnector

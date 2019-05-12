@@ -68,7 +68,7 @@ TUTOR: Dr. Francisco Javier Gil Rubio
 \vspace{1.3cm}
 
 %	DATE SECTION
-{ {2018}}\\[3cm]
+{{2019}}\\[3cm]
 %	LOGO SECTION
 
 \vfill % Fill the rest of the page with whitespace
@@ -149,6 +149,20 @@ El software que realizó fue una de las primeras vías de interacción entre per
 ELIZA era un \emph{software} limitado, ya que solo fue programado para responder a ciertas palabras o frases clave. Así que lo normal era llegar a conversaciones sin sentido.
 
 \subsubsection{Actualidad: Asistentes virtuales}
+
+\subsection{Usos de los chatbots aplicados al mundo real}
+
+\subsubsection{Seguridad}
+
+Hablar sobre Negobot (chatbot para detectar presuntos pedófilos)
+
+\subsubsection{Sanidad}
+
+Hablar sobre sistemas multiagente para detección de ETS.
+
+\subsubsection{Banca}
+
+Hablar sobre Neo (Caixabank)
 
 \section{ANÁLISIS}
 
@@ -309,7 +323,7 @@ Por otra parte, el usuario realizará los siguientes casos de uso:
 \item A través de las aplicaciones que disponga cada servicio, el usuario interactúa con dichos servicios. Por ejemplo, puedo interactuar con el bot a través de un chat (Telegram) o cambiar la configuración de la calefacción (Tadoº).
 \end{itemize}
 
-Pueden ver el diagrama de casos de uso en la figura ~\ref{fig:Diagrama de casos de uso}
+Pueden ver el diagrama de casos de uso en la figura ~\ref{fig:Diagrama de casos de uso}.
 
 \begin{figure*}
 \centering
@@ -341,7 +355,7 @@ El servidor de comunicaciones es una aplicación desarrollada en el lenguaje Typ
 \item \textbf{Almacenamiento de credenciales:} Para garantizar que solo las aplicaciones autorizadas puedan usar el servidor de comunicaciones, se crean usuarios en una base de datos MongoDB. El detalle de los datos que se almacenan los mostraré en la siguiente sección pero, en resumen, el servidor almacena credenciales para acceder al servidor y los token y/o credenciales de las apis a las que debe acceder.
 \end{itemize}
 
-Pueden ver el diagrama de infraestructura en la figure ~\ref{fig:Infraestructura de nodos}
+Pueden ver el diagrama de infraestructura en la figura ~\ref{fig:Infraestructura de nodos}.
 
 \begin{figure*}
 \centering
@@ -371,6 +385,48 @@ La relación que hay entre ambos es una relación \emph{1 a n}, donde para cada 
 
 \subsection{Disposición del código}
 
+Por último, vamos a explicar la estructura de clases que existe en el framework que se ha desarrollado. Pueden ver el diagrama UML correspondiente en la figura ~\ref{fig:Diagrama de clases}.
+
+Actualmente, este framework se compone de cuatro módulos:
+
+\begin{itemize}
+\item\textbf{bfmb-comcenter:} Es el paquete que conforma el servidor de comunicaciones.
+\item\textbf{bfmb-base-connector:} Es el paquete que contiene una abstracción del conector, para así poder realizar llamadas a los conectores usando el polimorfismo\footnote{El polimorfismo es una relajación del sistema de tipos, de tal manera que una referencia a una clase acepta direcciones de objetos de dicha clase y de sus clases derivadas. \cite[Def. académica de Fernández, L.]{PgWebPolimorfismo}}.
+\item\textbf{bfmb-telegram-connector:} Es el paquete que contiene el conector correspondiente para usar con la api de Telegram.
+\item\textbf{bfmb-tado-connector:} El el paquete que contiene el conector correspondiente para usar con la api de Tadoº.
+\end{itemize}
+
+Los conectores adicionales seguirán el siguiente patrón como nombre:
+\begin{center}bfmb-<SERVICIO>-connector\end{center}
+Donde <SERVICIO> será el nombre de la api que corresponda.
+
+Ahora nos centramos en cada módulo:
+
+\subsubsection{bfmb-comcenter}
+
+El módulo bfmb-comcenter, el servidor de comunicaciones, se compone de cinco clases, las cuales explicamos a continuación:
+
+\begin{itemize}
+\item\textbf{BFMBServer:} Es la clase maestra de este módulo y quien inicia el servidor JSON-RPC. Contiene una instancia de cada clase existente en el módulo y un atributo para acceder a la biblioteca jayson, la cual es la encargada de ejecutar el servidor JSON-RPC. También tiene implementado un patrón (o antipatrón si se abusa de su uso) singleton para poder obtener la instancia activa usando un método estático.
+\item\textbf{MongoEvents:} Es la clase que contiene los métodos callback que se usan ante los eventos de la base de datos MongoDB. Con ello podemos continuar nuestro proceso si se ha logrado una conexión exitosa con la base de datos, mostrar un error en los casos no exitosos o cerrar la base de datos antes de finalizar la aplicación.
+\item\textbf{AuthHandler:} Es la clase encargada de comprobar que las aplicaciones que se conecten con el servidor de comunicaciones tengan credenciales para ello. Comprueba la existencia de los usuarios en la base de datos y si la contraseña es válida. Tras ello, genera un token de acceso para que pueda validarse sin recurrir a sus credenciales originales por un tiempo definido.
+\item\textbf{ConnectorManager:} Es la clase que contiene todos los conectores activos del servidor, donde se puede llamar al conector que corresponda a la api que solicitemos. Los conectores activos se inicializan en base a los datos de configuración, por lo que no varían en tiempo real.
+\item\textbf{MessageHandler:}Es la clase encargada de procesar los mensajes que llegan al servidor de comunicaciones y ejecutar las acciones que soliciten. Normalmente esta clase busca el conector que corresponda con el servicio donde debe ejecutarse la orden y solicita la conexión que corresponde con su usuario, donde se la envía los datos para dicha api.
+\end{itemize}
+
+\subsubsection{bfmb-base-connector}
+
+El módulo bfmb-base-connector es un módulo que contiene dos clases abstractas, cuyo objetivo es poder realizar polimorfismo entre las clases del servidor de comunicaciones y las clases de cada uno de los conectores de servicio. Se compone de dos clases:
+
+\begin{itemize}
+\item\textbf{Connector:} Es el gestor de la conexiones con la api que gestiona. Almacena n objetos conexión. Esta clase es abstracta y la usan los módulos conectores como clase padre en herencia.
+\item\textbf{Connection:} Es la clase que define la conexión con la api. También es una clase abstracta, la cual usan los módulos conectores como clase padre. También sirve para poder realizar polimorfismo desde el servidor de comunicaciones.
+\end{itemize}
+
+\subsubsection{bfmb-telegram-connector y bfmb-tado-connector}
+
+Los restantes módulos son los conectores con los que podremos conectarnos con las api de los distintos servicios en la red. Ambos módulos contienen como mínimo dos clases: conector (Connector) y conexión (Conection). Estos son clases hija de las clases Connector y Connection del módulo bfmb-base-connector.
+
 \begin{figure*}
 \centering
 	\includegraphics[width=\textwidth]{recursos/classes}
@@ -392,7 +448,22 @@ Typescript es un lenguaje de programación que es un superconjunto de Javascript
 
 \subsubsection{MongoDB}
 
+MongoDB es un motor de base de datos orientado a documento. Se encuentra clasificado como una base de datos NoSQL, donde se usa una variante de JSON\footnote{Javascript Object Notation} como formato de documento.
+
+\subsubsection{NodeJS}
+
+NodeJS es un entorno de ejecución multiplataforma que permite ejecutar código escrito en Javascript fuera del entorno del navegador.
+
 \subsubsection{Jayson}
+
+Jayson es un módulo de NodeJS que se compone de un servidor y un cliente que cumplen con la especificación JSON-RPC 2.0, aunque también es compatible con la versión 1.0. Dispone de estas funcionalidades:
+
+\begin{itemize}
+\item Puede iniciar múltiples interfaces de red en el mismo proceso. Es decir, se puede iniciar un servidor que escuche el protocolo TCP y, a la vez, escuchar el protocolo HTTPS.
+\item Soporta los protocolos TCP, HTTP y sus equivalentes seguros (TLS sobre TCP y HTTPS).
+\item Permite el enrutamiento previo de métodos RPC. Por ejemplo, si tenemos una función que sume dos números y queremos hacer un método que añada dos a un valor numérico podremos utilizar el enrutamiento para llamar al método de suma en su lugar. Actualmente, mi proyecto no usa esta funcionalidad.
+\item Dispone de un cliente que se puede ejecutar directamente desde la terminal / consola de comandos.
+\end{itemize}
 
 \subsubsection{Api de Telegram}
 
@@ -404,6 +475,21 @@ Typescript es un lenguaje de programación que es un superconjunto de Javascript
 
 \section{MANUAL DE USUARIO}
 
+\subsection{Instalación}
+
+\subsubsection{Prerrequisitos}
+
+Para poder trabajar con este framework se necesitan los siguientes requisitos software:
+
+\begin{itemize}
+\item Sistema operativo GNU/Linux (No puedo garantizar que funcione en otros sistemas operativos pero ningún requisito lo impide)
+\item NodeJS (versión 8.16).
+\item Base de datos MongoDB instalado o un acceso a un servidor con dicho motor de base de datos.
+\item Conexión a Internet (necesario para interactuar con las apis disponibles).
+\end{itemize}
+
+
+
 \section{CONCLUSIONES}
 
 \section{LÍNEAS FUTURAS}
@@ -413,7 +499,9 @@ Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas
 \begin{itemize}
 \item Cambiar el motor de base de datos usando en el servidor de comunicaciones. 
 
-Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado, pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de una tecnología NoSQL a SQL.
+Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro.
+
+Otro motivo para abrir esta línea de cambiar la base de datos es porque, en base a informaciones del entorno open source / software libre, se comenta que MongoDB ha intentado modificar su licencia software y está generando rechazo en la comunidad, incluyendo que ciertas distribuciones (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense}
 
 \item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
 
@@ -458,6 +546,12 @@ Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para e
 \bibitem{TelegramLogin} \textsc{Telegram} \textit{Telegram Login for Websites}, \url{https://telegram.org/blog/login}, [Visitado el 19/4/2019]
 
 \bibitem{FrameworkJJG} \textsc{J. Gutiérrez, J.} \textit{¿Qué es un framework web?}, \url{http://www.lsi.us.es/~javierj/investigacion_ficheros/Framework.pdf}, [Visitado el 5/5/2019]
+
+\bibitem{PgWebPolimorfismo} \textsc{Álvarez, M.Á.} \textit{Polimorfismo en Programación Orientada a Objetos}, \url{https://desarrolloweb.com/articulos/polimorfismo-programacion-orientada-objetos-concepto.html}, [Visitado el 12/5/2019]
+
+\bibitem{Jayson} \textsc{Lundgren, T. y otros} \textit{Jayson is a simple but featureful JSON-RPC 2.0/1.0 client and server for node.js}, \url{https://github.com/tedeh/jayson/blob/master/README.md}, [Visitado el 8/5/2019]
+
+\bibitem{MongoDBLicense} \textsc{MuyLinux} \textit{MongoDB pincha en hueso: nadie acepta su nueva licencia}, \url{https://www.muylinux.com/2019/01/17/mongodb-rechazo-nueva-licencia/}, [Visitado el 12/5/2019]
 \end{thebibliography}
 \end{document}
 
