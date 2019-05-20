@@ -29,6 +29,65 @@
 \usepackage{algorithm}
 \usepackage{multirow}
 \usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{codepurple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+ 
+\lstset{style=mystyle}
 
 \begin{document}
 %\maketitle
@@ -99,7 +158,16 @@ La finalidad de este proyecto es hacer que el desarrollador se centre en la lóg
 
 %	SUMMARY
 \section*{SUMMARY}
-Extensión máxima de una página
+Chatbots aren't recent applications, they were present during multiple years as reasearch projects and they were also present in the Internet during its growth. But now it's the moment where there's a ''boom'' in them, mainly caused by the Web 2.0 services and virtual assistants like Siri, Alexa or Google Now.
+\newline
+
+The problem begins when you want to develop a chatbot or a state machine where you need to interact with multiple sources simultaneously. For example, a system that requires a simultaneous communication between social networks or a system where you order some commands to a group of IoT (Internet of Things) devices, where each service will use different protocols and interfaces. These situations can increase the complexity in development process and can cause duplicities if you make multiple applications. 
+\newline
+
+Due to this problem, my project will be based in a base system for multiprotocol chatbot development (or another software automatisms). This system will be integrated by a central communication server where you can attach different connectors and the developer will activate some of them for his requisites. The logic part of the bot will communicate with the server using the JSON-RPC protocol over HTTP, HTTPS, TLS or TCP (according to the requirements of the project).
+\newline
+
+The purpose of this project is making the developers concentrate in his bot logic and functionality instead of thinking in the connections between his bot and external services.
 
 %	ÍNDICE
 \tableofcontents % indice de contenidos
@@ -114,7 +182,7 @@ Extensión máxima de una página
 
 \section{INTRODUCCIÓN Y OBJETIVOS}
 
-Los chatbots no son aplicaciones que hayan surgido recientemente, sino que han tenido una larga historia por detrás. Desde el primer software chatbot (ELIZA en 1966), se han realizado desarrollos de chatbots hasta la actualidad. Pero es ahora cuando existe cierto surgir comercial de estos, gracias sobre todo a los asistentes virtuales de las grandes empresas tecnológicas como Siri, Alexa, Watson o Google Now.
+Los chatbots no son aplicaciones que hayan surgido recientemente, sino que han tenido una larga historia por detrás. Desde el primer software chatbot (ELIZA en 1966), se han realizado desarrollos de chatbots hasta la actualidad. Pero es ahora cuando existe cierto surgir comercial de estos, gracias sobre todo a los asistentes virtuales de las grandes empresas tecnológicas como Siri \emph{(Apple)}, Alexa \emph{(Amazon)}, Watson \emph{(IBM)} o Google Now \emph{(Google)}.
 \newline
 
 Pero existe una problemática para quienes quieran realizar un chatbot: la necesidad de una conexión con el exterior para poder comunicarse. No suele ser compleja esta parte si solamente va a interactuar con un único servicio, pero cuando se requiere la conexión a múltiples servicios e interactuar con ellos de forma simultánea, la complejidad del desarrollo aumenta, llegando a dedicar más recursos a la conexión de servicios que a la lógica del software.
@@ -488,8 +556,359 @@ Para poder trabajar con este framework se necesitan los siguientes requisitos so
 \item Conexión a Internet (necesario para interactuar con las apis disponibles).
 \end{itemize}
 
+\subsubsection{Procedimento de instalación}
 
+Para poner en marcha el servidor de comunicaciones, primero comenzaremos con la instalación de los requisitos:
 
+\paragraph{Instalación de NodeJS}
+
+Para realizar la instalación de NodeJS puede optar por instalar el paquete que se encuentre en su distribución GNU/Linux o seguir el procedimiento de instalación del propio proyecto: \href{https://nodejs.org/es/download/package-manager/}{Instalando Node.js usando un gestor de paquetes}.
+\newline
+
+En el caso de Debian, la distribución GNU/Linux que he usado para el desarrollo, el procedimiento es el siguiente:
+
+\begin{lstlisting}[language=sh]
+# Using Debian, as root
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
+apt-get install -y nodejs
+\end{lstlisting}
+
+El script provisto por Nodesource ya realiza todo lo necesario para instalar NodeJS.
+
+\paragraph{Instalación de MongoDB} Para realizar la instalación de MongoDB se puede recurrir al paquete que se encuentre en el repositorio de su distribución. Eso sí, no está exento de inconvenientes porque ha habido un cambio de licencia en dicho software y esa nueva licencia (creada por la propia gente de MongoDB) genera conflicto con algunas distribuciones de GNU/Linux (SSPLv1)\footnote{Server Side Public License}.
+
+En Debian Stretch y Jessie sigue disponible MongoDB, pero en Debian Buster (la futura versión estable) ya no se encuentra dicho paquete. Para ello toca seguir estos pasos:
+
+\begin{enumerate}
+\item Añadir los repositorios unstable de Debian. Hay que modificar el fichero /etc/apt/sources.list
+\begin{lstlisting}[language=sh]
+deb http://debian.redimadrid.es/debian/ buster main contrib non-free
+deb-src http://debian.redimadrid.es/debian/ buster main
+
+deb http://security.debian.org/debian-security buster/updates main
+deb-src http://security.debian.org/debian-security buster/updates main
+
+# Hay que añadir esta línea.
+deb http://debian.redimadrid.es/debian/ unstable main contrib non-free
+\end{lstlisting}
+
+\item Después, hay que editar o crear el fichero mypreferences en /etc/apt/preferences.d/ y añadir el siguiente contenido:
+\begin{lstlisting}[language=sh]
+Package: *
+Pin: release a=testing
+Pin-Priority: 400
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 300
+\end{lstlisting}
+
+Con esto hacemos que los paquetes que se encuentran en el repositorio testing (buster) tengan mayor prioridad que unstable. Así evitamos instalar paquetes de unstable más allá del propio MongoDB.
+
+\item Por último, ejecutamos el comando apt de esta forma para instalar el paquete mongodb.
+\begin{lstlisting}[language=sh]
+sudo apt install -t unstable mongodb
+\end{lstlisting}
+\end{enumerate}
+
+Este procedimiento no está exento de cambios y posiblemente acabe siendo anulado mientras pase el tiempo, ya que la última versión que mantendrá Debian será las que sean anteriores a mongo 4.0 (donde empieza el cambio de licencia). Tampoco está exento la posibilidad de cambios en el software para cambiar de motor de base de datos (véase: Líneas Futuras).
+
+\paragraph{Instalación del servidor de comunicaciones}
+
+Para realizar la instalación del servidor de comunicaciones debemos seguir estos pasos:
+
+\begin{enumerate}
+\item Primero debemos clonar el repositorio del servidor usando git. Si no está git instalado, en Debian basta con este comando:
+\begin{lstlisting}[language=sh]
+sudo apt install git
+\end{lstlisting}
+
+Después, realizamos la clonación:
+\begin{lstlisting}[language=sh]
+git clone https://github.com/BFMBFramework/ComCenter
+\end{lstlisting}
+
+\item Una vez obtenida la aplicación, tenemos que entrar en la carpeta raíz del proyecto e instalar las dependencias necesarias.
+\begin{lstlisting}[language=sh]
+cd ComCenter
+npm install
+\end{lstlisting}
+
+\item Una vez realizado esto, ya tenemos instalado el servidor de comunicaciones. Actualmente, lo conectores vienen incluidos en el proceso de instalación de dependencias. No hace falta instalarlos aparte.
+\end{enumerate}
+
+\paragraph{Configuración del servidor de comunicaciones}
+
+Para configurar el servidor de comunicaciones, disponen de una configuración de ejemplo en la carpeta raíz del software. Hagan una copia del mismo y editen el fichero.
+
+\begin{lstlisting}[language=sh]
+cp config-example.json config.json
+nano config.json
+\end{lstlisting}
+
+Ahora explicamos qué opciones están disponibles en la configuración:
+\begin{lstlisting}[language=Javascript]
+{
+	"db": {
+		"url": "mongodb://localhost/comcenter",
+		"encKey": "yfbmTM8/lZAH8H6PkGTcyK0H1bMk4kl0ovwq1xhX75w=",
+		"signKey": "q8N6L+Lo345JsnUlSow4sPlKzo+XRJPYjT2Uq7mhlOkSi5kFkX0UoIY3etfm4UxtNHaM8xaX2HtkAhV7Gye0KA=="
+	},
+	"tokenConfig": {
+		"secret": "W]5!>v$@NV!bgk8T?{$vP~o'^9P}S1",
+		"algorithm": "HS512",
+		"expiresIn": "24h"
+	},
+	"servers": [
+		{
+			"type": "tcp",
+			"port": 3000
+		},
+		{
+			"type": "http",
+			"port": 3001
+		},
+		{
+			"type": "https",
+			"port": 3002,
+			"cert": "/home/angel/certificados/certi.pem",
+			"key": "/home/angel/certificados/certikey.key"
+		},
+		{
+			"type": "tls",
+			"port": 3003
+		}
+	],
+	"modules": [
+		"telegram",
+		"tado"
+	]
+}
+\end{lstlisting}
+
+\begin{itemize}
+\item\textbf{db:} Es el objeto donde definimos la configuración de base de datos.
+\begin{itemize}
+\item\textbf{db.url:} En este campo se introduce la url de conexión con la base de datos de MongoDB.
+
+\item\textbf{db.encKey:} La base de datos se encuentra cifrada. Para ello, se necesita una pareja de claves para realizar el cifrado con estas. En este campo se almacena una clave de cifrado de 32 bytes en formato base64 (clave de 256bits).
+
+\item\textbf{db.signKey:} En este campo se introduce la clave de firma de la base de datos. Se requiere que sea una clave de bytes en formato base64 (clave de 512 bits).
+
+Para generar ambas claves se puede usar openssl de la siguiente forma:
+\begin{lstlisting}[language=sh]
+openssl rand -base64 32; openssl rand -base64 64;
+
+yZ4dEBn2RILEOGA04kg6oIJHsm6QO4kcbT2jnjAaFTo= # Clave de cifrado
+7n24rUz8G8KKojMo3LhUBvv2TUBW7LQPg+FkyzFtAPSaF3NimFBPhNgWM9s4n5fX
+251ZD20BTd24OTKSmBSxNQ== # Clave de firma
+\end{lstlisting}
+\end{itemize}
+
+\item\textbf{tokenConfig:} Es el objeto donde definimos la configuración de los tokens que generará el servidor de comunicaciones.
+
+\begin{itemize}
+\item\textbf{tokenConfig.secret:} En este campo introducimos el secreto que usará jsonwebtoken para generar los tokens con firma. El formato es un string y acepta carácteres alfanuméricos y símbolos.
+
+\item\textbf{tokenConfig.algorithm:} En este campo indicaremos el algoritmo de firma a usar para la generación de los tokens. Por el momento se ha probado con algoritmos simétricos (HMAC con hash SHA), los cuales son:
+\begin{itemize}
+\item\textbf{none:} El token no se firma con ningún algoritmo.
+\item\textbf{HS256:} El token se firmará con el algoritmo HMAC con hashing SHA256
+\item\textbf{HS384:} El token se firmará con el algoritmo HMAC con hashing SHA384
+\item\textbf{HS512:} El token se firmará con el algoritmo HMAC con hashing SHA512
+\end{itemize}
+
+\emph{En el futuro se definirán atributos para los algoritmos de firma asimétricos, ya que estos requieren clave privada y clave pública.}
+
+\item\textbf{tokenConfig.expiresIn:} Campo en el que definimos la duración de los tokens generados. 
+
+Si introducimos un valor numérico (no string), se considerará el tiempo de vida en segundos. 
+
+Si introducimos un string con el valor numérico seguido de un carácter que pueda reconocerse como una unidad de tiempo (h, m, d, s, ms), se configurará el tiempo de vida del token en base a esa unidad. Por ejemplo, "24h" serían 24 horas y "7d" serían 7 días. 
+
+En caso que el string solo tenga carácteres numéricos, se expresará como milisegundos.
+\end{itemize}
+
+\item\textbf{servers:} Servers es un array en el cual indicamos los servidores JSON-RPC que tendremos operativos, los cuales se configuran de la siguiente forma.
+\begin{itemize}
+\item\textbf{type:} En este campo indicamos el protocolo con el que levantaremos el servidor. Puede configurar los siguientes tipos:
+\begin{itemize}
+\item\textbf{tcp:} Servidor JSON-RPC usando el protocolo TCP.
+\item\textbf{http:} Servidor JSON-RPC usando el protocolo HTTP.
+\item\textbf{tls:} Servidor JSON-RPC usando el protocolo TLS.
+\item\textbf{https:} Servidor JSON-RPC usando el protocolo HTTPS.
+\end{itemize}
+
+\item\textbf{port:} Puerto por el que escuchará este servidor.
+\item\textbf{cert:} \emph{(Requerido cuando type es tls o https, ignorado en otros casos)} Ruta de acceso al fichero del certificado que vayamos a usar para securizar la conexiones a este servidor.
+\item\textbf{key:} \emph{(Requerido cuando type es tls o https, ignorado en otros casos)} Ruta de acceso al fichero con la clave privada del certificado que hayamos seleccionado.
+
+\emph{En caso de no encontrar el fichero cert y el fichero key en las rutas indicadas (o la omisión de los mismos) impedirá el funcionamiento de los servidores con protocolo tls o https y, por ello, no se iniciarán.}
+\end{itemize}
+
+\item\textbf{modules:} En este array indicaremos los módulos que arrancaremos de BFMBFramework, es decir, los conectores a las apis que necesitemos. Para ello, hay que introducir un string con el nombre del servicio.
+
+Es decir, si queremos iniciar el conector bfmb-telegram-connector, debemos introducir Telegram. Si queremos iniciar el conector bfmb-tado-connector, debemos introducir "Tado" (y así con el resto).
+\end{itemize}
+
+\subsubsection{Inicio del servidor} Una vez que tengamos el servidor configurado, podremos iniciarlo con este comando. Desde la carpeta raíz del servidor:
+\begin{lstlisting}[language=sh]
+./bin/comcenter
+\end{lstlisting}
+
+Esta sería la salida esperada:
+\begin{lstlisting}[language=sh]
+info: Using configuration file from: /home/angel/Proyectos/PFG/ComCenter/config.json
+info: Welcome to BFMB ComCenter 0.5.0
+info: Connecting to MongoDB...
+info: Connected to MongoDB database
+info: Attaching connectors to Connector Manager
+info: Raising tcp server on port 3000
+info: Raising http server on port 3001
+info: Raising https server on port 3002
+error: Can't raise https server. No certificates.
+info: Raising tls server on port 3003
+error: Can't raise tls server. No certificates.
+node-telegram-bot-api deprecated Automatic enabling of cancellation of promises is deprecated.
+In the future, you will have to enable it yourself.
+See https://github.com/yagop/node-telegram-bot-api/issues/319. module.js:653:30
+\end{lstlisting}
+
+Como pueden ver, si no se encuentran los certificados que se buscan, saltará un error en los logs para indicar que no se han podido iniciar los servidores tls y https configurados pero no detendrá la aplicación.
+
+\subsection{Añadir usuarios al servidor de comunicaciones}
+
+Para añadir usuarios al servidor, como no tenemos ningúna aplicación de administrador por el momento, tengo hecho un script en lenguaje Javascript que añade los usuarios que queramos.
+
+\begin{lstlisting}[language=Javascript]
+var mongoose = require('mongoose');
+var config = require('../../config.json');
+var User = require('../../dist/schemas/user').User;
+var Network = require('../../dist/schemas/network').Network;
+
+mongoose.connect(config.db.url, {useNewUrlParser: true});
+
+if (!process.env.TG_TOKEN) throw new Error("No Telegram token defined.");
+if (!process.env.TADO_USERNAME) throw new Error("No Tado login data defined.");
+if (!process.env.TADO_PASSWORD) throw new Error("No Tado login data defined.");
+
+var test = new User({
+	username: 'TEST',
+	password: 'test'
+});
+
+test.save(function (err) {
+	if (err) throw err;
+
+	var tgNetwork = new Network({
+		name: 'Telegram',
+		token: process.env.TG_TOKEN
+	});
+
+	tgNetwork.save(function (err) {
+		if (err) throw err;
+		console.log("Added Telegram network");
+	});
+
+	var tadoNetwork = new Network({
+		name: 'Tado',
+		username: process.env.TADO_USERNAME,
+		password: process.env.TADO_PASSWORD
+	});
+
+	tadoNetwork.save(function (err) {
+		if (err) throw err;
+		console.log("Added Tado Network");
+	})
+
+	test.networks.push(tgNetwork);
+	test.networks.push(tadoNetwork);
+	test.save(function (err) {
+		if (err) throw err;
+		console.log("Added test user.");
+	});
+});
+\end{lstlisting}
+
+Para añadir el usuario con username 'TEST' y password 'test' basta con ejecutar el script de esta forma.
+
+\begin{lstlisting}[language=sh]
+TG_TOKEN=<token de bot Telegram> TADO_USERNAME=<usuario de Tadoº> TADO_PASSWORD=<contraseña de Tadoº> nodejs ./add-mocha-user.js
+\end{lstlisting}
+
+Para cambiar el username y el password a añadir basta con editar las líneas 13 y 14 del script. No es la mejor forma de configurar usuarios y en el futuro se implementará una aplicación de gestión con el fin de facilitar esta tarea.
+
+\subsection{Cómo interactuar con el servidor de comunicaciones}
+
+Como se puede ver en la figura ~\ref{fig:Comunicación entre sistemas}, nuestro automatismo se conecta únicamente con el servidor de comunicaciones usando para ello el protocolo JSON-RPC, por lo que se puede realizar el bot o automatismo con cualquier lenguaje que tenga un cliente de dicho protocolo.
+
+\begin{figure*}
+\centering
+	\includegraphics[width=\textwidth]{recursos/Comunication}
+\caption{Comunicación entre sistemas}
+\label{fig:Comunicación entre sistemas}
+\end{figure*}
+
+Para los ejemplos en código, voy a usar Typescript y usaré el cliente jayson.
+
+\subsubsection{Realizar login en el servidor}
+
+Para poder comunicarse con el servidor, es necesario iniciar sesión en él. Para ello, hay que ejecutar el comando RPC 'authenticate' pasando como opciones el username y el password del usuario del servidor.
+
+\begin{lstlisting}[language=Javascript]
+this.jayson.request('authenticate',
+ { username: 'username', password: 'password' },
+ function(err: Error, response: any) {
+			if (err) { 
+				// Caso error
+			} else {
+				// Caso éxito
+			}
+		});
+\end{lstlisting}
+
+\subsubsection{Obtener información del usuario de la api}
+
+Para obtener los datos del usuario de la api que se quisiese acceder, basta con mandar el comando RPC 'getMe'. Como opciones es necesario el token que habremos recibido tras realizar la autenticación con el comando anterior, la red a la que queremos enviar esta orden (recuerde que debe empezar en mayúscula) y las opciones para dicha red (en este caso será un objeto vacío).
+
+\begin{lstlisting}[language=Javascript]
+this.jayson.request('getMe',
+ {token: 'token srv comunicaciones', network: 'Mired', options: {}}, 
+ function(err: Error, response: any) {
+   if (err) {
+     // Caso error
+   } else {
+     // Caso éxito
+   }
+});
+\end{lstlisting}
+
+\subsubsection{Comando de recepción de información}
+
+Para realizar una llamada que equivaldría al método HTTP GET, usamos el comando RPC 'receiveMessage'. Como opciones es necesario el token recibido al autenticarse en el servidor de comunicaciones, también hay que indicar la red a la que vamos enviar el comando. Por último, las opciones forman parte de los parámetros necesarios para solicitar la recepción de datos. Por ejemplo, el conector Tadoº necesita las opciones \emph{api\_method} y \emph{home\_id}. Si no se enviase algún parámetro obligatorio, el error que devolviese el comando lo indicará.
+
+\begin{lstlisting}[language=Javascript]
+this.jayson.request('receiveMessage',
+ {token: 'token srv comunicaciones', network: 'Mired',
+ options: {api_method: 'getZones', home_id: 'home_id'}}, 
+ function(err: Error, response: any) {
+ 
+ });
+\end{lstlisting}
+
+\subsubsection{Comando de envío de información}
+
+Para realizar una llamada que equivaldría a los métodos POST, PUT y DELETE de HTTP, usamos el comando RPC 'sendMessage'. Como opciones también necesitamos el token recibido (al igual que en los otros métodos), también es necesario indicar la red a la que vamos a enviar el comando. Pôr último, las opciones forman parte de los parámetros necesarios para solicitar el envío de información. Por ejemplo, en el caso de usar el conector de Tadoº, es necesario usar los parámetreos \emph{api\_method} y \emph{home\_id}. También en este caso, si no se llegase a enviar un parámetro que fuese obligatorio, el error devuelto lo indicará.
+
+\begin{lstlisting}[language=Javascript]
+this.jayson.request('sendMessage',
+ {token: 'token srv comunicaciones', network: 'Mired',
+ options: {api_method: 'setZoneOverlay', home_id: 'home_id'}}, 
+ function(err: Error, response: any) {
+ 
+ });
+\end{lstlisting}
+ 
 \section{CONCLUSIONES}
 
 \section{LÍNEAS FUTURAS}
@@ -501,7 +920,7 @@ Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas
 
 Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro.
 
-Otro motivo para abrir esta línea de cambiar la base de datos es porque, en base a informaciones del entorno open source / software libre, se comenta que MongoDB ha intentado modificar su licencia software y está generando rechazo en la comunidad, incluyendo que ciertas distribuciones (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense}
+Otro motivo para abrir esta línea de cambiar la base de datos es porque, en base a informaciones del entorno open source / software libre, se comenta que MongoDB ha intentado modificar su licencia software y está generando rechazo en la comunidad, incluyendo que ciertas distribuciones (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
 
 \item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
 
@@ -509,7 +928,7 @@ Actualmente, se están añadiendo los usuarios y configuraciones a través de un
 
 \item Acoplar un motor de reconocimiento de lenguaje natural para la parte bot.
 
-Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo "Pon la cocina a 23ºC" y lo asocie con la orden que debe ejecutar.
+Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar.
 
 \item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
 \end{itemize}
@@ -552,6 +971,10 @@ Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para e
 \bibitem{Jayson} \textsc{Lundgren, T. y otros} \textit{Jayson is a simple but featureful JSON-RPC 2.0/1.0 client and server for node.js}, \url{https://github.com/tedeh/jayson/blob/master/README.md}, [Visitado el 8/5/2019]
 
 \bibitem{MongoDBLicense} \textsc{MuyLinux} \textit{MongoDB pincha en hueso: nadie acepta su nueva licencia}, \url{https://www.muylinux.com/2019/01/17/mongodb-rechazo-nueva-licencia/}, [Visitado el 12/5/2019]
+
+\bibitem{NodeSourceDebian} \textsc{Nodesource} \textit{README de distributions en GitHub}, \url{https://github.com/nodesource/distributions/blob/master/README.md#deb}, [Visitado el 12/5/2019]
+
+\bibitem{MongoDBRemoveRequest} \textsc{Debian Bug Reports} \textit{\#916107 - mongodb: MongoDB should not be part of a stable release}, \url{https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=916107}, [Visitado el 15/5/2019]
 \end{thebibliography}
 \end{document}
 
