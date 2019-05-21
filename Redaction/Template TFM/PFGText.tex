@@ -245,7 +245,7 @@ Un framework es un software compuesto de componentes personalizables e intercamb
 
 \subsubsection{JSON-RPC}
 
-JSON-RPC es un protocolo de llamada a procedimiento remoto (Remote Procedure Cell) cliente-servidor cuyos mensajes se componen de datos codificados en formato JSON (Javascript Object Notation). Es un protocolo agnóstico, por lo que puede realizar comunicaciones cliente-servidor a través de HTTP, HTTPS o TCP, entre otros. La especificación más reciente es la versión 2.0, publicada en 2010.
+JSON-RPC es un protocolo de llamada a procedimiento remoto (Remote Procedure Call) cliente-servidor cuyos mensajes se componen de datos codificados en formato JSON (Javascript Object Notation). Es un protocolo agnóstico, puede realizar comunicaciones cliente-servidor a través de HTTP, HTTPS o TCP, entre otros. La especificación más reciente es la versión 2.0, publicada en 2010.
 
 Como el protocolo usa JSON como mensaje, dispone de las mismas características que un fichero JSON: dispone de los cuatros tipos primitivos (String, Number, Boolean y Null) y de dos tipos de estructura (Object y Array).
 El protocolo en sí se basa en dos modelos de datos: petición (Request) y respuesta (Response), los cuales explico a continuación:
@@ -254,7 +254,7 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 \item \textbf{Objeto petición (Request):} La llamada a procedimiento remoto en JSON-RPC se basa en enviar este objeto a un servidor, el cual dispone de los siguientes atributos:
 
 \begin{itemize}
-\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión 2.0 y cambia según el número de versión.
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe indicar el número de versión del protocolo. Es decir, si es la versión 2.0, debe ponerse "2.0".
 
 \item \textbf{method:} Un String donde se indica el método a invocar. Cualquier nombre de método es válido excepto los que empiecen con "rpc.", ya que son de uso interno.
 
@@ -266,7 +266,7 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 \item \textbf{Objeto respuesta (Response):} La llamada a procedimiento remoto en JSON-RPC debe devolver una respuesta a cada petición excepto si es una notificación. El objeto respuesta tiene los siguientes atributos:
 
 \begin{itemize}
-\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe ser "2.0" para la versión 2.0 y cambia según el número de versión.
+\item \textbf{jsonrpc:} Atributo que especifica la versión del protocolo JSON-RPC. Debe indicar el número de versión del protocolo. Es decir, si es la versión 2.0, debe ponerse "2.0".
 
 \item \textbf{result:} Este atributo es obligatorio si el resultado es exitoso y, en caso contrario (error), no debe estar presente. Siempre va a ser un atributo de estructura.
 
@@ -294,13 +294,14 @@ El protocolo en sí se basa en dos modelos de datos: petición (Request) y respu
 Tadoº GmbH es una empresa tecnológica alemana con sede en Múnich y es un fabricante de sistemas de automatización de calefacción y refrigeración para el hogar conectados a Internet.
 \newline
 
-Fundado en el año 2011 por Johannes Schwarz, Christian Deilmann y Valentin Sawadski, el nombre de dicha compañía está inspirado en una unión de las expresiones japonesas ''tadaima'' (ただいま), que significa ''Estoy en casa'' y ''okaeri'' (おかえり), que significa ''Bienvenido'' a la hora de dirigirse a alguien con quien convives. Puede parecer que la presencia de este párrafo no tenga mucho sentido pero lo tiene, ya que uno de los valores añadidos de sus sistemas de automatización es, precisamente, la gestión de la climatización basándose en la geolocalización.
+Fundado en el año 2011 por Johannes Schwarz, Christian Deilmann y Valentin Sawadski, el nombre de dicha compañía está inspirado en una unión de las expresiones japonesas ''tadaima'' (ただいま), que significa ''Estoy en casa'' y ''okaeri'' (おかえり), que significa ''Bienvenido'' a la hora de dirigirse a alguien con quien convives. 
+Puede parecer que este detalle no aporta valor en este documento pero es lo contrario, ya que uno de los valores añadidos de sus sistemas de automatización es, precisamente, la gestión de la climatización basándose en la geolocalización.
 \newline
 
 Su gestión basada en geolocalización se realiza de la siguiente forma: El usuario o usuarios de la vivienda tienen asociado un dispositivo móvil, el cual debe tener la app de la compañía instalada y configurada. Esta app recoge la posición actual y se compara con un \emph{geofence} \footnote{El término \emph{geofence} es un perímetro virtual asociado a un área geográfica. Su utilidad se basa en la ejecución de eventos en software ante un suceso de entrada o salida del área definida. } definido por el usuario maestro de la vivienda. Cuando todos los usuarios de la vivienda abandonan la zona definida por el \emph{geofence}, Tado ordena la desconexión de la calefacción o la reducción de la temperatura de las estancias.
 \newline
 
-Otra de sus funcionalidades es la detección de ventanas abiertas. Los sensores instalados (termostatos y válvulas) detectan la temperatura y en la humedad, y los cambios repentinos en los mismos se asocian con la apertura de ventanas. Ante ello, Tado desconecta la calefacción por un tiempo definido en la configuración (entre 5 y 45 minutos) para evitar el consumo innecesario de energía.
+Otra de sus funcionalidades es la detección de ventanas abiertas. Los sensores instalados (termostatos y válvulas) detectan la temperatura y en la humedad, y los cambios repentinos en los mismos se asocian con la apertura de ventanas. Ante ello, Tado desconecta la calefacción por un tiempo definido en la configuración (entre 5 y 60 minutos) para evitar el consumo innecesario de energía. Esta funcionalidad es desactivable si no se precisa de ella (la estancia no tiene ventanas, por ejemplo).
 \newline
 
 La última funcionalidad adicional que provee es el ajuste de potencia en la calefacción basándose en el tiempo atmosférico actual. La calefacción se ajusta en base a la estimación de incidencia solar que puede haber.
@@ -318,6 +319,7 @@ Tadoº, en sus sistemas de calefacción, tiene distintos dispositivos de gestió
 \end{itemize}
 
 Pueden ver las fotografías de cada dispositivo en la figura ~\ref{fig:aparatos tado}.
+\newline
 
 \begin{figure}[htp]
 \begin{subfigure}{0.5\textwidth}
@@ -340,9 +342,13 @@ Pueden ver las fotografías de cada dispositivo en la figura ~\ref{fig:aparatos 
 \label{fig:aparatos tado}
 \end{figure}
 
+También Tadoº tiene un dispositivo para gestionar de forma remota aparatos de aire acondicionado. Aun teniendo una forma diferente de trabajar a nivel técnico, dispone de las mismas funcionalidades que su equivalente en calefacción.
+
+No entro en detalle en ese modelo de termostato porque queda fuera del proyecto (no dispongo de ese aparato y, por ello, no puedo probar su funcionamiento para adaptarlo al software que presento).
+
 \subsubsection{Telegram}
 
-Telegram es un servicio de mensajería instantánea y VoIP\footnote{VoIP: Voz por protocolo de Internet. Permite la transmisión de la voz a través de Internet usando el protocolo IP. Se usa actualmente por los proveedores de telefonía en lugar de la telefonía analógica.} creado en el año 2013 por Nikolai y Pavel Durov, quienes anteriormente crearon la red social VK, conocida en Rusia. Se estima que el servicio tiene 200 millones de usuarios activos al mes.
+Telegram es un servicio de mensajería instantánea y VoIP\footnote{VoIP: Voz por protocolo de Internet. Permite la transmisión de la voz a través de Internet usando el protocolo IP. Se usa actualmente por los proveedores de telefonía en lugar de la telefonía analógica.} creado en el año 2013 por Nikolai y Pavel Durov, quienes anteriormente crearon la red social VK, conocida sobre todo en la Federación de Rusia. Se estima que el servicio tiene 200 millones de usuarios activos al mes.
 
 Las funcionalidades que dispone el servicio son las siguientes:
 
@@ -916,19 +922,19 @@ this.jayson.request('sendMessage',
 Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas líneas futuras a partir de ahora. Algunas de ellas son mejoras del software para permitir una mayor portabilidad y otras pertenecen a posibles desarrollos adicionales.
 
 \begin{itemize}
-\item Cambiar el motor de base de datos usando en el servidor de comunicaciones. 
+\item Cambiar el motor de base de datos usado en el servidor de comunicaciones. 
 
-Actualmente se usa MongoDB por conveniencia en el desarrollo del proyecto final de grado (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro.
+Actualmente se usa MongoDB por conveniencia en el desarrollo de este proyecto (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite o NeDB  y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro.
 
-Otro motivo para abrir esta línea de cambiar la base de datos es porque, en base a informaciones del entorno open source / software libre, se comenta que MongoDB ha intentado modificar su licencia software y está generando rechazo en la comunidad, incluyendo que ciertas distribuciones (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
+Otro motivo para abrir esta línea de desarrollo es el cambio de licencia de MongoDB en su versión más reciente (4.0). Eso está generando rechazo en la comunidad del software libre y la comunidad opensource, llegando al punto que ciertas distribuciones GNU/Linux (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
 
 \item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
 
-Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor.
+Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor. Se podría plantear incluso desarrollar el gestor como una aplicación por comandos independiente del software servidor.
 
 \item Acoplar un motor de reconocimiento de lenguaje natural para la parte bot.
 
-Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar.
+Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar. Se tardaría menos en realizar esto que crear un motor IA desde cero.
 
 \item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
 \end{itemize}
@@ -975,6 +981,8 @@ Ahora mismo, debido a problemas de tiempo de desarrollo, el bot realizado para e
 \bibitem{NodeSourceDebian} \textsc{Nodesource} \textit{README de distributions en GitHub}, \url{https://github.com/nodesource/distributions/blob/master/README.md#deb}, [Visitado el 12/5/2019]
 
 \bibitem{MongoDBRemoveRequest} \textsc{Debian Bug Reports} \textit{\#916107 - mongodb: MongoDB should not be part of a stable release}, \url{https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=916107}, [Visitado el 15/5/2019]
+
+\bibitem{NeDB} \textsc{Louis Chatriot} \textit{NeDB: The JavaScript Database, for Node.js, nw.js, electron and the browser}, \url{https://github.com/louischatriot/nedb} [Visitado el 21/5/19]
 \end{thebibliography}
 \end{document}
 
