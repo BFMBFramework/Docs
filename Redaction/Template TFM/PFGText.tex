@@ -17,7 +17,7 @@
 \setCJKmainfont{DroidSansFallbackFull.ttf}
 %\usepackage[applemac]{inputenc} 
 %POR DEFECTO SE ESTÁ USANDO EL PAQUETE PARA RECONOCER ACENTOS DE MAC, EN CASO DE USAR WINDOWS COMO SISTEMA OPERATIVO ELIMINAR LA LÍNEA ANTERIOR E INTRODUCIR LA SIGUIENTE
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{libertine}
 
 \usepackage{graphicx}
@@ -30,30 +30,30 @@
 \usepackage{multirow}
 \usepackage{hyperref}
 \usepackage{listings}
-\usepackage{color}
+\usepackage{xcolor}
+\usepackage{wrapfig}
+\usepackage{courier}
  
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{comment}{RGB}{0,128,0} % dark green
+\definecolor{string}{RGB}{255,0,0}  % red
+\definecolor{keyword}{RGB}{0,0,255} % blu
+\definecolor{background}{RGB}{250,250,250}
  
 \lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
+    commentstyle=\color{comment},
+	stringstyle=\color{string},
+	keywordstyle=\color{keyword},
+	backgroundcolor=\color{background},
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=5pt,
+	frame=lines,
+	breaklines=true,
+	prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	showstringspaces=false,
+	upquote=true,
+    tabsize=2,
 }
 
 \lstdefinelanguage{JavaScript}{
@@ -63,19 +63,18 @@
   morestring=[b]',
   morestring=[b]",
   ndkeywords={class, export, boolean, throw, implements, import, this},
-  keywordstyle=\color{blue}\bfseries,
+  keywordstyle=\color{keyword}\bfseries,
   ndkeywordstyle=\color{darkgray}\bfseries,
   identifierstyle=\color{black},
-  commentstyle=\color{codepurple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
+  commentstyle=\color{comment}\ttfamily,
+  stringstyle=\color{string}\ttfamily,
   sensitive=true
 }
 
 \lstset{
    language=JavaScript,
-   backgroundcolor=\color{lightgray},
    extendedchars=true,
-   basicstyle=\footnotesize\ttfamily,
+   basicstyle=\ttfamily\footnotesize,
    showstringspaces=false,
    showspaces=false,
    numbers=left,
@@ -182,7 +181,7 @@ The purpose of this project is making the developers concentrate in his bot logi
 
 \section{INTRODUCCIÓN Y OBJETIVOS}
 
-Los chatbots no son aplicaciones que hayan surgido recientemente, sino que han tenido una larga historia por detrás. Desde el primer software chatbot (ELIZA en 1966), se han realizado desarrollos de chatbots hasta la actualidad. Pero es ahora cuando existe cierto surgir comercial de estos, gracias sobre todo a los asistentes virtuales de las grandes empresas tecnológicas como Siri \emph{(Apple)}, Alexa \emph{(Amazon)}, Watson \emph{(IBM)} o Google Now \emph{(Google)}.
+Los chatbots no son aplicaciones que hayan surgido recientemente, sino que han tenido una larga historia por detrás. Desde el primer software chatbot (ELIZA en 1966), se han realizado desarrollos de chatbots hasta la actualidad. Pero es ahora cuando existe cierto surgir comercial de estos, gracias sobre todo a los asistentes virtuales de las grandes empresas tecnológicas como Siri \emph{(Apple)}, Alexa \emph{(Amazon)}, Watson \emph{(IBM)} o Google Assistant \emph{(Google)}.
 \newline
 
 Pero existe una problemática para quienes quieran realizar un chatbot: la necesidad de una conexión con el exterior para poder comunicarse. No suele ser compleja esta parte si solamente va a interactuar con un único servicio, pero cuando se requiere la conexión a múltiples servicios e interactuar con ellos de forma simultánea, la complejidad del desarrollo aumenta, llegando a dedicar más recursos a la conexión de servicios que a la lógica del software.
@@ -208,7 +207,7 @@ Este proyecto cubre los siguientes objetivos:
 El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cual era un jugador virtual del videojuego de mazmorras TinyMUD. La principal tarea de este bot era responder a las preguntas de los usuarios que tenían relación con la navegación por la mazmorra u objetos del juego. El mismo simulaba habilidad conversacional mediante reglas, mediante las cuales logró ''engañar'' a los usuarios y que estos creyeran que era un jugador humano más. \cite[pág. 2]{CANLI}
 
 \subsubsection{ELIZA}
-ELIZA fue un programa de procesamiento del lenguaje natural creado entre los años 1964 y 1966 por Joseph Weizenbaum (1923-2008) en el Laboratorio de Inteligencia Artifical del MIT (Instituto Tecnológico de Massachusetts). El objetivo de este software era demostrar la superficialidad de la comunicación entre humanos y máquinas.
+ELIZA fue un programa de procesamiento del lenguaje natural creado entre los años 1964 y 1966 por Joseph Weizenbaum (1923-2008) en el Laboratorio de Inteligencia Artificial del MIT (Instituto Tecnológico de Massachusetts). El objetivo de este software era demostrar la superficialidad de la comunicación entre humanos y máquinas.
 \newline
 
 El software que realizó fue una de las primeras vías de interacción entre persona y máquina mediante el uso del lenguaje natural. El mismo era una parodia de un terapéuta que ejercía psicoterapia centrada en el cliente, una teoría psicológica creada por el psicólogo norteamericano Carl Rogers. El software reutilizaba con frecuencia las frases enviadas por el cliente y las convertía en preguntas para el mismo.
@@ -216,13 +215,55 @@ El software que realizó fue una de las primeras vías de interacción entre per
 
 ELIZA era un \emph{software} limitado, ya que solo fue programado para responder a ciertas palabras o frases clave. Así que lo normal era llegar a conversaciones sin sentido.
 
-\subsubsection{Actualidad: Asistentes virtuales}
+\subsubsection{ALICE}
+ALICE (Artificial Linguistic Internet Computer Entity) es un bot con inspiraciones en ELIZA creado en 1995 por Richard Wallace. Puede procesar lenguaje natural mediante el uso de patrones. Dichos patrones se formaban con un lenguaje de marcado basado en XML llamado AIML. Actualmente, el lenguaje AIML sigue estando en desarrollo y la última versión disponible es la especificación 2.1, publicada en Marzo de 2018. 
+\newline
 
-\subsection{Usos de los chatbots aplicados al mundo real}
+A continuación os muestro un ejemplo de un patrón AIML:
+\begin{lstlisting}[language=xml]
+<?xml version="1.0" encoding="UTF-8"?>
+   <aiml version="2.0">
+     <category>
+       <pattern>HI *</pattern>
+       <template>Hello world!</template>
+     </category>
+
+     <category>
+       <pattern>What is a chatbot</pattern>
+       <template>
+         A chatbot is a computer program designed to respond
+         to text or voice inputs in natural language.
+       </template>
+     </category>
+   </aiml>
+\end{lstlisting}
+
+\subsubsection{Siri (Apple)}
+
+Siri es un asistente virtual desarrollado originalmente a principios de 2010 por una start-up del mismo nombre, la cual ofrecía dicha aplicación. Posteriormente fue adquirida por Apple para incorporarse como funcionalidad del sistema operativo iOS en Octubre de 2011 y se incorporó en el sistema MacOS Sierra, versión liberada en el año 2016.
+\newline
+
+Es capaz de reconocer el lenguaje natural mediante el uso de un conjunto de servidores remotos, es decir, no es el dispositivo en sí quien procesa la voz. Aparte, en base a ese procesamiento de voz, también procesa la orden para ser realizada por el dispositivo.
+\newline
+
+Además de reconocimiento del lenguaje natural mediante la voz, es capaz de expresar sus resultados con voz, lo que la otorga un valor añadido.
+\newline
+
+Por último, los desarrolladores de aplicaciones para iOS pueden añadir órdenes concretas para que puedan ser realizadas mediante la comunicación con Siri, usando la biblioteca SiriKit. SiriKit está disponible desde la versión 10 de iOS, la versión de macOS 10.12 y la versión 3.2 de watchOS (el sistema operativo que contienen los Apple Watch).
+
+\subsubsection{Google Assistant}
+
+Google Assistant es el asistente virtual desarrollado por Google, el cual es el núcleo de los productos Google Home pero también se encuentra presente en los dispositivos Android que incorporan las aplicaciones de Google (ya que hay dispositivos Android que no incluyen dichas aplicaciones).
+
+\subsubsection{Alexa (Amazon)}
+
+Alexa es el software que incorpora los dispositivos Echo de la misma empresa y puede integrarse en otros dispositivos como smartphones, ordenadores y otros dispositivos de terceros. Tiene las mismas funcionalidades que Google Assistant y Siri: permite la ejecución de órdenes o iniciar conversaciones en lenguaje natural y recibir respuestas al mismo nivel.
+
+\subsection{Ejemplos de chatbots para usos posibles o reales.}
 
 \subsubsection{Seguridad}
 
-Hablar sobre Negobot (chatbot para detectar presuntos pedófilos)
+Como ejemplo de uso en el campo de la seguridad tenemos el chatbot Negobot. Desarrollado por la Universidad de Deusto en el año 2012, Negobot es un chatbot que simula ser un menor en los chats públicos de Internet para la detección de conductas pedófilas
 
 \subsubsection{Sanidad}
 
@@ -230,7 +271,21 @@ Hablar sobre sistemas multiagente para detección de ETS.
 
 \subsubsection{Banca}
 
-Hablar sobre Neo (Caixabank)
+\begin{wrapfigure}{r}{0.4\textwidth}
+\centering
+	\includegraphics[width=0.4\textwidth]{recursos/neoCaixabank}
+\caption{El chatbot Neo, desarrollado para la aplicación de gestión bancaria de Caixabank.}
+\label{fig:Neo, bot de CaixaBank}
+\end{wrapfigure}
+
+Se están usando los chatbots en el ámbito de la banca para ser el sustituto de la sección de ayuda en las aplicaciones de gestión para el usuario, concretamente, de las secciones de \emph{Preguntas frecuentes} (o FAQ). Por ejemplo, está el caso de Neo, un chatbot que está incorporado en los servicios de \emph{Línea Abierta} (ahora \emph{CaixaBankNow}), del grupo CaixaBank.
+\newline
+
+El bot puede entender el lenguaje natural y responder a dichas preguntas. También incorpora un mecanismo de retroalimentación para mejorar el bot ante respuestas no válidas.
+
+Este bot puede comunicarse con el usuario a través de la web de \emph{Línea Abierta}, la aplicación móvil de CaixaBank, Google Home y en Amazon Echo.
+
+\subsection{Ética en los chatbots}
 
 \section{ANÁLISIS}
 
@@ -376,6 +431,8 @@ Por otra parte, los canales están pensados para difusión de mensajes por parte
 \section{DISEÑO Y ARQUITECTURA DEL SISTEMA}
 
 \subsection{Metodología de trabajo}
+
+\textbf{PENDIENTE DE REALIZACIÓN}
 
 \subsection{Casos de uso}
 
@@ -541,7 +598,13 @@ Jayson es un módulo de NodeJS que se compone de un servidor y un cliente que cu
 
 \subsubsection{Api de Telegram}
 
+Telegram dispone de gran cantidad de documentación para la realización de bots para su servicio. Además, hay disponible varias bibliotecas para facilitar la tarea de desarrollo.
+
 \subsubsection{Api de Tadoº}
+
+En el caso de Tadoº, disponen de una api privada sin documentar, la cual usan las apicaciones desarrolladas por dicha empresa. Gracias a las labores de ingeniería inversa, se ha podido realizar el envío de comandos sin necesitar ninguna aplicación oficial. Esa labor ha abierto la puerta a realizar servicios adicionales especiales.
+
+Por ejemplo, tenemos el proyecto tado-connect (\href{https://github.com/Martijn02/tado-connect}), donde configura los termostatos en modo ausente o presente en base a los usuarios conectados a una red wifi como alternativa a la geolocalización a través del smartphone.
 
 \section{PRUEBAS}
 
@@ -917,6 +980,8 @@ this.jayson.request('sendMessage',
  
 \section{CONCLUSIONES}
 
+\textbf{PENDIENTE DE REALIZACIÓN}
+
 \section{LÍNEAS FUTURAS}
 
 Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas líneas futuras a partir de ahora. Algunas de ellas son mejoras del software para permitir una mayor portabilidad y otras pertenecen a posibles desarrollos adicionales.
@@ -937,6 +1002,8 @@ Actualmente, se están añadiendo los usuarios y configuraciones a través de un
 Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar. Se tardaría menos en realizar esto que crear un motor IA desde cero.
 
 \item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
+
+\item Implementación de un contenedor Docker que permita la implantación de este sistema sin la necesidad de enfocar los esfuerzos en lograr el entorno de trabajo adecuado para el sistema en donde se quiera instalar.
 \end{itemize}
 
 \section*{ANEXOS}
@@ -982,7 +1049,25 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 
 \bibitem{MongoDBRemoveRequest} \textsc{Debian Bug Reports} \textit{\#916107 - mongodb: MongoDB should not be part of a stable release}, \url{https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=916107}, [Visitado el 15/5/2019]
 
-\bibitem{NeDB} \textsc{Louis Chatriot} \textit{NeDB: The JavaScript Database, for Node.js, nw.js, electron and the browser}, \url{https://github.com/louischatriot/nedb} [Visitado el 21/5/19]
+\bibitem{NeDB} \textsc{Louis Chatriot} \textit{NeDB: The JavaScript Database, for Node.js, nw.js, electron and the browser}, \url{https://github.com/louischatriot/nedb}, [Visitado el 21/5/19]
+
+\bibitem{NeoCaixabank} \textsc{Caixabank} \textit{Web Neo \textbar Banca Digital \textbar CaixaBank}, \url{https://www.caixabank.es/particular/banca-digital/web-neo.html?loce=sh-part-Neo-5-terrat-BancaDigital-WebCaixabanknow-NA}, [Visitado el 22/5/19]
+
+\bibitem{AIMLFoundation} \textsc{AIML Foundation} \textit{AIML Foundation}, \url{http://www.aiml.foundation}, [Visitado el 27/5/19]
+
+\bibitem{SiriAppleMain} \textsc{Apple Support} \textit{Use Siri on all your Apple devices}, \url{https://support.apple.com/en-us/HT204389}, [Visitado el 1/6/19]
+
+\bibitem{SiriKit} \textsc{Apple Developer} \textit{SiriKit}, \url{https://developer.apple.com/sirikit/}, [Visitado el 1/6/19]
+
+\bibitem{SiriHistory} \textsc{Bianca Bosker} \textit{SIRI RISING: The inside story of Siri's origins - And why she could overshadow the iPhone - Huffpost}, \url{https://www.huffingtonpost.com/2013/01/22/siri-do-engine-apple-iphone_n_2499165.html}, [Visitado el 1/6/19]
+
+\bibitem{GoogleAssistant} \textsc{Google} \textit{El Asistente de Google \textbar Tu Google personalizado}, \url{https://assistant.google.com/intl/es_es/}, [Visitado el 3/6/19]
+
+\bibitem{AmazonAlexa} \textsc{Amazon} \textit{Amazon Alexa}, \url{https://developer.amazon.com/es/alexa}, [Visitado el 3/6/19]
+
+\bibitem{ChemaAlonsoNegobot} \textsc{Chema Alonso (El lado del mal)} \textit{Un informático en el lado del mal: NegoBot: Una bot para detectar pedófilos en chats}, \url{http://www.elladodelmal.com/2013/07/negobot-una-bot-para-detectar-pedofilos.html}, [Visitado el 4/6/19]
+
+\bibitem{DeustoNegobot} \textsc{Laorden, C., Galán, P. y otros} \textit{Negobot: Agente conversacional basado en teoría de juegos para la detección de conductas pedófilas.}, \url{http://paginaspersonales.deusto.es/claorden/publications/2012/Negobot.pdf}, [Visitado el 4/6/19]
 \end{thebibliography}
 \end{document}
 
