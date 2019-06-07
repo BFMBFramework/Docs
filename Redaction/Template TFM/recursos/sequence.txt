@@ -1,0 +1,22 @@
+@startuml
+actor Bot
+participant "Servidor JSON-RPC" as RPC
+participant "Gestor de mensajes" as GMes
+participant "Autenticación" as Auth
+participant "Gestor de conectores" as GConn
+participant "Conector" as Conn
+Bot -> RPC: Envío de mensaje RPC
+RPC -> GMes: Ejecución del mensaje RPC
+GMes -> GMes: Comprobación de parámetros\ncomunes ComCenter
+GMes -> Auth: Validación de token
+GMes <-- Auth: Respuesta de validación
+GMes -> Auth: Análisis del payload del token.
+Auth -> Auth: Comprobación de redes configuradas\npara el usuario bot.
+GMes <-- Auth: Validación completada.
+GMes -> GConn: Acceso al conector de red elegido.
+GMes <-- GConn: Recepción del conector (si activo).
+GMes -> Conn: Ejecución de orden en el conector solicitado.
+GMes <-- Conn: Respuesta del conector.
+RPC <-- GMes: Respuesta del conector.
+Bot <-- RPC: Respuesta del conector.
+@enduml

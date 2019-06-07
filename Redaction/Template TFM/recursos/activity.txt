@@ -1,0 +1,37 @@
+@startuml
+start
+:Se recibe el mensaje JSON-RPC;
+if (¿Mensaje tiene token,
+network y options?) then (no)
+    :Retorna error 
+    falta de parámetros. 
+    (Comcenter código 100);
+elseif (¿Token válido 
+en tiempo y forma?) then (no)
+    :Retorna error de autorización.
+    (Comcenter código 399);
+elseif (¿Usuario bot tiene
+configurada la red pedida?) then (no)
+    :Retorna error de redes.
+    (Comcenter código 400);
+else (sí)
+    :Solicita el conector
+    de red (Tadoº / Telegram / etc.);
+    if (¿Red solicitada activa
+en servidor?) then (sí)
+        :Se ejecuta la orden
+        que corresponde al mensaje 
+        y se espera la respuesta.;
+        if (¿Llegó un error?) then (sí)
+            :Retorna error de redes.
+            (Comcenter código 402);
+        else (no)
+            :Se recibe la respuesta.;
+        endif
+    else (no)
+        :Retorna error de redes.
+        (Comcenter código 401);
+    endif
+endif
+stop
+@enduml
