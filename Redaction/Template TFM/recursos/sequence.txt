@@ -6,17 +6,33 @@ participant "Autenticación" as Auth
 participant "Gestor de conectores" as GConn
 participant "Conector" as Conn
 Bot -> RPC: Envío de mensaje RPC
+activate RPC
 RPC -> GMes: Ejecución del mensaje RPC
+activate GMes
 GMes -> GMes: Comprobación de parámetros\ncomunes ComCenter
+activate GMes
 GMes -> Auth: Validación de token
+activate Auth
 GMes <-- Auth: Respuesta de validación
+deactivate Auth
 GMes -> Auth: Análisis del payload del token.
+activate Auth
 Auth -> Auth: Comprobación de redes configuradas\npara el usuario bot.
+activate Auth
 GMes <-- Auth: Validación completada.
+deactivate Auth
+deactivate Auth
+deactivate GMes
 GMes -> GConn: Acceso al conector de red elegido.
+activate GConn
 GMes <-- GConn: Recepción del conector (si activo).
+deactivate GConn
 GMes -> Conn: Ejecución de orden en el conector solicitado.
+activate Conn
 GMes <-- Conn: Respuesta del conector.
+deactivate Conn
 RPC <-- GMes: Respuesta del conector.
+deactivate GMes
 Bot <-- RPC: Respuesta del conector.
+deactivate RPC
 @enduml

@@ -518,6 +518,25 @@ Viendo la figura ~\ref{fig:DActividad envío recepción órdenes}, tenemos este 
 
 \subsection{Secuencia}
 
+El diagrama que se muestra en la figura ~\ref{fig:DSecuencia envío recepción órdenes} representa la secuencia que se ejecuta cuando el servidor de comunicaciones (ComCenter) recibe un mensaje por parte del software bot conectado a este.
+\newline
+
+Todo comienza con el envío del mensaje JSON-RPC al servidor de comunicaciones, donde es recibido por el servidor JSON-RPC incorporado. Después, dicho mensaje ejecuta el método RPC solicitado que se encuentra localizado en el gestor de mensajes.
+\newline
+
+La ejecución del método RPC comienza con la comprobación de los parámetros requeridos para dicho método. Si estos no se cumplen, se devolvería una respuesta de error. En caso de encontrarse presentes todos los parámetros, se procede a la validación del token.
+\newline
+
+Los métodos que requieren autenticación incluyen una llamada al método de validación de token situado en el gestor de autenticación. Ahí es donde se va a comprobar que el token sigue siendo válido tanto en tiempo (se encuentre dentro del tiempo de vida que le corresponde) como en la forma (la firma del token es válida para este servidor).
+\newline
+
+Si por cualquier motivo, el token no es válido, se devolvería un mensaje de error como respuesta. En caso de éxito, se volvería a llamar al gestor de autenticación pero, para esta vez, analizar el contenido del payload del token. En ese payload se va a encontrar el listado de redes a las cuales el usuario puede ejecutar órdenes.
+
+En caso de no encontrarse la red que se solicita en el mensaje, se notificará un error al bot y en caso de encontrar la información de red necesaria, se solicitará el conector necesario para la red solicitada.
+\newline
+
+Una vez que tenemos el conector de red, ejecutaremos la orden solicitada a través de dicho conector, el cual se encargará de contactar con el servicio api elegido. Una vez que haya recibido la respuesta o error de la api (o del conector si hay condiciones que no se cumplan), se devolverá dicha respuesta al bot.
+
 \begin{figure*}
 \centering
 	\includegraphics[width=\textwidth]{recursos/sequence}
@@ -1094,6 +1113,22 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 \item\textbf{401:} El conector de red está desactivado en la configuración del servidor.
 \item\textbf{402:} Los parámetros de las opciones enviadas al conector de red correspondiente son incorrectas. / El conector recibe un error.
 \item\textbf{499:} Otros errores del sistema de mensajes.
+\end{itemize}
+
+\subsection*{Listado de software usado para la realización de este PFG}
+
+\subsubsection*{Programación}
+
+\begin{itemize}
+\item\textbf{Sublime Text 3:} Editor de texto apto para programar.
+\end{itemize}
+
+\subsubsection*{Documentación}
+
+\begin{itemize}
+\item\textbf{Gummi:} Editor de documentos \LaTeX.
+\item\textbf{PlantUML:} Generador de diagramas UML a partir de guiones escritos en un lenguaje de marcado propio.
+\item\textbf{Dia:} Editor de diagramas visual.
 \end{itemize}
 
 %	REFERENCIAS
