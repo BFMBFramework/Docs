@@ -71,8 +71,42 @@
   sensitive=true
 }
 
+\lstdefinelanguage{TypeScript}{
+ keywords={break,case,catch,class,const,continue,debugger,default,delete,
+ do,else,enum,export,extends,false,finally,for,function,if,import,in,
+ instanceof,new,null,return,super,switch,this,throw,true,try,typeof,var,void,while,with,
+ implements,interface,let,package,private,protected,public,static,yield},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={abstract,as,async,await,constructor,declare,from,get,is,module,namespace,
+  of,require,set,type,any,boolean,number,string,symbol},
+  keywordstyle=\color{keyword}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color{comment}\ttfamily,
+  stringstyle=\color{string}\ttfamily,
+  sensitive=true
+}
+
 \lstset{
    language=JavaScript,
+   extendedchars=true,
+   basicstyle=\ttfamily\footnotesize,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+\lstset{
+   language=TypeScript,
    extendedchars=true,
    basicstyle=\ttfamily\footnotesize,
    showstringspaces=false,
@@ -240,10 +274,17 @@ A continuación os muestro un ejemplo de un patrón AIML:
 
 \subsubsection{Siri (Apple)}
 
+\begin{figure}
+\centering
+	\includegraphics[width=0.4\textwidth]{recursos/siri}
+\caption{Captura de la aplicación Siri en su versión más reciente (iOS 12).}
+\label{fig:Siri}
+\end{figure}
+
 Siri es un asistente virtual desarrollado originalmente a principios de 2010 por una start-up del mismo nombre, la cual ofrecía dicha aplicación. Posteriormente fue adquirida por Apple para incorporarse como funcionalidad del sistema operativo iOS en Octubre de 2011 y se incorporó en el sistema MacOS Sierra, versión liberada en el año 2016.
 \newline
 
-Es capaz de reconocer el lenguaje natural mediante el uso de un conjunto de servidores remotos, es decir, no es el dispositivo en sí quien procesa la voz. Aparte, en base a ese procesamiento de voz, también procesa la orden para ser realizada por el dispositivo.
+Es capaz de reconocer el lenguaje natural mediante el uso de un conjunto de servidores remotos, es decir, no es el dispositivo en sí quien procesa la voz. Aparte, en base a ese procesamiento de voz, también procesa la orden para ser realizada por el dispositivo. Pueden ver una captura de la aplicación en su versión más reciente para iOS en la figura ~\ref{fig:Siri}.
 \newline
 
 Además de reconocimiento del lenguaje natural mediante la voz, es capaz de expresar sus resultados con voz, lo que la otorga un valor añadido.
@@ -253,11 +294,27 @@ Por último, los desarrolladores de aplicaciones para iOS pueden añadir órdene
 
 \subsubsection{Google Assistant}
 
-Google Assistant es el asistente virtual desarrollado por Google, el cual es el núcleo de los productos Google Home pero también se encuentra presente en los dispositivos Android que incorporan las aplicaciones de Google (ya que hay dispositivos Android que no incluyen dichas aplicaciones).
+\begin{figure}
+\centering
+	\includegraphics[width=0.5\textwidth]{recursos/homeG}
+\caption{El dispositivo Google Home. Este incluye Google Assistant.}
+\label{fig:Dispositivo Google Home}
+\end{figure}
+
+Google Assistant es el asistente virtual desarrollado por Google, el cual es el núcleo de los productos Google Home (uno de ellos lo puede ver en la figura ~\ref{fig:Dispositivo Google Home}) pero también se encuentra presente en los dispositivos Android que incorporan las aplicaciones de Google (ya que hay dispositivos Android que no incluyen dichas aplicaciones).
+\newline
+
+Al igual que Siri, dispone de un sistema de reconocimiento de lenguaje natural por voz y texto con el genera resultados en base a los términos dados usando sus sistemas en la nube.
+\newline
+
+Al igual que Siri, también deja abierta la puerta a los desarrolladores para añadir funcionalidad adicional mediante la creación de acciones. Para ello, se crea un fichero llamado actions.xml y a partir del mismo se crean todas las acciones que se planteen. Para el caso de Google Home, hay que crear una aplicación servicio en la nube.
 
 \subsubsection{Alexa (Amazon)}
 
 Alexa es el software que incorpora los dispositivos Echo de la misma empresa y puede integrarse en otros dispositivos como smartphones, ordenadores y otros dispositivos de terceros. Tiene las mismas funcionalidades que Google Assistant y Siri: permite la ejecución de órdenes o iniciar conversaciones en lenguaje natural y recibir respuestas al mismo nivel.
+\newline
+
+Para desarrollar nuevas órdenes en esta plataforma, se hace uso de un sistema denominado (Alexa Skill Kit) pero, para poder usar este sistema, se requiere que dicha ''skill'' esté en un servicio en red (preferiblemente en la nube de Amazon). Sería similar a la forma que se realiza en los servicios para Google Home.
 
 \subsection{Ejemplos de chatbots para usos posibles o reales.}
 
@@ -268,12 +325,12 @@ Como ejemplo de uso en el campo de la seguridad tenemos el chatbot Negobot. Desa
 
 \begin{figure}
 \centering
-	\includegraphics[width=0.6\textwidth]{recursos/Negobot_tecnologia}
+	\includegraphics[width=0.5\textwidth]{recursos/Negobot_tecnologia}
 \caption{Tecnologías que utiliza Negobot}
 \label{fig:Tecnologías de Negobot}
 \end{figure}
 
-Para lograr este objetivo, este chatbot utiliza el procesamiento de lenguaje natural, la teoría de juegos y funciones de evaluación para determinar si el interlocutor tiene un comportamiento que se pueda asociar con un posible pedófilo en base a la conversación presente. El sistema tiene siete niveles en los que se determina dicho comportamiento, empezando desde el nivel -3 (no hay comportamiento pedófilo) a +3 (sí lo tiene) comenzando por el nivel 0. (Ver figura \ref{fig:Niveles de evaluación de Negobot})
+Para lograr este objetivo, este chatbot utiliza el procesamiento de lenguaje natural, la teoría de juegos y funciones de evaluación para determinar si el interlocutor tiene un comportamiento que se pueda asociar con un posible pedófilo en base a la conversación presente. El sistema tiene siete niveles en los que se determina dicho comportamiento, empezando desde el nivel -3 (no hay comportamiento pedófilo) a +3 (sí lo tiene) comenzando por el nivel 0. (Ver figuras \ref{fig:Tecnologías de Negobot} y \ref{fig:Niveles de evaluación de Negobot})
 \newline
 
 \begin{figure}
@@ -286,22 +343,30 @@ Para lograr este objetivo, este chatbot utiliza el procesamiento de lenguaje nat
 Otros de los objetivos que tiene este chatbot es poder superar el test de Turing (tener capacidad que el otro interlocutor no sepa si es una máquina o una persona), el cual es importante para la finalidad del mismo.
 \newline
 
-Por último, hay que decir que esto no podría aplicarse para perseguir a posibles agresores, porque no puedes juzgar a nadie por decirle cosas impropias a un bot, aunque el bot se comporte como un niño. Aparte, se estaría investigando a esa persona en base a que, posiblemente, vaya a cometer un delito contra alguien real.
-
-Es un asunto bastante complejo en términos legales, pero coincido con la opinión de Chema Alonso en que no deja de ser buen desarrollo por ello.
+Por último, hay que decir que esto no podría aplicarse para perseguir a posibles agresores, porque no puedes juzgar a nadie por decirle cosas impropias a un bot, aunque el bot se comporte como un niño. Aparte, se estaría investigando a esa persona en base a que pueda ser capaz a cometer un delito contra alguien real. Bajo ese pretexto se estaría vulnerando la presunción de inocencia y solo produciría mayor perjuicio que beneficio.
 
 \subsubsection{Sanidad}
 
-Hablar sobre sistemas multiagente para detección de ETS.
+Existen la presencia de múltiples chatbots orientados al ámbito sanitario: Your.MD, Ada... pero me voy a enfocar en el chatbot que provee Babylon Health (no confundir con el traductor Babylon). Usa procesamiento de lenguaje natural y preguntas junto con la Inteligencia Artificial para comprobar la gravedad de los síntomas del usuario. El éxito que tiene el servicio que provee es tan alto que el Servicio Nacional de Salud de Reino Unido (UK's National Health Service - NHS) tiene un acuerdo con esta empresa para proveer este servicio a los usuarios del servicio público.
+\newline
 
-\subsubsection{Banca}
+El NHS está usando este servicio para poder gestionar aquellos problemas de salud que no requieran urgencia o especialización (que bastarían con tomar un paracetamol y descansar, por ejemplo) y ayudar a reducir la saturación de su servicio público sanitario y evitar el colapso en ciertos momentos del año (temporada de gripe, por ejemplo).
+También está pensado este servicio para desarrollar asistentes a la hora de consultar necesidades en materia de salud sin tener que pedir cita con el médico.
+\newline
 
-\begin{wrapfigure}{r}{0.4\textwidth}
+Aun así, esta innovación no está exenta de crítica y duda. Hay temas sin resolver con estos servicios en materia legal. Cuando un médico comete una negligencia, él es el responsable directo pero, ¿qué sucede con un bot? En teoría, el responsable legal podría ser la empresa que ha usado los servicios del bot para sus clientes, pero también podría trasladar esa responsabilidad a la empresa que ha desarrollado el bot. ¿A quién le exiges la responsabilidad?
+
+Otro punto de crítica puede venir de la falta de enfoque en base a la localización del paciente. Por ejemplo, el sistema no sería válido si no plantea hacer preguntas y evaluaciones por un posible caso de Malaria porque en el país donde se ha desarrollado el software no va a haber esa posibilidad (por cuestión de clima) pero que sí es vital hacer esas preguntas en los países del sur del Sahara (zona donde se producen mayor número de casos).
+\newpage
+
+\begin{figure}
 \centering
 	\includegraphics[width=0.4\textwidth]{recursos/neoCaixabank}
 \caption{El chatbot Neo, desarrollado para la aplicación de gestión bancaria de Caixabank.}
 \label{fig:Neo, bot de CaixaBank}
-\end{wrapfigure}
+\end{figure}
+
+\subsubsection{Banca}
 
 Se están usando los chatbots en el ámbito de la banca para ser el sustituto de la sección de ayuda en las aplicaciones de gestión para el usuario, concretamente, de las secciones de \emph{Preguntas frecuentes} (o FAQ). Por ejemplo, está el caso de Neo, un chatbot que está incorporado en los servicios de \emph{Línea Abierta} (ahora \emph{CaixaBankNow}), del grupo CaixaBank.
 \newline
@@ -309,8 +374,6 @@ Se están usando los chatbots en el ámbito de la banca para ser el sustituto de
 El bot puede entender el lenguaje natural y responder a dichas preguntas. También incorpora un mecanismo de retroalimentación para mejorar el bot ante respuestas no válidas.
 
 Este bot puede comunicarse con el usuario a través de la web de \emph{Línea Abierta}, la aplicación móvil de CaixaBank, Google Home y en Amazon Echo.
-
-\subsection{Ética en el uso de los chatbots}
 
 \section{ANÁLISIS}
 
@@ -326,6 +389,7 @@ Un framework es un software compuesto de componentes personalizables e intercamb
 \subsubsection{JSON-RPC}
 
 JSON-RPC es un protocolo de llamada a procedimiento remoto (Remote Procedure Call) cliente-servidor cuyos mensajes se componen de datos codificados en formato JSON (Javascript Object Notation). Es un protocolo agnóstico, puede realizar comunicaciones cliente-servidor a través de HTTP, HTTPS o TCP, entre otros. La especificación más reciente es la versión 2.0, publicada en 2010.
+\newline
 
 Como el protocolo usa JSON como mensaje, dispone de las mismas características que un fichero JSON: dispone de los cuatros tipos primitivos (String, Number, Boolean y Null) y de dos tipos de estructura (Object y Array).
 El protocolo en sí se basa en dos modelos de datos: petición (Request) y respuesta (Response), los cuales explico a continuación:
@@ -557,7 +621,7 @@ El software bot es la aplicación que realizará la persona que quiera utilizar 
 
 \subsubsection{Servidor de comunicaciones}
 
-El servidor de comunicaciones es una aplicación desarrollada en el lenguaje Typescript, el cual se compila a Javascript y se ejecuta usando NodeJS. Dicha aplicación contiene las siguientes funcionalidades:
+El servidor de comunicaciones es una aplicación desarrollada en el lenguaje TypeScript, el cual se compila a JavaScript y se ejecuta usando NodeJS. Dicha aplicación contiene las siguientes funcionalidades:
 
 \begin{itemize}
 \item \textbf{Servidor JSON-RPC:} Usando una biblioteca externa llamada jayson, se ha realizado la implementación del servidor JSON-RPC. Lo único que hay que acoplar son los métodos que pueden ser accesibles a través del protocolo. Las aplicaciones bot pueden conectarse a través de protocolo TCP puro, TLS, HTTP o HTTPS. Para los protocolos seguros se requiere disponer de un certificado que pueda ser reconocido por una CA\footnote{Autoridad de certificación}, sea propia o externa.
@@ -650,11 +714,121 @@ Los restantes módulos son los conectores con los que podremos conectarnos con l
 
 \subsection{Lenguaje usado en desarrollo}
 
-El lenguaje usado para el desarrollo del software de este proyecto es Typescript, el cual vamos a hablar de él a continuación:
+El lenguaje usado para el desarrollo del software de este proyecto es TypeScript, el cual vamos a hablar de él a continuación:
 
-\subsubsection{Typescript}
+\subsubsection{TypeScript}
 
-Typescript es un lenguaje de programación que es un superconjunto de Javascript al que se le añade el tipado estático y la definición de objetos basados en clases. Es un proyecto de código abierto con licencia Apache 2.0 creado y mantenido por Microsoft.
+TypeScript es un lenguaje de programación que es un superconjunto de JavaScript al que se le añade el tipado estático y la definición de objetos basados en clases. Es un proyecto de código abierto con licencia Apache 2.0 creado y mantenido por Microsoft.
+\newline
+
+Este lenguaje ha nacido bajo el contexto de los avances en el rendimiento de los motores de procesamiento de JavaScript y la presencia de NodeJS en el ámbito de los servidores de red. Se empieza a desarrollar aplicaciones más ambiciosas con este lenguaje, pero no deja de haber una gran dificultad cuando se usa JavaScript en aplicaciones a gran escala. El dinamismo de JavaScript juega en contra para estos casos.
+\newline
+
+El compilador de TypeScript lo único que realiza es comprobación estática de código y transformación a código JavaScript. Por ello, para desarrollar en TypeScript no se requiere un entorno de ejecución especial, ya que se puede ejecutar el código JavaScript.
+\newline
+
+A continuación vamos a indicar un listado con los puntos a destacar de este lenguaje:
+
+\begin{itemize}
+\item\textbf{Tipado estático de variables:} Otorga la posibilidad de definir el tipo que acepta una variable. Con ello evitamos introducir otro tipo de dato en el mismo, cosa que sí es posible en JavaScript. En caso de querer tener una variable con tipado dinámico, basta con definir la variable con el tipo ''any''.
+\item\textbf{Definición de clases:} Aunque JavaScript lo permita en la sintaxis ECMAScript 2015, esta funcionalidad está pensada para versiones anteriores de la especificación, como ECMAScript 5 o ECMAScript 3. Además, las clases definidas en TypeScript pueden usar la funcionalidad de tipado estático. Es decir, podremos definir una variable con un tipo que ya hayamos definido en otra parte del código.
+
+También permite herencia y polimorfismo.
+
+Ejemplo en código:
+\begin{lstlisting}[language=TypeScript]
+class BankAccount {  
+    constructor(public balance: number) {  
+    }  
+    deposit(credit: number) {  
+        this.balance += credit;  
+        return this.balance;  
+    }  
+}
+
+class CheckingAccount extends BankAccount {  
+    constructor(balance: number) {  
+        super(balance);  
+    }  
+    writeCheck(debit: number) {  
+        this.balance -= debit;  
+    }  
+}
+\end{lstlisting}
+
+\item\textbf{Definición de enumerados:} Los enumerados en TypeScript se pueden realizar de una forma más simplificada sin recurrir a la creación de un objeto al que se debe añadir atributos con valores. En los enumerados de TypeScript no es necesario asignar un valor a un elemento del enumerado, se generan valores a la hora de compilar.
+
+Ejemplo en código:
+\begin{lstlisting}[language=TypeScript]
+const enum Operator {  
+    ADD,  
+    DIV,  
+    MUL,  
+    SUB  
+}
+
+function compute(op: Operator, a: number, b: number) {  
+    console.log("the operator is" + Operator[op]);  
+    // ...  
+}
+\end{lstlisting}
+
+Ejemplo en código para usar el enumerado:
+\begin{lstlisting}[language=TypeScript]
+switch (op) {  
+    case Operator.ADD:  
+        // execute add  
+        break;  
+    case Operator.DIV:  
+        // execute div  
+        break;  
+    // ...  
+}
+\end{lstlisting}
+
+\item\textbf{Clases y métodos genéricos:} TypeScript permite la creación de clases y métodos genéricos. Una clase o método genérico es una clase o método parametrizado en la cual permite usar el tipado fuerte sin conocer aún el tipo que se va a usar.
+
+Ejemplo en código:
+\begin{lstlisting}[language=TypeScript]
+interface NamedItem {  
+    name: string;  
+}
+
+class List<T extends NamedItem> {  
+    next: List<T> = null;
+
+    constructor(public item: T) {  
+    }
+
+    insertAfter(item: T) {  
+        var temp = this.next;  
+        this.next = new List(item);  
+        this.next.next = temp;  
+    }
+
+    log() {  
+        console.log(this.item.name);  
+    }
+}
+\end{lstlisting}
+
+\item\textbf{Espacio de nombres:} TypeScript reduce la complejidad de crear espacios de nombres en el código. En Javascript se define el espacio de nombre como un objeto (al igual que sucede con los enumerados). Acompaño un ejemplo para ello:
+
+\begin{lstlisting}[language=TypeScript]
+namespace M {  
+    var s = "hello";  
+    export function f() {  
+        return s;  
+    }  
+}
+
+M.f();  
+M.s;  // Error, s is not exported
+\end{lstlisting}
+
+\emph{Todos los ejemplos de código provienen del documento de especificaciones de TypeScript.}
+
+\end{itemize}
 
 \subsection{Dependencias}
 
@@ -797,7 +971,7 @@ nano config.json
 \end{lstlisting}
 
 Ahora explicamos qué opciones están disponibles en la configuración:
-\begin{lstlisting}[language=Javascript]
+\begin{lstlisting}[language=JavaScript]
 {
 	"db": {
 		"url": "mongodb://localhost/comcenter",
@@ -930,7 +1104,7 @@ Como pueden ver, si no se encuentran los certificados que se buscan, saltará un
 
 Para añadir usuarios al servidor, como no tenemos ningúna aplicación de administrador por el momento, tengo hecho un script en lenguaje Javascript que añade los usuarios que queramos.
 
-\begin{lstlisting}[language=Javascript]
+\begin{lstlisting}[language=JavaScript]
 var mongoose = require('mongoose');
 var config = require('../../config.json');
 var User = require('../../dist/schemas/user').User;
@@ -999,13 +1173,13 @@ Como se puede ver en la figura ~\ref{fig:Comunicación entre sistemas}, nuestro 
 \label{fig:Comunicación entre sistemas}
 \end{figure*}
 
-Para los ejemplos en código, voy a usar Typescript y usaré el cliente jayson.
+Para los ejemplos en código, voy a usar TypeScript y usaré el cliente jayson.
 
 \subsubsection{Realizar login en el servidor}
 
 Para poder comunicarse con el servidor, es necesario iniciar sesión en él. Para ello, hay que ejecutar el comando RPC 'authenticate' pasando como opciones el username y el password del usuario del servidor.
 
-\begin{lstlisting}[language=Javascript]
+\begin{lstlisting}[language=JavaScript]
 this.jayson.request('authenticate',
  { username: 'username', password: 'password' },
  function(err: Error, response: any) {
@@ -1037,7 +1211,7 @@ this.jayson.request('getMe',
 
 Para realizar una llamada que equivaldría al método HTTP GET, usamos el comando RPC 'receiveMessage'. Como opciones es necesario el token recibido al autenticarse en el servidor de comunicaciones, también hay que indicar la red a la que vamos enviar el comando. Por último, las opciones forman parte de los parámetros necesarios para solicitar la recepción de datos. Por ejemplo, el conector Tadoº necesita las opciones \emph{api\_method} y \emph{home\_id}. Si no se enviase algún parámetro obligatorio, el error que devolviese el comando lo indicará.
 
-\begin{lstlisting}[language=Javascript]
+\begin{lstlisting}[language=JavaScript]
 this.jayson.request('receiveMessage',
  {token: 'token srv comunicaciones', network: 'Mired',
  options: {api_method: 'getZones', home_id: 'home_id'}}, 
@@ -1050,7 +1224,7 @@ this.jayson.request('receiveMessage',
 
 Para realizar una llamada que equivaldría a los métodos POST, PUT y DELETE de HTTP, usamos el comando RPC 'sendMessage'. Como opciones también necesitamos el token recibido (al igual que en los otros métodos), también es necesario indicar la red a la que vamos a enviar el comando. Pôr último, las opciones forman parte de los parámetros necesarios para solicitar el envío de información. Por ejemplo, en el caso de usar el conector de Tadoº, es necesario usar los parámetreos \emph{api\_method} y \emph{home\_id}. También en este caso, si no se llegase a enviar un parámetro que fuese obligatorio, el error devuelto lo indicará.
 
-\begin{lstlisting}[language=Javascript]
+\begin{lstlisting}[language=JavaScript]
 this.jayson.request('sendMessage',
  {token: 'token srv comunicaciones', network: 'Mired',
  options: {api_method: 'setZoneOverlay', home_id: 'home_id'}}, 
@@ -1061,7 +1235,34 @@ this.jayson.request('sendMessage',
  
 \section{CONCLUSIONES}
 
-\textbf{PENDIENTE DE REALIZACIÓN}
+Como se ha podido ver en el resumido estado del arte, podemos ver que el campo de los chatbots lleva años desarrollándose, añadiendo nuevos componentes de interacción, como el reconocimiento de voz. Además, se pueden recorrer varios caminos en los chatbots, en los que pueden estar definidos de forma manual o pueden implementar mecanismos de aprendizaje mediante Inteligencia Artificial.
+\newline
+
+Ya hay ejemplos comerciales de chatbots o de asistentes virtuales (el desarrollo de estos) dentro del ámbito general pero también se están desarrollando chatbots que estén orientados a ciertos servicios específicos como el servicio sanitario.
+\newline
+
+Aun así, para llegar a ese nivel de complejidad que tienen los asistentes virtuales, se han tenido que dedicar muchos esfuerzos en su desarrollo. La idea de este proyecto es y será la de simplificar dichos desarrollos.
+\newline
+
+Este proyecto no terminaría en este punto, sino que hay que seguir añadiendo nuevos conectores para otros servicios y, para que se genere un entorno colaborativo, hay que proveer a los colaboradores de una buena base. En las líneas futuras indico una lista de mejoras a futuro de este proyecto, entre las cuales está un cambio de motor de base de datos para aumentar la portabilidad del software o, mejor aún, dar opción a elegir motor de base de datos.
+\newline
+
+Lo último a tener en cuenta, cosa que desarrollo en la sección de aspectos éticos es que esto es una herramienta para un desarrollo mayor y, como cualquier herramienta, se puede usar para cualquier actividad, ya sea lícita o ilícita. También hay que indicar que el desarrollo de chatbots, sobre todo aquellos con aprendizaje por Inteligencia Artificial, les queda mucho para alcanzar un nivel que permita cierta confianza en sus resultados.
+
+\section{ASPECTOS ÉTICOS, SOCIALES, PROFESIONALES Y MEDIOAMBIENTALES DEL PROYECTO}
+
+Como en todas las herramientas software, no está exento que el mismo sea aprovechado para realizar actividades ilícitas. En el caso de este framework, la responsabilidad de consumir recursos de las apis de forma eficiente recae en el desarrollador del bot y no en el framework. El framework va a ayudar al desarrollador pero no va a pensar y actuar por él.
+\newline
+
+Con ello, se puede decir claramente que este proyecto se podría usar con fines ilícitos y, si dijera lo contrario en este documento, estaría mintiendo porque cualquier persona con conocimientos de programación puede usar este software para desarrollar, por ejemplo, un automatismo que se dedique a hacer spam a diestro y siniestro (El spam es ilícito porque solamente genera molestias a los destinatarios).
+\newline
+
+En cuanto al nivel social, este proyecto es Open Source debido a la licencia con la que se ha firmado (MIT), permite la libertad de uso y modificación de este software, por lo que cualquiera puede aportar novedades y usarlo en proyectos más grandes como un módulo del mismo. Esto ya genera un valor a la sociedad
+
+A nivel profesional y medioambiental, se espera que este proyecto mejore el rendimiento de producción y, con ello, menor consumo de recursos. Si un desarrollador no tiene que dedicar tiempo en el sistema de comunicación, dedicará sus recursos a otros componentes de importancia del sistema automático / chatbot.
+\newline
+
+Ser eficiente también es evitar reinventar la rueda y aprovechar lo que ya hay existente. Este proyecto es claro ejemplo, ya que los conectores que realicé para la demostración usan herramientas que ya han desarrollado otras personas. Por ejemplo, el conector que conversa con la api de Tadoº usa una biblioteca llamada node-tado-client desarrollado por Matt Davis, quien a su vez se basó en el trabajo de ingeniería inversa que realizó Stephen Phillips.
 
 \section{LÍNEAS FUTURAS}
 
@@ -1070,7 +1271,7 @@ Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas
 \begin{itemize}
 \item Cambiar el motor de base de datos usado en el servidor de comunicaciones. 
 
-Actualmente se usa MongoDB por conveniencia en el desarrollo de este proyecto (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite o NeDB  y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro.
+Actualmente se usa MongoDB por conveniencia en el desarrollo de este proyecto (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite o NeDB  y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro. También se podría optar por desarrollar un modelo universal y que sea el usuario quien elija en base a sus necesidades.
 
 Otro motivo para abrir esta línea de desarrollo es el cambio de licencia de MongoDB en su versión más reciente (4.0). Eso está generando rechazo en la comunidad del software libre y la comunidad opensource, llegando al punto que ciertas distribuciones GNU/Linux (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
 
@@ -1190,6 +1391,16 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 \bibitem{ChemaAlonsoNegobot} \textsc{Chema Alonso (El lado del mal)} \textit{Un informático en el lado del mal: NegoBot: Una bot para detectar pedófilos en chats}, \url{http://www.elladodelmal.com/2013/07/negobot-una-bot-para-detectar-pedofilos.html}, [Visitado el 4/6/19]
 
 \bibitem{DeustoNegobot} \textsc{Laorden, C., Galán, P. y otros} \textit{Negobot: Agente conversacional basado en teoría de juegos para la detección de conductas pedófilas.}, \url{http://paginaspersonales.deusto.es/claorden/publications/2012/Negobot.pdf}, [Visitado el 4/6/19]
+
+\bibitem{MSTypescript} \textsc{Somasegar's blog (MSDN)} \textit{TypeScript: JavaScript Development at Application Scale}, \url{https://blogs.msdn.microsoft.com/somasegar/2012/10/01/typescript-javascript-development-at-application-scale/}, [Visitado el 8/6/19]
+
+\bibitem{TypeScript} \textsc{TypeScript} \textit{Documentation · TypeScript}, \url{https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md}, [Visitado el 8/6/19]
+
+\bibitem{MITTechReviewHealthBots} \textsc{Heaven, D.} \textit{Your next doctor’s appointment might be with an AI}, \url{https://www.technologyreview.com/s/612267/your-next-doctors-appointment-might-be-with-an-ai/}, [Visitado el 9/6/19]
+
+\bibitem{AlexaSkills} \textsc{Alexa Skills Kit} \textit{Build Skills with the Alexa Skills Kit}, \url{https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html}, [Visitado el 11/6/19]
+
+\bibitem{FirstGHomeAction} \textsc{Eisenzopf, J} \textit{Building your first Action for Google Home (in 30 minutes)}, \url{https://medium.com/google-cloud/building-your-first-action-for-google-home-in-30-minutes-ec6c65b7bd32}, [Visitado el 11/6/19]
 \end{thebibliography}
 \end{document}
 
