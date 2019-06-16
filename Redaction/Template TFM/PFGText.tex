@@ -33,6 +33,7 @@
 \usepackage{xcolor}
 \usepackage{wrapfig}
 \usepackage{courier}
+\usepackage{svg}
  
 \definecolor{comment}{RGB}{0,128,0} % dark green
 \definecolor{string}{RGB}{255,0,0}  % red
@@ -207,7 +208,7 @@ The purpose of this project is making the developers concentrate in his bot logi
 
 %	INDICE DE FIGURAS Y TABLAS
 \listoffigures
-\listoftables
+% \listoftables
 
 %	CAPÍTULOS DEL TRABAJO FIN DE MÁSTER
 \newpage
@@ -241,6 +242,14 @@ Este proyecto cubre los siguientes objetivos:
 El origen del nombre ''chatbot'' viene de un software llamado CHATTERBOT, el cual era un jugador virtual del videojuego de mazmorras TinyMUD. La principal tarea de este bot era responder a las preguntas de los usuarios que tenían relación con la navegación por la mazmorra u objetos del juego. El mismo simulaba habilidad conversacional mediante reglas, mediante las cuales logró ''engañar'' a los usuarios y que estos creyeran que era un jugador humano más. \cite[pág. 2]{CANLI}
 
 \subsubsection{ELIZA}
+
+\begin{wrapfigure}{r}{0.25\textwidth}
+\centering
+	\includegraphics[width=0.25\textwidth]{recursos/Weizenbaum}
+\caption{Joseph Weizenbaum (2005). Foto de Ulrich Hansen}
+\label{fig:Joseph Weizenbaum}
+\end{wrapfigure}
+
 ELIZA fue un programa de procesamiento del lenguaje natural creado entre los años 1964 y 1966 por Joseph Weizenbaum (1923-2008) en el Laboratorio de Inteligencia Artificial del MIT (Instituto Tecnológico de Massachusetts). El objetivo de este software era demostrar la superficialidad de la comunicación entre humanos y máquinas.
 \newline
 
@@ -252,6 +261,8 @@ ELIZA era un \emph{software} limitado, ya que solo fue programado para responder
 \subsubsection{ALICE}
 ALICE (Artificial Linguistic Internet Computer Entity) es un bot con inspiraciones en ELIZA creado en 1995 por Richard Wallace. Puede procesar lenguaje natural mediante el uso de patrones. Dichos patrones se formaban con un lenguaje de marcado basado en XML llamado AIML. Actualmente, el lenguaje AIML sigue estando en desarrollo y la última versión disponible es la especificación 2.1, publicada en Marzo de 2018. 
 \newline
+
+Es un lenguaje de marcado que ha tenido cierto éxito. Mitsuku, un chatbot que utiliza AIML como base y desarrollado por Steve Worswick, ha logrado ganar el Premio Loebner en cuatro ocasiones (en los años 2013, 2016, 2017 y 2018)
 
 A continuación os muestro un ejemplo de un patrón AIML:
 \begin{lstlisting}[language=xml]
@@ -521,7 +532,17 @@ Por otra parte, los canales están pensados para difusión de mensajes por parte
 
 \subsection{Metodología de trabajo}
 
-La metodología de trabajo que 
+La metodología de trabajo que he usado para este proyecto sigue el modelo de desarrollo ágil, ya que se ha realizado un desarrollo iterativo e incremental. Únicamente se ha usado Kanban para el desarrollo, ya que al ser un único desarrollador, no le veía mucho sentido realizar metodología SCRUM, un método pensado para el desarrollo en equipo.
+\newline
+
+Entrando en detalle, el método Kanban es un método con origen en Japón, a partir de las metodologías de fabricación en Toyota. El tablero se compone de un mínimo de tres columnas (''Por hacer'', ''En proceso'' y ''Hecho'') y consta de cuatro principios fundamentales:
+
+\begin{enumerate}
+\item\textbf{Calidad garantizada:} Todo lo que se desarrolle debe salir bien a la primera. Se debe priorizar la calidad final de la tarea en lugar de la rapidez.
+\item\textbf{Reducción del desperdicio:} Hacer lo justo y necesario pero hacerlo bien.
+\item\textbf{Mejora continua:} Permite estar abierto a pequeñas mejoras de forma continua.
+\item\textbf{Flexibilidad:} Se realiza la entrada de nuevas tareas en base al backlog y ajustándose a las necesidades del momento.
+\end{enumerate} 
 
 \subsection{Casos de uso}
 
@@ -834,11 +855,40 @@ M.s;  // Error, s is not exported
 
 \subsubsection{MongoDB}
 
-MongoDB es un motor de base de datos orientado a documento. Se encuentra clasificado como una base de datos NoSQL, donde se usa una variante de JSON\footnote{Javascript Object Notation} como formato de documento.
+\begin{wrapfigure}{l}{0.45\textwidth}
+\centering
+	\includegraphics[width=0.45\textwidth]{recursos/mongologo}
+\caption{Logo de MongoDB}
+\label{fig:Logo de MongoDB}
+\end{wrapfigure}
+
+MongoDB es un motor de base de datos orientado a documento que se encuentra clasificado como una base de datos NoSQL (por su característica de base de datos no relacional). Dicho software tiene dos licencias, donde se usa SSPLv1 en las versiones liberadas después del 16 de Octubre de 2018 mientras que en las versiones anteriores a esta fecha se usa la licencia AGPL.
+\newline
+
+En el caso de este software de base de datos, los tipos de modelos de datos se diferencian entre documentos y colecciones en lugar de las filas y las tablas de una base de datos relacional. Cada registro en la base de datos se define como un documento, el cual puede estar definido con una variante de JSON pero también con otro formato denominado \emph{Binary JSON (BSON)} que permite mayor variedad de tipos de datos.
+Los atributos de un documento se pueden comparar con las columnas de una tabla en una base de datos relacional y uno de ellos debe ser una clave primaria con un identificador único. Una colección es un conjunto de documentos de igual estructura de atributos.
+\newline
+
+MongoDB dispone de una consola para poder manipular la información y consultarla sin necesidad de una aplicación tercera que sigue una sintaxis similar a Javascript en la forma de acceder a los datos.
+Además, MongoDB dispone de conectores para múltiples lenguajes de programación como C o Javascript. En el cas ode este proyecto, no se usa directamente el conector de MongoDB para Javascript, sino que se usa un ODM\footnote{ODM (Object Document Mapping) es el equivalente al los ORM (Object Relation Mapping) de las bases de datos. Un software que realiza un mapa entre los modelos de datos de la aplicación y sus documentos equivalentes.} llamado \emph{Mongoose} para gestionar la información como los modelos de datos que se han definido en la aplicación.
 
 \subsubsection{NodeJS}
 
+\begin{wrapfigure}{l}{0.40\textwidth}
+\centering
+	\includegraphics[width=0.40\textwidth]{recursos/nodejslogo}
+\caption{Logo de NodeJS}
+\label{fig:Logo de NodeJS}
+\end{wrapfigure}
+
 NodeJS es un entorno de ejecución multiplataforma que permite ejecutar código escrito en Javascript fuera del entorno del navegador.
+\newline
+
+Está diseñado para el desarrollo de aplicaciones de red escalables mediante el uso de la escucha de eventos para procesar las solicitudes de red en lugar de otros modelos de procesamiento. También tiene como objetivo unificar el lenguaje de desarrollo de una aplicación web, ya que toda la lógica la harías en el mismo lenguaje de programación (JavaScript en el navegador y en el servidor).
+Este modelo de ejecución en base a eventos tiene un único hilo de ejecución, pero permite la ejecución de múltiples hilos mediante la creación de procesos hijo.
+\newline
+
+Dispone también de un sistema de paquetes similar al que tiene el lenguaje Python, llamado npm (Node Package Manager) en el que te ofrece diversos módulos para simplificar el desarrollo de aplicaciones y evitar hacer implementación propia de cada funcionalidad (siempre que el módulo de npm tenga buena calidad).
 
 \subsubsection{Jayson}
 
@@ -853,17 +903,248 @@ Jayson es un módulo de NodeJS que se compone de un servidor y un cliente que cu
 
 \subsubsection{Api de Telegram}
 
-Telegram dispone de gran cantidad de documentación para la realización de bots para su servicio. Además, hay disponible varias bibliotecas para facilitar la tarea de desarrollo.
+\begin{wrapfigure}{l}{0.30\textwidth}
+\centering
+	\includegraphics[width=0.30\textwidth]{recursos/telegramlogo}
+\caption{Logo de Telegram}
+\label{fig:Logo de Telegram}
+\end{wrapfigure}
+
+Telegram dispone de gran cantidad de documentación para la realización de bots para su servicio. Además, hay disponible varias bibliotecas para facilitar la tarea de desarrollo. Aun así, hay que realizar unos pasos previos para poder conectar nuestro futuro bot al sistema de forma legítima.
+\newline
+
+Para crear un bot en Telegram necesitas primero formar parte de los usuarios de Telegram, ya que es necesario contactar con una cuenta especial para crear bots llamada \emph{BotFather}, el cual es el creador y gestor de bots principal.
+\newline
+
+BotFather dispone de los siguientes comandos:
+\begin{itemize}
+\item\textbf{/newbot:} Este comando inicia el asistente para crear un nuevo bot. Te pedirá para ello un nombre visible y un nombre de usuario. El nombre de usuario debe terminar con la palabra ''bot''.
+
+Una vez creado, te enviará un token. Con ese token se podrá acceder a la api de bots de Telegram y empezar a trabajar.
+
+\item\textbf{/token:} En caso que el token haya sido expuesto a terceros o lo hayas perdido, puedes solicitar uno nuevo con este comando.
+\item\textbf{/mybots:} Devuelve la lista con los bots que has creado para su configuración.
+\item\textbf{/setname:} Cambia el nombre del bot.
+\item\textbf{/setdescription:} Cambia la descripción del bot. Dicho texto puede tener una longitud de hasta 512 caracteres cuyo fin es describir la función del bot. Los usuarios verán dicho mensaje cuando inicien conversación con el bot.
+\item\textbf{/setabouttext:} Cambia el texto "Acerca de" del bot. Es un texto que no supera los 120 caracteres que se podrá ver en el perfil del usuario correspondiente al bot. Cuando compartes un bot, este texto vendrá adjunto al enlace.
+\item\textbf{/setuserpic:} Cambia la imagen de perfil del bot.
+\item\textbf{/setcommands:} Configura la lista de comandos soportados por el bot. Esto sirve para mostrar un listado de sugerencias cuando un usuario quiera ejecutar un comando. Cada comando tiene un nombre que comienza con el carácter \emph{/} seguido de hasta 32 caracteres alfanuméricos o carácter \emph{\_}, parámetros y un texto descriptivo.
+\item\textbf{/deletebot:} Borra el bot.
+\end{itemize}
+
+Existen más comandos para gestionar los bots, pero se encuentran fuera de lo realizado para este proyecto, porque también el sistema de bots de Telegram permite crear juegos.
+\newline
+
+También BotFather puede enviar avisos si el sistema detecta alguna anomalía que pueda suponer una sospecha de fallo en nuestro bot, ya sea porque haya recibido pocos mensajes de lo esperado o por realizar pocas a respuestas frente a los mensajes recibidos. Desde el propio bot BotFather se puede notificar si está solucionado el problema, si se necesita asistencia o si poner en mudo las alertas durante ocho horas o una semana.
+\newline
+
+Tras indicar el procedimiento de registro de un nuevo bot, debemos pasar a realizar las conexiones pertinentes con los servidores de Telegram. Aunque se puede hacer un software donde construyamos las peticiones HTTP hacia dichos servidores, disponemos de bibliotecas en diversos lenguajes de programación para hacer esa comunicación. Por ello, como la conexión en sí no es objetivo del proyecto y no deberíamos reinventar la rueda, vamos a hacer uso de la biblioteca node-telegram-bot-api del usuario de Github \emph{yagop}.
+\newline
+
+Estos son los pasos para empezar a usar esta biblioteca:
+\begin{enumerate}
+\item Instalar el paquete a través de npm:
+\begin{lstlisting}[language=sh]
+npm install --save node-telegram-bot-api
+\end{lstlisting}
+\item Importar el paquete instalado en el código fuente:
+\begin{lstlisting}[language=TypeScript]
+import * as TelegramBot from "node-telegram-bot-api";
+\end{lstlisting}
+\item Guardar el token de alguna forma. En este ejemplo, lo guardamos en una constante:
+\begin{lstlisting}[language=TypeScript]
+const token = 'TELEGRAM_TOKEN';
+\end{lstlisting}
+\item Crear el objeto TelegramBot:
+\begin{lstlisting}[language=TypeScript]
+const bot = new TelegramBot(token, {polling: true});
+\end{lstlisting}
+\item Esta biblioteca permite crear una escucha de eventos del bot, pero en este proyecto no se ha usado ese método para procesar los mensajes entrantes. En cambio, se ha realizado la ejecución manual del método receiveMessages, el cual devuelve todos los mensajes recibidos en un día. Si se manda el contador de mensaje, se recibirán los mensajes que han llegado con un valor superior al contador. A continuación el ejemplo:
+\begin{lstlisting}[language=TypeScript]
+bot.getUpdates({lastUpdateId: 3072}.then(function(response: TelegramBot.Update[]) {
+	// Caso de éxito. Se recibe un array con todos los mensajes a partir de ese contador y que estén almacenados en el servidor.
+})
+.catch(function(err: Error) {
+	// Caso de error
+});
+\end{lstlisting}
+\item Por último, para enviar un mensaje a un usuario de Telegram, se procede de esta manera mediante el uso del método sendMessage:
+\begin{lstlisting}[language=TypeScript]
+bot.sendMessage(msg.chat.id, "Esto es un texto de prueba", parametros).then(function(message: TelegramBot.Message) {
+	// Caso de éxito. Se ha logrado enviar el mensaje.
+})
+.catch(function(err: Error) {
+	// Caso de error
+});
+\end{lstlisting}
+\end{enumerate}
+
+Esto sería lo básico para interactuar con Telegram a través de la api de bots, pero es posible realizar más tareas dentro del sistema. Los bots y esta biblioteca pueden enviar imágenes, audio, ficheros varios y también leer los ficheros que lleguen por parte de los usuarios.
+\newpage
 
 \subsubsection{Api de Tadoº}
 
-En el caso de Tadoº, disponen de una api privada sin documentar, la cual usan las apicaciones desarrolladas por dicha empresa. Gracias a las labores de ingeniería inversa, se ha podido realizar el envío de comandos sin necesitar ninguna aplicación oficial. Esa labor ha abierto la puerta a realizar servicios adicionales especiales.
+\begin{wrapfigure}{l}{0.30\textwidth}
+\centering
+	\includegraphics[width=0.30\textwidth]{recursos/tadologo}
+\caption{Logo de Tadoº}
+\label{fig:Logo de Tadoº}
+\end{wrapfigure}
 
-Por ejemplo, tenemos el proyecto tado-connect (\href{https://github.com/Martijn02/tado-connect}), donde configura los termostatos en modo ausente o presente en base a los usuarios conectados a una red wifi como alternativa a la geolocalización a través del smartphone.
+En el caso de Tadoº, disponen de una api privada sin documentar, la cual usan las apicaciones desarrolladas por dicha empresa. Gracias a las labor de ingeniería inversa realizada por Stephen Phillips, se ha podido realizar el envío de comandos sin necesitar ninguna aplicación oficial. Esa labor ha abierto la puerta a realizar servicios adicionales especiales.
+Por ejemplo, tenemos el proyecto tado-connect (\url{https://github.com/Martijn02/tado-connect}), donde configura los termostatos en modo ausente o presente en base a los usuarios conectados a una red wifi como alternativa a la geolocalización a través del smartphone.
+\newline
+
+En el caso de este proyecto, al igual que con la conexión con Telegram, se ha hecho uso de una biblioteca realizada por Matt Davis llamada node-tado-client (\url{https://github.com/mattdavis90/node-tado-client}), que evita realizar las peticiones HTTP a mano y dedicar recursos a hacer una tarea que ya cumple este módulo.
+\newline
+
+A continuación indico los pasos a realizar para poder empezar a usar este módulo:
+\begin{enumerate}
+\item Instalar el paquete a través de npm:
+\begin{lstlisting}[language=sh]
+npm install --save node-tado-client
+\end{lstlisting}
+\item Importar el paquete instalado en el código fuente:
+\begin{lstlisting}[language=TypeScript]
+import * as TadoClient from "node-tado-client";
+\end{lstlisting}
+\item Crear el objeto TadoClient:
+\begin{lstlisting}[language=TypeScript]
+const tadoClient = new TadoClient();
+\end{lstlisting}
+\item Iniciar sesión con las credenciales de Tadoº. Si has comprado un termostato de la marca, deberías tener una cuenta creada:
+\begin{lstlisting}[language=TypeScript]
+tadoClient.login("usuario", "contraseña").then(function(response: any) {
+	// Login exitoso
+})
+.catch(function(err: Error) {
+	// Login erróneo
+});
+\end{lstlisting}
+\item Por último, puede llamar a los métodos de la api para recibir el tiempo, las temperaturas de las habitaciones, etc.:
+\begin{lstlisting}[language=TypeScript]
+tadoClient.getWeather(home_id).then(function(message: any) {
+	// Caso de éxito. Aquí recibirá el tiempo atmosférico.
+})
+.catch(function(err: Error) {
+	// Caso de error
+});
+\end{lstlisting}
+\end{enumerate}
+
+Aparte, aquí indico el listado de métodos disponibles de esta biblioteca:
+\begin{itemize}
+\item\textbf{getMe():} Método que devuelve los datos del usuario, así como de los hogares que tenga configurados.
+\item\textbf{getHome(home\_id):} Método que devuelve los datos del hogar indicado en el home\_id.
+\item\textbf{getWeather(home\_id):} Método que devuelve el tiempo atmosférico en la localización del id del hogar indicado.
+\item\textbf{getDevices(home\_id):} Método que devuelve el listado de dispositivos asociados al hogar indicado.
+\item\textbf{getInstallations(home\_id):} Método similar a getDevices pero devolviendo más información.
+\item\textbf{getUsers(home\_id):} Método que devuelve un listado con los usuarios asociados a este hogar y sus dispositivos asociados.
+\item\textbf{getState(home\_id):} 
+\item\textbf{getMobileDevices(home\_id):} Indica la lista de dispositivos asociados a ese hogar.
+\item\textbf{getMobileDevice(home\_id, device\_id):} Indica el dispositivo móvil asociado.
+\item\textbf{getMobileDeviceSettings(home\_id, device\_id):} Indica la configuración de ese móvil asociado.
+\item\textbf{getZones(home\_id):} Devuelve el listado de zonas configuradas en un hogar.
+\item\textbf{getZoneState(home\_id, zone\_id):} Devuelve el estado de la zona de un hogar concreto. 
+\item\textbf{getZoneCapabilities(home\_id, zone\_id):} Indica las capacidades de configuración de una zona.
+\item\textbf{getZoneOverlay(home\_id, zone\_id):} Devuelve el ajuste de temperatura manual que se ha configurado para una zona, si este tiene una configuración realizada de forma manual. En caso contrario, devuelve un error 404.
+\item\textbf{getTimeTables(home\_id, zone\_id):} Indica la programación semanal de una zona.
+\item\textbf{getAwayConfiguration(home\_id, zone\_id):} Indica la configuración de una zona cuando no hay gente en casa.
+\item\textbf{getTimeTable(home\_id, zone\_id, timetable\_id):}
+\item\textbf{clearZoneOverlay(home\_id, zone\_id):}
+\item\textbf{setZoneOverlay(home\_id, zone\_id, power, temperature, termination):} Configura mediante ajuste manual una zona definida. 
+Power debe ser 'on' u 'off.
+Temperature debe indicar un número en grados Celsius.
+Termination debe indicar un número de segundos que dure la configuración o poner valor 'auto' o 'manual'.
+
+Si el valor es 'auto', la configuración finaliza cuando cambie el estado en la programación semanal. Si, en cambio, se indica el valor 'manual', la configuración no finzalizará hasta que no lo cambie el usuario.
+\item\textbf{identifyDevice(device\_id):}
+\item\textbf{apiCall(url, method='get', data=\{\}):} Método de bajo nivel para llamar a futuros endpoints o realizar condfiguraciones no definidas en la biblioteca. Url indicará la url del endpoint, method indica el HTTP VERB a mandar (GET, POST, PUT, DELETE) y, por último, data indica parámetros a mandar.
+\end{itemize}
 
 \section{PRUEBAS}
 
+Las pruebas forman una parte importante del desarrollo software. Nos garantiza que cualquier cambio o ampliación en el código no implique la rotura o el comportamiento fuera de lo esperado de un servicio. Para ello, hay que intentar en todo lo posible hacer mecanismos de pruebas automatizados y que cubran todo el código posible. Para este proyecto, se ha usado el framework de desarrollo de pruebas Mocha.
+
 \subsubsection{Mocha}
+
+\begin{wrapfigure}{l}{0.30\textwidth}
+\centering
+	\includesvg[width=0.30\textwidth]{recursos/mochalogo}
+\caption{Logo de Mocha}
+\label{fig:Logo de Mocha}
+\end{wrapfigure}
+
+Mocha es un framework para realizar pruebas tanto unitarias como de integración de aplicaciones hechas principalmente con NodeJS, ya que el lenguaje para crear dichas pruebas es JavaScript. Es un framework orientado a facilitar el desarrollo de pruebas para métodos asíncronos (bastante presente en aplicaciones NodeJS).
+\newline
+
+Para realizar una batería de pruebas con Mocha, disponemos de los siguientes métodos:
+\begin{itemize}
+\item\textbf{describe():} Este método define conceptualmente un grupo de pruebas.
+\item\textbf{context():} Alias de describe. Realiza el mismo comportamiento que el anterior método.
+\item\textbf{it():} Define una prueba.
+\item\textbf{before():} Este método se ejecuta antes de iniciar el grupo de pruebas.
+\item\textbf{after():} Este método se ejecuta tras realizar todas las pruebas del grupo.
+\item\textbf{beforeEach():} Este método se ejecuta antes de iniciar cada prueba del conjunto.
+\item\textbf{afterEach():} Este método se ejecuta tras finalizar cada prueba del conjunto.
+\end{itemize}
+
+Con todo esto es posible realizar la batería de pruebas. A continuación voy a mostrar uno de los grupos de pruebas que tengo para revisar el funcionamiento del servidor de comunicaciones:
+
+\begin{lstlisting}[language=JavaScript]
+const assert = require('assert');
+const jayson = require('jayson');
+const util = require('util');
+
+console.log('NOTE: You must start the server first when doing the tests.');
+
+var client = new jayson.client.tcp({
+	port: 3000
+});
+
+var token;
+
+// Grupo de pruebas del módulo de autenticación. Usando el método describe, podemos definir dicho grupo.
+describe('Authentication', function() {
+	// Prueba a ejecutar. Siendo un método asíncrono, hay que terminar la función llamando al callback done() para éxito o done(Error) para caso de error.
+	it('Gives an error if client sends an incorrect password', function(done) {
+		client.request('authenticate', {username: "TEST", password: "0000"}, function(err, response) {
+			if (!response.error) {
+				const errMes = new Error('No error was returned.');
+				done(errMes);
+			} else {
+				console.log(util.inspect(response, false, null, true));
+				done();
+			}
+		})
+	})
+
+	it('Gives a result (jsonwebtoken) if client logged with valid user', function(done) {
+		client.request('authenticate', {username: "TEST", password: "test"}, function(err, response) {
+			if (!response.result) {
+				const errMes = new Error(JSON.stringify(response.error));
+				done(errMes);
+			} else {
+				token = response.result;
+				console.log(util.inspect(response, false, null, true));
+				done();
+			}
+		});
+	});
+
+	it('Gives an error if client is logging with not valid user', function(done) {
+		client.request('authenticate', {username: "NOTVALID", password: "notvalid"}, function(err, response) {
+			if (!response.error) {
+				const errMes = new Error('No error was returned.');
+				done(errMes);
+			} else {
+				console.log(util.inspect(response, false, null, true));
+				done();
+			}
+		});
+	});
+});
+\end{lstlisting}
 
 \section{MANUAL DE USUARIO}
 
@@ -1247,17 +1528,18 @@ Aun así, para llegar a ese nivel de complejidad que tienen los asistentes virtu
 Este proyecto no terminaría en este punto, sino que hay que seguir añadiendo nuevos conectores para otros servicios y, para que se genere un entorno colaborativo, hay que proveer a los colaboradores de una buena base. En las líneas futuras indico una lista de mejoras a futuro de este proyecto, entre las cuales está un cambio de motor de base de datos para aumentar la portabilidad del software o, mejor aún, dar opción a elegir motor de base de datos.
 \newline
 
-Lo último a tener en cuenta, cosa que desarrollo en la sección de aspectos éticos es que esto es una herramienta para un desarrollo mayor y, como cualquier herramienta, se puede usar para cualquier actividad, ya sea lícita o ilícita. También hay que indicar que el desarrollo de chatbots, sobre todo aquellos con aprendizaje por Inteligencia Artificial, les queda mucho para alcanzar un nivel que permita cierta confianza en sus resultados.
+Lo último a tener en cuenta, cosa que desarrollo en la sección de aspectos éticos es que esto es una herramienta para un desarrollo mayor y, como cualquier herramienta, se puede usar para cualquier actividad, ya sea lícita o ilícita. También hay que indicar que el desarrollo de chatbots, sobre todo aquellos con aprendizaje mediante Inteligencia Artificial, les queda mucho para alcanzar un nivel que permita cierta confianza en sus resultados.
 
 \section{ASPECTOS ÉTICOS, SOCIALES, PROFESIONALES Y MEDIOAMBIENTALES DEL PROYECTO}
 
 Como en todas las herramientas software, no está exento que el mismo sea aprovechado para realizar actividades ilícitas. En el caso de este framework, la responsabilidad de consumir recursos de las apis de forma eficiente recae en el desarrollador del bot y no en el framework. El framework va a ayudar al desarrollador pero no va a pensar y actuar por él.
 \newline
 
-Con ello, se puede decir claramente que este proyecto se podría usar con fines ilícitos y, si dijera lo contrario en este documento, estaría mintiendo porque cualquier persona con conocimientos de programación puede usar este software para desarrollar, por ejemplo, un automatismo que se dedique a hacer spam a diestro y siniestro (El spam es ilícito porque solamente genera molestias a los destinatarios).
+Con ello, se puede decir claramente que este proyecto se podría usar con fines ilícitos y, si dijera lo contrario en este documento, estaría mintiendo. Cualquier persona con conocimientos de programación puede usar este software para desarrollar, por ejemplo, un automatismo que se dedique a hacer spam a diestro y siniestro (El spam es ilícito porque solamente genera molestias a los destinatarios).
 \newline
 
-En cuanto al nivel social, este proyecto es Open Source debido a la licencia con la que se ha firmado (MIT), permite la libertad de uso y modificación de este software, por lo que cualquiera puede aportar novedades y usarlo en proyectos más grandes como un módulo del mismo. Esto ya genera un valor a la sociedad
+En cuanto al nivel social, este proyecto es Open Source debido a la licencia con la que se ha firmado (MIT), por ello permite la libertad de uso y modificación de este software y cualquiera puede aportar novedades y usarlo en proyectos más grandes como un módulo del mismo. Esto ya genera un valor social por la disponibilidad que hay del código fuente.
+\newline
 
 A nivel profesional y medioambiental, se espera que este proyecto mejore el rendimiento de producción y, con ello, menor consumo de recursos. Si un desarrollador no tiene que dedicar tiempo en el sistema de comunicación, dedicará sus recursos a otros componentes de importancia del sistema automático / chatbot.
 \newline
@@ -1285,7 +1567,7 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 
 \item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
 
-\item Implementación de un contenedor Docker que permita la implantación de este sistema sin la necesidad de enfocar los esfuerzos en lograr el entorno de trabajo adecuado para el sistema en donde se quiera instalar.
+\item Implementación de un contenedor Docker que permita la implantación de este sistema sin la necesidad de enfocar los esfuerzos en lograr el entorno de trabajo adecuado.
 \end{itemize}
 
 \section*{ANEXOS}
@@ -1330,6 +1612,18 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 \item\textbf{Gummi:} Editor de documentos \LaTeX.
 \item\textbf{PlantUML:} Generador de diagramas UML a partir de guiones escritos en un lenguaje de marcado propio.
 \item\textbf{Dia:} Editor de diagramas visual.
+\end{itemize}
+
+\subsection*{Código fuente}
+
+El código fuente más reciente de este proyecto se puede encontrar en los siguientes repositorios:
+
+\begin{itemize}
+\item\textbf{ComCenter:} \url{https://github.com/BFMBFramework/ComCenter}
+\item\textbf{BaseConnector:} \url{https://github.com/BFMBFramework/BaseConnector}
+\item\textbf{TadoConnector:} \url{https://github.com/BFMBFramework/TadoConnector}
+\item\textbf{TelegramConnector:} \url{https://github.com/BFMBFramework/TelegramConnector}
+\item\textbf{TadoBot (software demo):} \url{https://github.com/BFMBFramework/TadoBot}
 \end{itemize}
 
 %	REFERENCIAS
@@ -1394,13 +1688,21 @@ Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, si
 
 \bibitem{MSTypescript} \textsc{Somasegar's blog (MSDN)} \textit{TypeScript: JavaScript Development at Application Scale}, \url{https://blogs.msdn.microsoft.com/somasegar/2012/10/01/typescript-javascript-development-at-application-scale/}, [Visitado el 8/6/19]
 
-\bibitem{TypeScript} \textsc{TypeScript} \textit{Documentation · TypeScript}, \url{https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md}, [Visitado el 8/6/19]
+\bibitem{TypeScript} \textsc{TypeScript} \textit{Documentation - TypeScript}, \url{https://github.com/Microsoft/TypeScript/blob/master/doc/spec.md}, [Visitado el 8/6/19]
 
-\bibitem{MITTechReviewHealthBots} \textsc{Heaven, D.} \textit{Your next doctor’s appointment might be with an AI}, \url{https://www.technologyreview.com/s/612267/your-next-doctors-appointment-might-be-with-an-ai/}, [Visitado el 9/6/19]
+\bibitem{MITTechReviewHealthBots} \textsc{Heaven, D.} \textit{Your next doctor's appointment might be with an AI}, \url{https://www.technologyreview.com/s/612267/your-next-doctors-appointment-might-be-with-an-ai/}, [Visitado el 9/6/19]
 
 \bibitem{AlexaSkills} \textsc{Alexa Skills Kit} \textit{Build Skills with the Alexa Skills Kit}, \url{https://developer.amazon.com/docs/ask-overviews/build-skills-with-the-alexa-skills-kit.html}, [Visitado el 11/6/19]
 
-\bibitem{FirstGHomeAction} \textsc{Eisenzopf, J} \textit{Building your first Action for Google Home (in 30 minutes)}, \url{https://medium.com/google-cloud/building-your-first-action-for-google-home-in-30-minutes-ec6c65b7bd32}, [Visitado el 11/6/19]
+\bibitem{FirstGHomeAction} \textsc{Eisenzopf, J.} \textit{Building your first Action for Google Home (in 30 minutes)}, \url{https://medium.com/google-cloud/building-your-first-action-for-google-home-in-30-minutes-ec6c65b7bd32}, [Visitado el 11/6/19]
+
+\bibitem{KanbanDef} \textsc{Kanbanize} \textit{Qué es Kanban: Fundamentos}, \url{https://kanbanize.com/es/recursos-de-kanban/primeros-pasos/que-es-kanban/}, [Visitado el 13/6/19]
+
+\bibitem{KanbanPrincipios} \textsc{CoriaWeb} \textit{Método Kanban: ¿Qué es y cuáles son sus principios básicos?}, \url{https://www.coriaweb.hosting/metodo-kanban-cuales-principios-basicos/}, [Visitado el 13/6/19]
+
+\bibitem{MongoDBTT} \textsc{Rouse, M.} \textit{What is MongoDB? - Definition from WhatIs.com}, \url{https://searchdatamanagement.techtarget.com/definition/MongoDB}, [Visitado el 14/6/19]
+
+\bibitem{XurxoDevMocha} \textsc{Sánchez Fernández, J.} \textit{Testeando un API REST node.js con Mocha}, \url{http://xurxodev.com/testeando-un-api-rest-con-mocha/}, [Visitado el 14/6/19]
 \end{thebibliography}
 \end{document}
 
