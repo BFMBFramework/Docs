@@ -34,6 +34,10 @@
 \usepackage{wrapfig}
 \usepackage{courier}
 \usepackage{svg}
+\usepackage{url}
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
  
 \definecolor{comment}{RGB}{0,128,0} % dark green
 \definecolor{string}{RGB}{255,0,0}  % red
@@ -285,7 +289,7 @@ A continuación os muestro un ejemplo de un patrón AIML:
 
 \subsubsection{Siri (Apple)}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=0.4\textwidth]{recursos/siri}
 \caption{Captura de la aplicación Siri en su versión más reciente (iOS 12).}
@@ -305,7 +309,7 @@ Por último, los desarrolladores de aplicaciones para iOS pueden añadir órdene
 
 \subsubsection{Google Assistant}
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=0.5\textwidth]{recursos/homeG}
 \caption{El dispositivo Google Home. Este incluye Google Assistant.}
@@ -334,7 +338,7 @@ Para desarrollar nuevas órdenes en esta plataforma, se hace uso de un sistema d
 Como ejemplo de uso en el campo de la seguridad tenemos el chatbot Negobot. Desarrollado por la Universidad de Deusto en el año 2012, Negobot es un chatbot que simula ser un menor en los chats públicos de Internet para la detección de conductas pedófilas.
 \newline
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=0.5\textwidth]{recursos/Negobot_tecnologia}
 \caption{Tecnologías que utiliza Negobot}
@@ -344,7 +348,7 @@ Como ejemplo de uso en el campo de la seguridad tenemos el chatbot Negobot. Desa
 Para lograr este objetivo, este chatbot utiliza el procesamiento de lenguaje natural, la teoría de juegos y funciones de evaluación para determinar si el interlocutor tiene un comportamiento que se pueda asociar con un posible pedófilo en base a la conversación presente. El sistema tiene siete niveles en los que se determina dicho comportamiento, empezando desde el nivel -3 (no hay comportamiento pedófilo) a +3 (sí lo tiene) comenzando por el nivel 0. (Ver figuras \ref{fig:Tecnologías de Negobot} y \ref{fig:Niveles de evaluación de Negobot})
 \newline
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=\textwidth]{recursos/Negobot_puntuaciones}
 \caption{Niveles de evaluación de Negobot}
@@ -370,14 +374,14 @@ Aun así, esta innovación no está exenta de crítica y duda. Hay temas sin res
 Otro punto de crítica puede venir de la falta de enfoque en base a la localización del paciente. Por ejemplo, el sistema no sería válido si no plantea hacer preguntas y evaluaciones por un posible caso de Malaria porque en el país donde se ha desarrollado el software no va a haber esa posibilidad (por cuestión de clima) pero que sí es vital hacer esas preguntas en los países del sur del Sahara (zona donde se producen mayor número de casos).
 \newpage
 
-\begin{figure}
+\subsubsection{Banca}
+
+\begin{figure}[h]
 \centering
 	\includegraphics[width=0.4\textwidth]{recursos/neoCaixabank}
 \caption{El chatbot Neo, desarrollado para la aplicación de gestión bancaria de Caixabank.}
 \label{fig:Neo, bot de CaixaBank}
 \end{figure}
-
-\subsubsection{Banca}
 
 Se están usando los chatbots en el ámbito de la banca para ser el sustituto de la sección de ayuda en las aplicaciones de gestión para el usuario, concretamente, de las secciones de \emph{Preguntas frecuentes} (o FAQ). Por ejemplo, está el caso de Neo, un chatbot que está incorporado en los servicios de \emph{Línea Abierta} (ahora \emph{CaixaBankNow}), del grupo CaixaBank.
 \newline
@@ -566,23 +570,25 @@ Por otra parte, el usuario realizará los siguientes casos de uso:
 
 Pueden ver el diagrama de casos de uso en la figura ~\ref{fig:Diagrama de casos de uso}.
 
-\begin{figure*}
+\begin{figure}[hp]
 \centering
 	\includegraphics[width=\textwidth]{recursos/usecases}
 \caption{Diagrama de casos de uso}
 \label{fig:Diagrama de casos de uso}
-\end{figure*}
+\end{figure}
+
+\newpage
 
 \subsection{Proceso (Diagrama de actividad)}
 
 En esta sección se va a definir los procesos que disponemos en el framework: el envío de mensajes a través del servidor de comunicaciones y la recepción de los mismos. El diagrama de actividad es el mismo para ambos casos. Se ejecuta el mismo procedimiento.
 
-\begin{figure*}
+\begin{figure}[hp]
 \centering
 	\includegraphics[width=\textwidth]{recursos/activity}
 \caption{Diagrama de actividad del envío y recepción de órdenes de las API}
 \label{fig:DActividad envío recepción órdenes}
-\end{figure*}
+\end{figure}
 
 Viendo la figura ~\ref{fig:DActividad envío recepción órdenes}, tenemos este procedimiento:
 
@@ -622,12 +628,12 @@ En caso de no encontrarse la red que se solicita en el mensaje, se notificará u
 
 Una vez que tenemos el conector de red, ejecutaremos la orden solicitada a través de dicho conector, el cual se encargará de contactar con el servicio api elegido. Una vez que haya recibido la respuesta o error de la api (o del conector si hay condiciones que no se cumplan), se devolverá dicha respuesta al bot.
 
-\begin{figure*}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=\textwidth]{recursos/sequence}
 \caption{Diagrama de secuencia del envío / recepción de mensajes}
 \label{fig:DSecuencia envío recepción órdenes}
-\end{figure*}
+\end{figure}
 
 \subsection{Infraestructura}
 
@@ -654,21 +660,23 @@ El servidor de comunicaciones es una aplicación desarrollada en el lenguaje Typ
 
 Pueden ver el diagrama de infraestructura en la figura ~\ref{fig:Infraestructura de nodos}.
 
-\begin{figure*}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=\textwidth]{recursos/component}
 \caption{Esquema de infraestructura (Diagrama de componentes)}
 \label{fig:Infraestructura de nodos}
-\end{figure*}
+\end{figure}
+
+\newpage
 
 \subsection{Estructura de base de datos}
 
-\begin{figure*}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=0.65\textwidth]{recursos/schemes}
 \caption{Estructura de base de datos}
 \label{fig:Estructura de base de datos}
-\end{figure*}
+\end{figure}
 
 En la figura ~\ref{fig:Estructura de base de datos} pueden ver la sencilla estructura de base de datos que tenemos. Disponemos de dos entidades: usuario y red (UserSchema y NetworkSchema), las cuales vamos a detallar a continuación:
 
@@ -724,12 +732,12 @@ El módulo bfmb-base-connector es un módulo que contiene dos clases abstractas,
 
 Los restantes módulos son los conectores con los que podremos conectarnos con las api de los distintos servicios en la red. Ambos módulos contienen como mínimo dos clases: conector (Connector) y conexión (Conection). Estos son clases hija de las clases Connector y Connection del módulo bfmb-base-connector.
 
-\begin{figure*}
+\begin{figure}[h]
 \centering
 	\includegraphics[width=\textwidth]{recursos/classes}
 \caption{Diagrama de clases}
 \label{fig:Diagrama de clases}
-\end{figure*}
+\end{figure}
 
 \section{DESARROLLO}
 
@@ -1145,12 +1153,127 @@ describe('Authentication', function() {
 	});
 });
 \end{lstlisting}
+ 
+\section{CONCLUSIONES}
 
-\section{MANUAL DE USUARIO}
+Como se ha podido ver en el resumido estado del arte, podemos ver que el campo de los chatbots lleva años desarrollándose, añadiendo nuevos componentes de interacción, como el reconocimiento de voz. Además, se pueden recorrer varios caminos en los chatbots, en los que pueden estar definidos de forma manual o pueden implementar mecanismos de aprendizaje mediante Inteligencia Artificial.
+\newline
 
-\subsection{Instalación}
+Ya hay ejemplos comerciales de chatbots o de asistentes virtuales (el desarrollo de estos) dentro del ámbito general pero también se están desarrollando chatbots que estén orientados a ciertos servicios específicos como el servicio sanitario.
+\newline
 
-\subsubsection{Prerrequisitos}
+Aun así, para llegar a ese nivel de complejidad que tienen los asistentes virtuales, se han tenido que dedicar muchos esfuerzos en su desarrollo. La idea de este proyecto es y será la de simplificar dichos desarrollos.
+\newline
+
+De los objetivos descritos en la introducción de este proyecto, se ha logrado cumplir todos ellos. Se ha logrado la creación de un servidor que actúa de intermediario entre diferentes apis mediante el protocolo JSON-RPC, la creación de dos conectores tanto para Telegram como para Tadoº (la empresa de termostatos IoT) que son los encargados de interactuar con los endpoints de ambas apis y, por último, se ha logrado la realización de un bot que aprovecha todos estos servicios para hacer un nuevo punto de entrada para configurar nuestra calefacción sin recurrir a la aplicación oficial.
+\newline
+
+Pero este proyecto no terminaría en este punto, sino que hay que seguir añadiendo nuevos conectores para otros servicios y, para que se genere un entorno colaborativo, hay que proveer a los colaboradores de una buena base. En las líneas futuras indico una lista de mejoras a futuro de este proyecto, entre las cuales está un cambio de motor de base de datos para aumentar la portabilidad del software o, mejor aún, dar opción a elegir motor de base de datos.
+\newline
+
+Lo último a tener en cuenta, cosa que desarrollo en la sección de aspectos éticos es que esto es una herramienta para un desarrollo mayor y, como cualquier herramienta, se puede usar para cualquier actividad, ya sea lícita o ilícita. También hay que indicar que el desarrollo de chatbots, sobre todo aquellos con aprendizaje mediante Inteligencia Artificial, les queda mucho para alcanzar un nivel que permita cierta confianza en sus resultados.
+
+\section{ASPECTOS ÉTICOS, SOCIALES, PROFESIONALES Y MEDIOAMBIENTALES DEL PROYECTO}
+
+Como en todas las herramientas software, no está exento que el mismo sea aprovechado para realizar actividades ilícitas. En el caso de este framework, la responsabilidad de consumir recursos de las apis de forma eficiente recae en el desarrollador del bot y no en el framework. El framework va a ayudar al desarrollador pero no va a pensar y actuar por él.
+\newline
+
+Con ello, se puede decir claramente que este proyecto se podría usar con fines ilícitos y, si dijera lo contrario en este documento, estaría mintiendo. Cualquier persona con conocimientos de programación puede usar este software para desarrollar, por ejemplo, un automatismo que se dedique a hacer spam a diestro y siniestro (El spam es ilícito porque solamente genera molestias a los destinatarios).
+\newline
+
+En cuanto al nivel social, este proyecto es Open Source debido a la licencia con la que se ha firmado (MIT), por ello permite la libertad de uso y modificación de este software y cualquiera puede aportar novedades y usarlo en proyectos más grandes como un módulo del mismo. Esto ya genera un valor social por la disponibilidad que hay del código fuente.
+\newline
+
+A nivel profesional y medioambiental, se espera que este proyecto mejore el rendimiento de producción y, con ello, menor consumo de recursos. Si un desarrollador no tiene que dedicar tiempo en el sistema de comunicación, dedicará sus recursos a otros componentes de importancia del sistema automático / chatbot.
+\newline
+
+Ser eficiente también es evitar reinventar la rueda y aprovechar lo que ya hay existente. Este proyecto es claro ejemplo, ya que los conectores que realicé para la demostración usan herramientas que ya han desarrollado otras personas. Por ejemplo, el conector que conversa con la api de Tadoº usa una biblioteca llamada node-tado-client desarrollado por Matt Davis, quien a su vez se basó en el trabajo de ingeniería inversa que realizó Stephen Phillips.
+
+\section{LÍNEAS FUTURAS}
+
+Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas líneas futuras a partir de ahora. Algunas de ellas son mejoras del software para permitir una mayor portabilidad y otras pertenecen a posibles desarrollos adicionales.
+
+\begin{itemize}
+\item Cambiar el motor de base de datos usado en el servidor de comunicaciones. 
+
+Actualmente se usa MongoDB por conveniencia en el desarrollo de este proyecto (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite o NeDB  y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro. También se podría optar por desarrollar un modelo universal y que sea el usuario quien elija en base a sus necesidades.
+
+Otro motivo para abrir esta línea de desarrollo es el cambio de licencia de MongoDB en su versión más reciente (4.0). Eso está generando rechazo en la comunidad del software libre y la comunidad opensource, llegando al punto que ciertas distribuciones GNU/Linux (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
+
+\item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
+
+Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor. Se podría plantear incluso desarrollar el gestor como una aplicación por comandos independiente del software servidor.
+
+\item Acoplar un motor de reconocimiento de lenguaje natural para la parte bot.
+
+Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar. Se tardaría menos en realizar esto que crear un motor IA desde cero.
+
+\item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
+
+\item Implementación de un contenedor Docker que permita la implantación de este sistema sin la necesidad de enfocar los esfuerzos en lograr el entorno de trabajo adecuado.
+\end{itemize}
+
+\section{ANEXOS}
+
+\subsection{Códigos de error del servidor de comunicaciones (ComCenter)}
+
+\subsubsection{Errores genéricos}
+
+\begin{itemize}
+\item\textbf{100:} Error en los parámetros del mensaje JSON-RPC para ComCenter.
+\end{itemize}
+
+\subsubsection{Autenticación}
+
+\begin{itemize}
+\item\textbf{300:} El usuario no existe en la base de datos. Se ha intentado iniciar sesión con un usuario que no existe.
+\item\textbf{301:} No coincide la contraseña. Si el hash de la contraseña introducida no coincide con el hash almacenado, se devuelve este código de error.
+\item\textbf{302:} No se ha encontrado el token en el mensaje JSON-RPC. Se ha intentado ejecutar un método JSON-RPC que requiere autenticación sin la presencia del token.
+\item\textbf{399:} Otros errores de autenticación no definidos.
+\end{itemize}
+
+\subsubsection{Sistema de mensajes}
+
+\begin{itemize}
+\item\textbf{400:} El usuario no tiene configurada la red solicitada.
+\item\textbf{401:} El conector de red está desactivado en la configuración del servidor.
+\item\textbf{402:} Los parámetros de las opciones enviadas al conector de red correspondiente son incorrectas. / El conector recibe un error.
+\item\textbf{499:} Otros errores del sistema de mensajes.
+\end{itemize}
+
+\subsection{Listado de software usado para la realización de este PFG}
+
+\subsubsection{Programación}
+
+\begin{itemize}
+\item\textbf{Sublime Text 3:} Editor de texto apto para programar.
+\end{itemize}
+
+\subsubsection{Documentación}
+
+\begin{itemize}
+\item\textbf{Gummi:} Editor de documentos \LaTeX.
+\item\textbf{PlantUML:} Generador de diagramas UML a partir de guiones escritos en un lenguaje de marcado propio.
+\item\textbf{Dia:} Editor de diagramas visual.
+\end{itemize}
+
+\subsection{Código fuente}
+
+El código fuente más reciente de este proyecto se puede encontrar en los siguientes repositorios:
+
+\begin{itemize}
+\item\textbf{ComCenter:} \url{https://github.com/BFMBFramework/ComCenter}
+\item\textbf{BaseConnector:} \url{https://github.com/BFMBFramework/BaseConnector}
+\item\textbf{TadoConnector:} \url{https://github.com/BFMBFramework/TadoConnector}
+\item\textbf{TelegramConnector:} \url{https://github.com/BFMBFramework/TelegramConnector}
+\item\textbf{TadoBot (software demo):} \url{https://github.com/BFMBFramework/TadoBot}
+\end{itemize}
+
+\subsection{Manual de usuario}
+
+\subsubsection{Instalación}
+
+\paragraph{Prerrequisitos}
 
 Para poder trabajar con este framework se necesitan los siguientes requisitos software:
 
@@ -1161,13 +1284,12 @@ Para poder trabajar con este framework se necesitan los siguientes requisitos so
 \item Conexión a Internet (necesario para interactuar con las apis disponibles).
 \end{itemize}
 
-\subsubsection{Procedimento de instalación}
+\paragraph{Procedimento de instalación}
 
 Para poner en marcha el servidor de comunicaciones, primero comenzaremos con la instalación de los requisitos:
 
-\paragraph{Instalación de NodeJS}
-
-Para realizar la instalación de NodeJS puede optar por instalar el paquete que se encuentre en su distribución GNU/Linux o seguir el procedimiento de instalación del propio proyecto: \href{https://nodejs.org/es/download/package-manager/}{Instalando Node.js usando un gestor de paquetes}.
+\begin{enumerate}
+\item\textbf{Instalación de NodeJS:} Para realizar la instalación de NodeJS puede optar por instalar el paquete que se encuentre en su distribución GNU/Linux o seguir el procedimiento de instalación del propio proyecto: \href{https://nodejs.org/es/download/package-manager/}{Instalando Node.js usando un gestor de paquetes}.
 \newline
 
 En el caso de Debian, la distribución GNU/Linux que he usado para el desarrollo, el procedimiento es el siguiente:
@@ -1180,7 +1302,7 @@ apt-get install -y nodejs
 
 El script provisto por Nodesource ya realiza todo lo necesario para instalar NodeJS.
 
-\paragraph{Instalación de MongoDB} Para realizar la instalación de MongoDB se puede recurrir al paquete que se encuentre en el repositorio de su distribución. Eso sí, no está exento de inconvenientes porque ha habido un cambio de licencia en dicho software y esa nueva licencia (creada por la propia gente de MongoDB) genera conflicto con algunas distribuciones de GNU/Linux (SSPLv1)\footnote{Server Side Public License}.
+\item\textbf{Instalación de MongoDB:} Para realizar la instalación de MongoDB se puede recurrir al paquete que se encuentre en el repositorio de su distribución. Eso sí, no está exento de inconvenientes porque ha habido un cambio de licencia en dicho software y esa nueva licencia (creada por la propia gente de MongoDB) genera conflicto con algunas distribuciones de GNU/Linux (SSPLv1)\footnote{Server Side Public License}.
 
 En Debian Stretch y Jessie sigue disponible MongoDB, pero en Debian Buster (la futura versión estable) ya no se encuentra dicho paquete. Para ello toca seguir estos pasos:
 
@@ -1218,9 +1340,7 @@ sudo apt install -t unstable mongodb
 
 Este procedimiento no está exento de cambios y posiblemente acabe siendo anulado mientras pase el tiempo, ya que la última versión que mantendrá Debian será las que sean anteriores a mongo 4.0 (donde empieza el cambio de licencia). Tampoco está exento la posibilidad de cambios en el software para cambiar de motor de base de datos (véase: Líneas Futuras).
 
-\paragraph{Instalación del servidor de comunicaciones}
-
-Para realizar la instalación del servidor de comunicaciones debemos seguir estos pasos:
+\item\textbf{Instalación del servidor de comunicaciones:} Para realizar la instalación del servidor de comunicaciones debemos seguir estos pasos:
 
 \begin{enumerate}
 \item Primero debemos clonar el repositorio del servidor usando git. Si no está git instalado, en Debian basta con este comando:
@@ -1242,9 +1362,7 @@ npm install
 \item Una vez realizado esto, ya tenemos instalado el servidor de comunicaciones. Actualmente, lo conectores vienen incluidos en el proceso de instalación de dependencias. No hace falta instalarlos aparte.
 \end{enumerate}
 
-\paragraph{Configuración del servidor de comunicaciones}
-
-Para configurar el servidor de comunicaciones, disponen de una configuración de ejemplo en la carpeta raíz del software. Hagan una copia del mismo y editen el fichero.
+\item\textbf{Configuración del servidor de comunicaciones:} Para configurar el servidor de comunicaciones, disponen de una configuración de ejemplo en la carpeta raíz del software. Hagan una copia del mismo y editen el fichero.
 
 \begin{lstlisting}[language=sh]
 cp config-example.json config.json
@@ -1356,7 +1474,7 @@ En caso que el string solo tenga carácteres numéricos, se expresará como mili
 Es decir, si queremos iniciar el conector bfmb-telegram-connector, debemos introducir Telegram. Si queremos iniciar el conector bfmb-tado-connector, debemos introducir "Tado" (y así con el resto).
 \end{itemize}
 
-\subsubsection{Inicio del servidor} Una vez que tengamos el servidor configurado, podremos iniciarlo con este comando. Desde la carpeta raíz del servidor:
+\item\textbf{Inicio del servidor:} Una vez que tengamos el servidor configurado, podremos iniciarlo con este comando. Desde la carpeta raíz del servidor:
 \begin{lstlisting}[language=sh]
 ./bin/comcenter
 \end{lstlisting}
@@ -1380,8 +1498,9 @@ See https://github.com/yagop/node-telegram-bot-api/issues/319. module.js:653:30
 \end{lstlisting}
 
 Como pueden ver, si no se encuentran los certificados que se buscan, saltará un error en los logs para indicar que no se han podido iniciar los servidores tls y https configurados pero no detendrá la aplicación.
+\end{enumerate}
 
-\subsection{Añadir usuarios al servidor de comunicaciones}
+\subsubsection{Añadir usuarios al servidor de comunicaciones}
 
 Para añadir usuarios al servidor, como no tenemos ningúna aplicación de administrador por el momento, tengo hecho un script en lenguaje Javascript que añade los usuarios que queramos.
 
@@ -1443,7 +1562,7 @@ TG_TOKEN=<token de bot Telegram> TADO_USERNAME=<usuario de Tadoº> TADO_PASSWORD
 
 Para cambiar el username y el password a añadir basta con editar las líneas 13 y 14 del script. No es la mejor forma de configurar usuarios y en el futuro se implementará una aplicación de gestión con el fin de facilitar esta tarea.
 
-\subsection{Cómo interactuar con el servidor de comunicaciones}
+\subsubsection{Cómo interactuar con el servidor de comunicaciones}
 
 Como se puede ver en la figura ~\ref{fig:Comunicación entre sistemas}, nuestro automatismo se conecta únicamente con el servidor de comunicaciones usando para ello el protocolo JSON-RPC, por lo que se puede realizar el bot o automatismo con cualquier lenguaje que tenga un cliente de dicho protocolo.
 
@@ -1456,7 +1575,7 @@ Como se puede ver en la figura ~\ref{fig:Comunicación entre sistemas}, nuestro 
 
 Para los ejemplos en código, voy a usar TypeScript y usaré el cliente jayson.
 
-\subsubsection{Realizar login en el servidor}
+\paragraph{Realizar login en el servidor}
 
 Para poder comunicarse con el servidor, es necesario iniciar sesión en él. Para ello, hay que ejecutar el comando RPC 'authenticate' pasando como opciones el username y el password del usuario del servidor.
 
@@ -1472,7 +1591,7 @@ this.jayson.request('authenticate',
 		});
 \end{lstlisting}
 
-\subsubsection{Obtener información del usuario de la api}
+\paragraph{Obtener información del usuario de la api}
 
 Para obtener los datos del usuario de la api que se quisiese acceder, basta con mandar el comando RPC 'getMe'. Como opciones es necesario el token que habremos recibido tras realizar la autenticación con el comando anterior, la red a la que queremos enviar esta orden (recuerde que debe empezar en mayúscula) y las opciones para dicha red (en este caso será un objeto vacío).
 
@@ -1488,7 +1607,7 @@ this.jayson.request('getMe',
 });
 \end{lstlisting}
 
-\subsubsection{Comando de recepción de información}
+\paragraph{Comando de recepción de información}
 
 Para realizar una llamada que equivaldría al método HTTP GET, usamos el comando RPC 'receiveMessage'. Como opciones es necesario el token recibido al autenticarse en el servidor de comunicaciones, también hay que indicar la red a la que vamos enviar el comando. Por último, las opciones forman parte de los parámetros necesarios para solicitar la recepción de datos. Por ejemplo, el conector Tadoº necesita las opciones \emph{api\_method} y \emph{home\_id}. Si no se enviase algún parámetro obligatorio, el error que devolviese el comando lo indicará.
 
@@ -1501,7 +1620,7 @@ this.jayson.request('receiveMessage',
  });
 \end{lstlisting}
 
-\subsubsection{Comando de envío de información}
+\paragraph{Comando de envío de información}
 
 Para realizar una llamada que equivaldría a los métodos POST, PUT y DELETE de HTTP, usamos el comando RPC 'sendMessage'. Como opciones también necesitamos el token recibido (al igual que en los otros métodos), también es necesario indicar la red a la que vamos a enviar el comando. Pôr último, las opciones forman parte de los parámetros necesarios para solicitar el envío de información. Por ejemplo, en el caso de usar el conector de Tadoº, es necesario usar los parámetreos \emph{api\_method} y \emph{home\_id}. También en este caso, si no se llegase a enviar un parámetro que fuese obligatorio, el error devuelto lo indicará.
 
@@ -1513,122 +1632,13 @@ this.jayson.request('sendMessage',
  
  });
 \end{lstlisting}
- 
-\section{CONCLUSIONES}
-
-Como se ha podido ver en el resumido estado del arte, podemos ver que el campo de los chatbots lleva años desarrollándose, añadiendo nuevos componentes de interacción, como el reconocimiento de voz. Además, se pueden recorrer varios caminos en los chatbots, en los que pueden estar definidos de forma manual o pueden implementar mecanismos de aprendizaje mediante Inteligencia Artificial.
-\newline
-
-Ya hay ejemplos comerciales de chatbots o de asistentes virtuales (el desarrollo de estos) dentro del ámbito general pero también se están desarrollando chatbots que estén orientados a ciertos servicios específicos como el servicio sanitario.
-\newline
-
-Aun así, para llegar a ese nivel de complejidad que tienen los asistentes virtuales, se han tenido que dedicar muchos esfuerzos en su desarrollo. La idea de este proyecto es y será la de simplificar dichos desarrollos.
-\newline
-
-Este proyecto no terminaría en este punto, sino que hay que seguir añadiendo nuevos conectores para otros servicios y, para que se genere un entorno colaborativo, hay que proveer a los colaboradores de una buena base. En las líneas futuras indico una lista de mejoras a futuro de este proyecto, entre las cuales está un cambio de motor de base de datos para aumentar la portabilidad del software o, mejor aún, dar opción a elegir motor de base de datos.
-\newline
-
-Lo último a tener en cuenta, cosa que desarrollo en la sección de aspectos éticos es que esto es una herramienta para un desarrollo mayor y, como cualquier herramienta, se puede usar para cualquier actividad, ya sea lícita o ilícita. También hay que indicar que el desarrollo de chatbots, sobre todo aquellos con aprendizaje mediante Inteligencia Artificial, les queda mucho para alcanzar un nivel que permita cierta confianza en sus resultados.
-
-\section{ASPECTOS ÉTICOS, SOCIALES, PROFESIONALES Y MEDIOAMBIENTALES DEL PROYECTO}
-
-Como en todas las herramientas software, no está exento que el mismo sea aprovechado para realizar actividades ilícitas. En el caso de este framework, la responsabilidad de consumir recursos de las apis de forma eficiente recae en el desarrollador del bot y no en el framework. El framework va a ayudar al desarrollador pero no va a pensar y actuar por él.
-\newline
-
-Con ello, se puede decir claramente que este proyecto se podría usar con fines ilícitos y, si dijera lo contrario en este documento, estaría mintiendo. Cualquier persona con conocimientos de programación puede usar este software para desarrollar, por ejemplo, un automatismo que se dedique a hacer spam a diestro y siniestro (El spam es ilícito porque solamente genera molestias a los destinatarios).
-\newline
-
-En cuanto al nivel social, este proyecto es Open Source debido a la licencia con la que se ha firmado (MIT), por ello permite la libertad de uso y modificación de este software y cualquiera puede aportar novedades y usarlo en proyectos más grandes como un módulo del mismo. Esto ya genera un valor social por la disponibilidad que hay del código fuente.
-\newline
-
-A nivel profesional y medioambiental, se espera que este proyecto mejore el rendimiento de producción y, con ello, menor consumo de recursos. Si un desarrollador no tiene que dedicar tiempo en el sistema de comunicación, dedicará sus recursos a otros componentes de importancia del sistema automático / chatbot.
-\newline
-
-Ser eficiente también es evitar reinventar la rueda y aprovechar lo que ya hay existente. Este proyecto es claro ejemplo, ya que los conectores que realicé para la demostración usan herramientas que ya han desarrollado otras personas. Por ejemplo, el conector que conversa con la api de Tadoº usa una biblioteca llamada node-tado-client desarrollado por Matt Davis, quien a su vez se basó en el trabajo de ingeniería inversa que realizó Stephen Phillips.
-
-\section{LÍNEAS FUTURAS}
-
-Tras el desarrollo actual y los resultados dados, se puede ver que hay distintas líneas futuras a partir de ahora. Algunas de ellas son mejoras del software para permitir una mayor portabilidad y otras pertenecen a posibles desarrollos adicionales.
-
-\begin{itemize}
-\item Cambiar el motor de base de datos usado en el servidor de comunicaciones. 
-
-Actualmente se usa MongoDB por conveniencia en el desarrollo de este proyecto (el uso de la biblioteca mongoose ayudó mucho), pero sería más apropiado usar bases de datos portables como SQLite o NeDB  y evitar la instalación de un servidor adicional para el poco volumen de información que tiene que almacenar, aunque eso conlleve la modificación de parte del código fuente para pasar de un motor de base de datos a otro. También se podría optar por desarrollar un modelo universal y que sea el usuario quien elija en base a sus necesidades.
-
-Otro motivo para abrir esta línea de desarrollo es el cambio de licencia de MongoDB en su versión más reciente (4.0). Eso está generando rechazo en la comunidad del software libre y la comunidad opensource, llegando al punto que ciertas distribuciones GNU/Linux (Fedora y Debian) estén eliminando o planteando que se elimine este software de sus repositorios. \cite{MongoDBLicense} \cite{MongoDBRemoveRequest}
-
-\item Incorporar un gestor web de usuarios para el servidor de comunicaciones.
-
-Actualmente, se están añadiendo los usuarios y configuraciones a través de un script. La incorporación de un gestor web serviría para facilitar la configuración del mencionado servidor. Se podría plantear incluso desarrollar el gestor como una aplicación por comandos independiente del software servidor.
-
-\item Acoplar un motor de reconocimiento de lenguaje natural para la parte bot.
-
-Ahora mismo, el bot realizado para este proyecto no procesa lenguaje natural, sino que se basa en comandos para la realización de órdenes. Se podría incorporar una implementación de ELIZA con un script personalizado para estos casos de uso. En lugar de un script psicoterapeuta, uno que reconozca frases del estilo ''Pon la cocina a 23ºC'' y lo asocie con la orden que debe ejecutar. Se tardaría menos en realizar esto que crear un motor IA desde cero.
-
-\item Cambiar la abstracción del servidor de comunicaciones a métodos de api REST (Crear, consultar, editar y eliminar). Sería la equivalencia a las acciones HTTP POST, GET, PUT y DELETE en lugar de tener una abstracción de dos métodos (\emph{receive} y \emph{send}).
-
-\item Implementación de un contenedor Docker que permita la implantación de este sistema sin la necesidad de enfocar los esfuerzos en lograr el entorno de trabajo adecuado.
-\end{itemize}
-
-\section*{ANEXOS}
-
-\subsection*{Códigos de error del servidor de comunicaciones (ComCenter)}
-
-\subsubsection*{Errores genéricos}
-
-\begin{itemize}
-\item\textbf{100:} Error en los parámetros del mensaje JSON-RPC para ComCenter.
-\end{itemize}
-
-\subsubsection*{Autenticación}
-
-\begin{itemize}
-\item\textbf{300:} El usuario no existe en la base de datos. Se ha intentado iniciar sesión con un usuario que no existe.
-\item\textbf{301:} No coincide la contraseña. Si el hash de la contraseña introducida no coincide con el hash almacenado, se devuelve este código de error.
-\item\textbf{302:} No se ha encontrado el token en el mensaje JSON-RPC. Se ha intentado ejecutar un método JSON-RPC que requiere autenticación sin la presencia del token.
-\item\textbf{399:} Otros errores de autenticación no definidos.
-\end{itemize}
-
-\subsubsection*{Sistema de mensajes}
-
-\begin{itemize}
-\item\textbf{400:} El usuario no tiene configurada la red solicitada.
-\item\textbf{401:} El conector de red está desactivado en la configuración del servidor.
-\item\textbf{402:} Los parámetros de las opciones enviadas al conector de red correspondiente son incorrectas. / El conector recibe un error.
-\item\textbf{499:} Otros errores del sistema de mensajes.
-\end{itemize}
-
-\subsection*{Listado de software usado para la realización de este PFG}
-
-\subsubsection*{Programación}
-
-\begin{itemize}
-\item\textbf{Sublime Text 3:} Editor de texto apto para programar.
-\end{itemize}
-
-\subsubsection*{Documentación}
-
-\begin{itemize}
-\item\textbf{Gummi:} Editor de documentos \LaTeX.
-\item\textbf{PlantUML:} Generador de diagramas UML a partir de guiones escritos en un lenguaje de marcado propio.
-\item\textbf{Dia:} Editor de diagramas visual.
-\end{itemize}
-
-\subsection*{Código fuente}
-
-El código fuente más reciente de este proyecto se puede encontrar en los siguientes repositorios:
-
-\begin{itemize}
-\item\textbf{ComCenter:} \url{https://github.com/BFMBFramework/ComCenter}
-\item\textbf{BaseConnector:} \url{https://github.com/BFMBFramework/BaseConnector}
-\item\textbf{TadoConnector:} \url{https://github.com/BFMBFramework/TadoConnector}
-\item\textbf{TelegramConnector:} \url{https://github.com/BFMBFramework/TelegramConnector}
-\item\textbf{TadoBot (software demo):} \url{https://github.com/BFMBFramework/TadoBot}
-\end{itemize}
 
 %	REFERENCIAS
 \newpage
 
+\section{REFERENCIAS}
+\begingroup
+\renewcommand{\section}[2]{}%
 \begin{thebibliography}{00}
 \bibitem{CANLI} \textsc{Pérez-Diaz, D.} y \textsc{Pascual-Nieto, I.},
 	\textit{Conversational Agents and Natural Language Interaction: Techniques and Effective Practices}, IGI Global, 2011 ISBN: 9781609606183
@@ -1704,5 +1714,6 @@ El código fuente más reciente de este proyecto se puede encontrar en los sigui
 
 \bibitem{XurxoDevMocha} \textsc{Sánchez Fernández, J.} \textit{Testeando un API REST node.js con Mocha}, \url{http://xurxodev.com/testeando-un-api-rest-con-mocha/}, [Visitado el 14/6/19]
 \end{thebibliography}
+\endgroup
 \end{document}
 
